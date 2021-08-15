@@ -11,7 +11,7 @@ def home():
         "name": conf.NAME,
         "creator": conf.CREATOR,
         "version": conf.VERSION,
-        "endpoints": conf.ENDPOINTS,
+        "endpoints": conf.PROG_ENDPOINTS,
     }
     return data
 

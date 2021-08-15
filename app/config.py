@@ -3,7 +3,7 @@ import secrets
 
 class Config:
     # api name
-    NAME = 'api-hub'
+    NAME = "api-hub"
 
     SECRET_KEY = secrets.token_hex(8)
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
@@ -15,9 +15,8 @@ class Config:
     # endpoints
     ENDPOINTS = [
         "cetb",
+        "prog",
     ]
-
-
 
 
 conf = Config()
