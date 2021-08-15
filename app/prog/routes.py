@@ -10,6 +10,8 @@ prog_root = "/prog"
 PROG_ENDPOINTS = [
     "infix-to-prefix",
     "infix-to-postfix",
+    "prefix-to-infix",
+    "postfix-to-infix",
 ]
 PROG_DETAILED_ENDPOINTS = ["<endpoint>/theory"]
 
@@ -22,6 +24,9 @@ def prog_home():
         "endpoints": PROG_ENDPOINTS,
         "endpoints-detailed": PROG_DETAILED_ENDPOINTS,
     }
+
+
+# prefix - infix - postfix
 
 
 @prog_bp.route(prog_root + "/infix-to-prefix", methods=["GET", "POST"])
@@ -37,8 +42,10 @@ def prog_infix_to_prefix():
             expr = request.form.get(expr_key)
         else:
             expr = request.json[expr_key]
-        res = infix_to_prefix(expr)
-        return {"result": res}
+        if not expr.isalnum() and " " not in expr:
+            return {"error": "please separate tokens using spaces!"}
+        res = PrefixInfixPostfix.infix_to_prefix(expr)
+        return {"expr": expr, "result": res}
     return {
         "api-name": "infix-to-prefix",
         "methods": ["GET", "POST"],
@@ -48,6 +55,7 @@ def prog_infix_to_prefix():
             "headers": {"Content-Type": "application/json"},
             "body": {"expr": "( a + b ) ^ c"},
         },
+        "note": "separate tokens using spaces",
     }
 
 
@@ -64,8 +72,13 @@ def prog_infix_to_postfix():
             expr = request.form.get(expr_key)
         else:
             expr = request.json[expr_key]
-        res = infix_to_postfix(expr)
-        return {"result": res}
+        if not expr.isalnum() and " " not in expr:
+            return {"error": "please separate tokens using spaces!"}
+        res = PrefixInfixPostfix.infix_to_postfix(expr)
+        return {
+            "expr": expr,
+            "result": res,
+        }
     return {
         "api-name": "infix-to-postfix",
         "methods": ["GET", "POST"],
@@ -75,7 +88,77 @@ def prog_infix_to_postfix():
             "headers": {"Content-Type": "application/json"},
             "body": {"expr": "( a + b ) ^ c"},
         },
+        "note": "separate tokens using spaces",
     }
+
+
+@prog_bp.route(prog_root + "/prefix-to-infix", methods=["GET", "POST"])
+def prog_prefix_to_infix():
+    if request.method == "POST":
+        expr_key = "expr"
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+        if expr_key in request.form.keys():
+            expr = request.form.get(expr_key)
+        else:
+            expr = request.json[expr_key]
+        if not expr.isalnum() and " " not in expr:
+            return {"error": "please separate tokens using spaces!"}
+        res = PrefixInfixPostfix.prefix_to_infix(expr)
+        return {
+            "expr": expr,
+            "result": res,
+        }
+    return {
+        "api-name": "prefix-to-infix",
+        "methods": ["GET", "POST"],
+        "sample request": {
+            "method": "POST",
+            "url": request.base_url,
+            "headers": {"Content-Type": "application/json"},
+            "body": {"expr": "* + a b c"},
+        },
+        "note": "separate tokens using spaces",
+    }
+
+
+@prog_bp.route(prog_root + "/postfix-to-infix", methods=["GET", "POST"])
+def prog_postfix_to_infix():
+    if request.method == "POST":
+        expr_key = "expr"
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+        if expr_key in request.form.keys():
+            expr = request.form.get(expr_key)
+        else:
+            expr = request.json[expr_key]
+        if not expr.isalnum() and " " not in expr:
+            return {"error": "please separate tokens using spaces!"}
+        res = PrefixInfixPostfix.postfix_to_infix(expr)
+        return {
+            "expr": expr,
+            "result": res,
+        }
+    return {
+        "api-name": "postfix-to-infix",
+        "methods": ["GET", "POST"],
+        "sample request": {
+            "method": "POST",
+            "url": request.base_url,
+            "headers": {"Content-Type": "application/json"},
+            "body": {"expr": "2 3 + 4 *"},
+        },
+        "note": "separate tokens using spaces",
+    }
+
+
+# theory
 
 
 @prog_bp.route(prog_root + "/<string:algo>/theory")
