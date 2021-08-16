@@ -12,6 +12,9 @@ PROG_ENDPOINTS = [
     "infix-to-postfix",
     "prefix-to-infix",
     "postfix-to-infix",
+    "prefix-to-postfix",
+    "postfix-to-prefix",
+    "eval-prefix",
 ]
 PROG_DETAILED_ENDPOINTS = ["<endpoint>/theory"]
 
@@ -44,7 +47,9 @@ def prog_infix_to_prefix():
             expr = request.json[expr_key]
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
-        res = PrefixInfixPostfix.infix_to_prefix(expr)
+        res, err = PrefixInfixPostfix.infix_to_prefix(expr)
+        if err:
+            return {"expr": expr, "error": res}
         return {"expr": expr, "result": res}
     return {
         "api-name": "infix-to-prefix",
@@ -74,7 +79,12 @@ def prog_infix_to_postfix():
             expr = request.json[expr_key]
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
-        res = PrefixInfixPostfix.infix_to_postfix(expr)
+        res, err = PrefixInfixPostfix.infix_to_postfix(expr)
+        if err:
+            return {
+                "expr": expr,
+                "error": res,
+            }
         return {
             "expr": expr,
             "result": res,
@@ -107,7 +117,12 @@ def prog_prefix_to_infix():
             expr = request.json[expr_key]
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
-        res = PrefixInfixPostfix.prefix_to_infix(expr)
+        res, err = PrefixInfixPostfix.prefix_to_infix(expr)
+        if err:
+            return {
+                "expr": expr,
+                "error": res,
+            }
         return {
             "expr": expr,
             "result": res,
@@ -140,7 +155,12 @@ def prog_postfix_to_infix():
             expr = request.json[expr_key]
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
-        res = PrefixInfixPostfix.postfix_to_infix(expr)
+        res, err = PrefixInfixPostfix.postfix_to_infix(expr)
+        if err:
+            return {
+                "expr": expr,
+                "error": res,
+            }
         return {
             "expr": expr,
             "result": res,
@@ -155,6 +175,110 @@ def prog_postfix_to_infix():
             "body": {"expr": "2 3 + 4 *"},
         },
         "note": "separate tokens using spaces",
+    }
+
+
+@prog_bp.route(prog_root + "/prefix-to-postfix", methods=["POST"])
+def prog_prefix_to_postfix():
+    expr_key = "expr"
+    if (
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
+    ):
+        return {"error": f"{expr_key} missing in body!"}
+    if expr_key in request.form.keys():
+        expr = request.form.get(expr_key)
+    else:
+        expr = request.json[expr_key]
+    if not expr.isalnum() and " " not in expr:
+        return {"error": "please separate tokens using spaces!"}
+    res, err = PrefixInfixPostfix.prefix_to_infix(expr)
+    if err:
+        return {
+            "expr": expr,
+            "error": res,
+        }
+    res, err = PrefixInfixPostfix.infix_to_postfix(res)
+    if err:
+        return {
+            "expr": expr,
+            "error": res,
+        }
+    return {
+        "expr": expr,
+        "result": res,
+    }
+
+
+@prog_bp.route(prog_root + "/postfix-to-prefix", methods=["POST"])
+def prog_postfix_to_prefix():
+    expr_key = "expr"
+    if (
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
+    ):
+        return {"error": f"{expr_key} missing in body!"}
+    if expr_key in request.form.keys():
+        expr = request.form.get(expr_key)
+    else:
+        expr = request.json[expr_key]
+    if not expr.isalnum() and " " not in expr:
+        return {"error": "please separate tokens using spaces!"}
+    res, err = PrefixInfixPostfix.postfix_to_infix(expr)
+    if err:
+        return {"expr": expr, "error": res}
+    res, err = PrefixInfixPostfix.infix_to_prefix(res)
+    if err:
+        return {"expr": expr, "error": res}
+    return {
+        "expr": expr,
+        "result": res,
+    }
+
+
+@prog_bp.route(prog_root + "/eval-prefix", methods=["POST"])
+def prog_eval_prefix():
+    expr_key = "expr"
+    if (
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
+    ):
+        return {"error": f"{expr_key} missing in body!"}
+    if expr_key in request.form.keys():
+        expr = request.form.get(expr_key)
+    else:
+        expr = request.json[expr_key]
+    if not expr.isalnum() and " " not in expr:
+        return {"error": "please separate tokens using spaces!"}
+    res, err = PrefixInfixPostfix.evaluate_prefix(expr)
+    if err:
+        return {"expr": expr, "error": res}
+    return {
+        "expr": expr,
+        "result": res,
+    }
+
+
+@prog_bp.route(prog_root + "/eval-postfix", methods=["POST"])
+def prog_eval_postfix():
+    expr_key = "expr"
+    if (
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
+    ):
+        return {"error": f"{expr_key} missing in body!"}
+    if expr_key in request.form.keys():
+        expr = request.form.get(expr_key)
+    else:
+        expr = request.json[expr_key]
+    if not expr.isalnum() and " " not in expr:
+        return {"error": "please separate tokens using spaces!"}
+    res, err = PrefixInfixPostfix.evaluate_postfix(expr)
+    if err:
+        return {"expr": expr, "error": res}
+    return {
+        "expr": expr,
+        "result": res,
     }
 
 

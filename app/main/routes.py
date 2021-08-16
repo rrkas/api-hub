@@ -11,7 +11,9 @@ def home():
         "name": conf.NAME,
         "creator": conf.CREATOR,
         "version": conf.VERSION,
-        "endpoints": conf.PROG_ENDPOINTS,
+        "endpoints": conf.ENDPOINTS,
+        "postman-sample-requests": conf.POSTMAN_COLLECTION_URL,
+        "github-repo": conf.GITHUB_REPO_URL,
     }
 
 
