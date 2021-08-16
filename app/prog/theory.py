@@ -3,6 +3,7 @@ from app.prog.models import *
 
 class ProgTheory:
     algos = [
+        # pre-in-post fix
         ProgAlgo(
             algo_name="Infix to Prefix",
             route_name="infix-to-prefix",
@@ -89,6 +90,17 @@ in the expression.",
                 "The Result is stored at the top of the Stack, return it",
                 "End",
             ],
+        ),
+        ProgAlgo(
+            algo_name="Evaluate Postfix",
+            route_name="eval-postfix",
+            steps=[
+                "Create a stack to store operands (or values).",
+                "Scan the given expression and do following for every scanned element. If the element is a number, \
+push it into the stack. If the element is a operator, pop operands for the operator from stack. Evaluate the operator \
+and push the result back to the stack ",
+                "When the expression is ended, the number in the stack is the final answer.",
+            ]
         ),
     ]
 
