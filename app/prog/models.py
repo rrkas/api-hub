@@ -24,7 +24,6 @@ class ProgSort:
             "time_taken": f"{self.time_taken} milliseconds",
         }
 
-
 class ProgSearch:
     def __init__(self, inp=(), key=None):
         self.inp = inp
