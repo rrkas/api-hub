@@ -518,3 +518,54 @@ class Sort:
         sort.result = inp
         sort.time_taken = (start - end).microseconds // 1000
         return sort
+
+
+class Search:
+    @staticmethod
+    def linear_search(arr, x):
+        search = ProgSearch()
+        search.inp = arr
+        search.key = x
+        start = datetime.now()
+        # start
+
+        for i in range(len(arr)):
+            if arr[i] == x:
+                search.result = i
+                break
+
+        # end
+        end = datetime.now()
+        search.comparisons = search.result + 1 if search.result > -1 else len(arr)
+        search.time_taken = (start - end).microseconds // 1000
+        return search
+
+    @staticmethod
+    def binary_search(arr, x):
+        search = ProgSearch()
+        search.inp = arr
+        search.key = x
+        start = datetime.now()
+
+        # start
+        def binarySearch(arr, l, r, x):
+            if r >= l:
+                search.comparisons += 1
+                print(search.comparisons)
+                mid = l + (r - l) // 2
+                if arr[mid] == x:
+                    search.comparisons += 1
+                    return mid
+                elif arr[mid] > x:
+                    return binarySearch(arr, l, mid - 1, x)
+                else:
+                    return binarySearch(arr, mid + 1, r, x)
+            else:
+                return -1
+
+        search.result = binarySearch(arr, 0, len(arr) - 1, x)
+
+        # end
+        end = datetime.now()
+        search.time_taken = (start - end).microseconds // 1000
+        return search

@@ -22,5 +22,14 @@
 - `/prog/sort-selection`
 - `/prog/sort-merge`
 - `/prog/sort-quick`
+- `/prog/sort-counting`
+- `/prog/sort-radix`
+- `/prog/sort-bucket`
+- `/prog/sort-heap`
+- `/prog/sort-shell`
+
+### searching
+- `/prog/search-linear`
+- `/prog/search-binary`
 
 ## `/csv-generate`
