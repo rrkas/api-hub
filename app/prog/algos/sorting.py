@@ -8,8 +8,8 @@ from . import Sort
 def prog_sort_bubble():
     expr_key = "arr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -27,8 +27,8 @@ def prog_sort_bubble():
 def prog_sort_insertion():
     expr_key = "arr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -46,8 +46,8 @@ def prog_sort_insertion():
 def prog_sort_selection():
     expr_key = "arr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -65,8 +65,8 @@ def prog_sort_selection():
 def prog_sort_merge():
     expr_key = "arr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -84,8 +84,8 @@ def prog_sort_merge():
 def prog_sort_quick():
     expr_key = "arr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():

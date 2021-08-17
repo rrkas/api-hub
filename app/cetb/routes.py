@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from app import conf
+from app.config import conf
 
 cetb_bp = Blueprint("cetb_bp", __name__)
 

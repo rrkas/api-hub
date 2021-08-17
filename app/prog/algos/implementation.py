@@ -27,13 +27,13 @@ class PrefixInfixPostfix:
     @staticmethod
     def is_operator(c):
         if (
-                c == "*"
-                or c == "+"
-                or c == "-"
-                or c == "/"
-                or c == "^"
-                or c == "("
-                or c == ")"
+            c == "*"
+            or c == "+"
+            or c == "-"
+            or c == "/"
+            or c == "^"
+            or c == "("
+            or c == ")"
         ):
             return True
         else:
@@ -61,7 +61,7 @@ class PrefixInfixPostfix:
                     temp = []
                 else:
                     while (not op_stack.is_empty()) and (
-                            precedence[op_stack.peek()] >= precedence[token]
+                        precedence[op_stack.peek()] >= precedence[token]
                     ):
                         temp.append(op_stack.pop())
                     prefix_list = temp + prefix_list
@@ -94,7 +94,7 @@ class PrefixInfixPostfix:
                         top_token = op_stack.pop()
                 else:
                     while (not op_stack.is_empty()) and (
-                            precedence[op_stack.peek()] >= precedence[token]
+                        precedence[op_stack.peek()] >= precedence[token]
                     ):
                         postfix_list.append(op_stack.pop())
                     op_stack.push(token)
@@ -265,7 +265,7 @@ class Sort:
 
         def merge(arr, l, m, r):
             n1, n2 = m - l + 1, r - m
-            L, R = arr[l:l + n1], arr[m + 1:m + 1 + n2]
+            L, R = arr[l : l + n1], arr[m + 1 : m + 1 + n2]
             i, j, k = 0, 0, l
             while i < n1 and j < n2:
                 if L[i] <= R[j]:

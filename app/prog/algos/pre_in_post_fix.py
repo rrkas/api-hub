@@ -9,8 +9,8 @@ def prog_infix_to_prefix():
     if request.method == "POST":
         expr_key = "expr"
         if (
-                expr_key not in request.form.keys()
-                and expr_key not in (request.json or {}).keys()
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
         if expr_key in request.form.keys():
@@ -41,8 +41,8 @@ def prog_infix_to_postfix():
     if request.method == "POST":
         expr_key = "expr"
         if (
-                expr_key not in request.form.keys()
-                and expr_key not in (request.json or {}).keys()
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
         if expr_key in request.form.keys():
@@ -79,8 +79,8 @@ def prog_prefix_to_infix():
     if request.method == "POST":
         expr_key = "expr"
         if (
-                expr_key not in request.form.keys()
-                and expr_key not in (request.json or {}).keys()
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
         if expr_key in request.form.keys():
@@ -117,8 +117,8 @@ def prog_postfix_to_infix():
     if request.method == "POST":
         expr_key = "expr"
         if (
-                expr_key not in request.form.keys()
-                and expr_key not in (request.json or {}).keys()
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
         if expr_key in request.form.keys():
@@ -154,8 +154,8 @@ def prog_postfix_to_infix():
 def prog_prefix_to_postfix():
     expr_key = "expr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -186,8 +186,8 @@ def prog_prefix_to_postfix():
 def prog_postfix_to_prefix():
     expr_key = "expr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -212,8 +212,8 @@ def prog_postfix_to_prefix():
 def prog_eval_prefix():
     expr_key = "expr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
@@ -235,8 +235,8 @@ def prog_eval_prefix():
 def prog_eval_postfix():
     expr_key = "expr"
     if (
-            expr_key not in request.form.keys()
-            and expr_key not in (request.json or {}).keys()
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
     if expr_key in request.form.keys():
