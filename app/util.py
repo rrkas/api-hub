@@ -1,6 +1,3 @@
-from flask import Request
-
-
 def request_info(request):
     req = {
         "values": request.values,
@@ -24,3 +21,11 @@ def request_info(request):
             print("error:", d)
     print(req)
     return req
+
+
+def type_error_message(list_ex_accepted, el):
+    type_got = str(type(el)).split("'")[1]
+    t = []
+    for i in list_ex_accepted:
+        t.append(str(type(i)).split("'")[1])
+    return f"expected {', '.join(t)}; got {type_got}"

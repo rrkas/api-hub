@@ -331,3 +331,190 @@ class Sort:
         sort.result = inp
         sort.time_taken = (start - end).microseconds // 1000
         return sort
+
+    @staticmethod
+    def counting_sort(inp):
+        sort = ProgSort()
+        sort.inp = inp
+        inp = inp[:]
+        start = datetime.now()
+
+        # start
+
+        def countingSort(array):
+            size = len(array)
+            output = [0] * size
+            count = [0] * (max(array) + 2)
+            print(size, len(count))
+            for i in array:
+                count[i] += 1
+            for i in range(1, len(count)):
+                count[i] += count[i - 1]
+            i = size - 1
+            while i >= 0:
+                output[count[array[i]] - 1] = array[i]
+                count[array[i]] -= 1
+                i -= 1
+            for i in range(size):
+                array[i] = output[i]
+
+        countingSort(inp)
+
+        # end
+        end = datetime.now()
+        sort.result = inp
+        sort.time_taken = (start - end).microseconds // 1000
+        return sort
+
+    @staticmethod
+    def radix_sort(inp):
+        sort = ProgSort()
+        sort.inp = inp
+        inp = inp[:]
+        start = datetime.now()
+
+        # start
+
+        def countingSort(array, place):
+            size = len(array)
+            output = [0] * size
+            count = [0] * 10
+            for i in range(0, size):
+                index = array[i] // place
+                count[index % 10] += 1
+            for i in range(1, 10):
+                count[i] += count[i - 1]
+            i = size - 1
+            while i >= 0:
+                index = array[i] // place
+                output[count[index % 10] - 1] = array[i]
+                count[index % 10] -= 1
+                i -= 1
+            for i in range(0, size):
+                array[i] = output[i]
+
+        def radixSort(array):
+            max_element = max(array)
+            place = 1
+            while max_element // place > 0:
+                countingSort(array, place)
+                place *= 10
+
+        radixSort(inp)
+
+        # end
+        end = datetime.now()
+        sort.result = inp
+        sort.time_taken = (start - end).microseconds // 1000
+        return sort
+
+    @staticmethod
+    def bucket_sort(inp):
+        sort = ProgSort()
+        sort.inp = inp
+        inp = inp[:]
+        start = datetime.now()
+
+        # start
+
+        def insertionSort(b):
+            for i in range(1, len(b)):
+                up = b[i]
+                j = i - 1
+                while j >= 0 and b[j] > up:
+                    b[j + 1] = b[j]
+                    j -= 1
+                b[j + 1] = up
+            return b
+
+        def bucketSort(x):
+            arr = []
+            slot_num = 10
+            for i in range(slot_num):
+                arr.append([])
+            for j in x:
+                index_b = int(slot_num * j)
+                arr[index_b].append(j)
+            for i in range(slot_num):
+                arr[i] = insertionSort(arr[i])
+            k = 0
+            for i in range(slot_num):
+                for j in range(len(arr[i])):
+                    x[k] = arr[i][j]
+                    k += 1
+            return x
+
+        bucketSort(inp)
+
+        # end
+        end = datetime.now()
+        sort.result = inp
+        sort.time_taken = (start - end).microseconds // 1000
+        return sort
+
+    @staticmethod
+    def heap_sort(inp):
+        sort = ProgSort()
+        sort.inp = inp
+        inp = inp[:]
+        start = datetime.now()
+
+        # start
+
+        def heapify(arr, n, i):
+            largest = i
+            l = 2 * i + 1
+            r = 2 * i + 2
+            if l < n and arr[i] < arr[l]:
+                largest = l
+            if r < n and arr[largest] < arr[r]:
+                largest = r
+            if largest != i:
+                arr[i], arr[largest] = arr[largest], arr[i]
+                heapify(arr, n, largest)
+
+        def heapSort(arr):
+            n = len(arr)
+            for i in range(n // 2, -1, -1):
+                heapify(arr, n, i)
+            for i in range(n - 1, 0, -1):
+                arr[i], arr[0] = arr[0], arr[i]
+                heapify(arr, i, 0)
+
+        heapSort(inp)
+
+        # end
+        end = datetime.now()
+        sort.result = inp
+        sort.time_taken = (start - end).microseconds // 1000
+        return sort
+
+    @staticmethod
+    def shell_sort(inp):
+        sort = ProgSort()
+        sort.inp = inp
+        inp = inp[:]
+        start = datetime.now()
+
+        # start
+
+        def shellSort(array):
+            n = len(array)
+            interval = n // 2
+            while interval > 0:
+                for i in range(interval, n):
+                    temp = array[i]
+                    j = i
+                    while j >= interval and array[j - interval] > temp:
+                        array[j] = array[j - interval]
+                        j -= interval
+                    array[j] = temp
+                interval //= 2
+
+        shellSort(inp)
+
+        # end
+        end = datetime.now()
+        sort.result = inp
+        sort.time_taken = (start - end).microseconds // 1000
+        return sort
