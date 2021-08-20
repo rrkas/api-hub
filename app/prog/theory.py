@@ -4,7 +4,7 @@ from app.prog.models import *
 class ProgTheory:
     algos = [
         # pre-in-post fix
-        ProgAlgo(
+        ProgAlgoTheory(
             algo_name="Infix to Prefix",
             route_name="infix-to-prefix",
             steps=[
@@ -31,7 +31,7 @@ opening bracket in the stack.",
                 "Reverse the output.",
             ],
         ),
-        ProgAlgo(
+        ProgAlgoTheory(
             algo_name="Infix to Postfix",
             route_name="infix-to-postfix",
             steps=[
@@ -52,7 +52,7 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
                 "Pop and output all characters, including the operator, from the Stack until it is not empty.",
             ],
         ),
-        ProgAlgo(
+        ProgAlgoTheory(
             algo_name="Prefix to Infix",
             route_name="prefix-to-infix",
             steps=[
@@ -65,7 +65,7 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
                 "Repeat the above steps until end of Prefix expression.",
             ],
         ),
-        ProgAlgo(
+        ProgAlgoTheory(
             algo_name="Postfix to Infix",
             route_name="postfix-to-infix",
             steps=[
@@ -77,7 +77,7 @@ and add it to the result.",
                 "Return the result.",
             ],
         ),
-        ProgAlgo(
+        ProgAlgoTheory(
             algo_name="Evaluate Prefix",
             route_name="eval-prefix",
             steps=[
@@ -91,7 +91,7 @@ in the expression.",
                 "End",
             ],
         ),
-        ProgAlgo(
+        ProgAlgoTheory(
             algo_name="Evaluate Postfix",
             route_name="eval-postfix",
             steps=[

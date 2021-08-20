@@ -1,4 +1,7 @@
 # returns the detailed request with all attributes and values
+from flask import request
+
+
 def request_info(request):
     req = {}
     for d in dir(request):
@@ -23,3 +26,12 @@ def type_error_message(list_ex_accepted, el, arg=""):
     return (
         f"{arg + ': ' if len(arg) > 0 else ''}expected {', '.join(t)}; got {type_got}"
     )
+
+
+def get_value_form_json(key):
+    if key in request.form.keys():
+        return request.form.get(key)
+    elif key in request.json.keys():
+        return request.json[key]
+    else:
+        return None

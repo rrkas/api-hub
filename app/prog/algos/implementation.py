@@ -195,6 +195,7 @@ class Sort:
     @staticmethod
     def bubble_sort(inp):
         sort = ProgSort()
+        sort.algo = "Bubble Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -205,6 +206,7 @@ class Sort:
             for j in range(0, n - i - 1):
                 if inp[j] > inp[j + 1]:
                     inp[j], inp[j + 1] = inp[j + 1], inp[j]
+
         # end
         end = datetime.now()
         sort.result = inp
@@ -214,6 +216,7 @@ class Sort:
     @staticmethod
     def insertion_sort(inp):
         sort = ProgSort()
+        sort.algo = "Insertion Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -236,6 +239,7 @@ class Sort:
     @staticmethod
     def selection_sort(inp):
         sort = ProgSort()
+        sort.algo = "Selection Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -257,6 +261,7 @@ class Sort:
     @staticmethod
     def merge_sort(inp):
         sort = ProgSort()
+        sort.algo = "Merge Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -302,6 +307,7 @@ class Sort:
     @staticmethod
     def quick_sort(inp):
         sort = ProgSort()
+        sort.algo = "Quick Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -335,6 +341,7 @@ class Sort:
     @staticmethod
     def counting_sort(inp):
         sort = ProgSort()
+        sort.algo = "Counting Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -369,6 +376,7 @@ class Sort:
     @staticmethod
     def radix_sort(inp):
         sort = ProgSort()
+        sort.algo = "Radix Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -411,6 +419,7 @@ class Sort:
     @staticmethod
     def bucket_sort(inp):
         sort = ProgSort()
+        sort.algo = "Bucket Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -455,6 +464,7 @@ class Sort:
     @staticmethod
     def heap_sort(inp):
         sort = ProgSort()
+        sort.algo = "Heap Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -492,6 +502,7 @@ class Sort:
     @staticmethod
     def shell_sort(inp):
         sort = ProgSort()
+        sort.algo = "Shell Sort"
         sort.inp = inp
         inp = inp[:]
         start = datetime.now()
@@ -524,6 +535,7 @@ class Search:
     @staticmethod
     def linear_search(arr, x):
         search = ProgSearch()
+        search.algo = "Linear Search"
         search.inp = arr
         search.key = x
         start = datetime.now()
@@ -543,6 +555,7 @@ class Search:
     @staticmethod
     def binary_search(arr, x):
         search = ProgSearch()
+        search.algo = "Binary Search"
         search.inp = arr
         search.key = x
         start = datetime.now()
@@ -569,3 +582,174 @@ class Search:
         end = datetime.now()
         search.time_taken = (start - end).microseconds // 1000
         return search
+
+
+class BasicAlgorithms:
+    @staticmethod
+    def factorial(n):
+        if n < 0:
+            return "factorial of negative is undefined!", True
+        if n > 2_00_000:
+            return "input bigger than 100,000!", True
+        try:
+            f = 1
+            for i in range(1, n + 1):
+                f *= i
+            return f, False
+        except BaseException as e:
+            return str(e), True
+
+    @staticmethod
+    def factors(n):
+        if n < 0:
+            return "factors of negative is undefined", True
+        try:
+            s = []
+            for i in range(1, n + 1):
+                if n % i == 0:
+                    s.append(i)
+            s = list(map(str, s))
+            return " ".join(s), False
+        except BaseException as e:
+            return str(e), True
+
+    @staticmethod
+    def fibonacci(n):
+        if n < 1:
+            return "input less than 1!", True
+        try:
+            if n == 1:
+                return 0, False
+            elif n in [2, 3]:
+                return 1, False
+            else:
+                a = 0
+                b = 1
+                c = 0
+                for _ in range(2, n):
+                    c = a + b
+                    a, b = b, c
+                return c, False
+        except BaseException as e:
+            return str(e), True
+
+    @staticmethod
+    def palindrome(n):
+        try:
+            return n == n[::-1], False
+        except BaseException as e:
+            return str(e), True
+
+    @staticmethod
+    def strong_number(n):
+        if n < 0:
+            return "input less than 0!", True
+        try:
+            s = 0
+            t = n
+            while t > 0:
+                d = t % 10
+                s += BasicAlgorithms.factorial(d)[0]
+                t //= 10
+            return s == n, False
+        except BaseException as e:
+            return str(e), True
+
+    @staticmethod
+    def armstrong_number(n):
+        """Armstrong number is a number that is equal to the sum of cubes of its digits"""
+        if n < 0:
+            return "input less than 0!", True
+        try:
+            s = 0
+            t = n
+            while t > 0:
+                d = t % 10
+                s += d ** 3
+                t //= 10
+            return s == n, False
+        except BaseException as e:
+            return str(e), True
+
+
+class AdvancedAlgorithms:
+
+    # greedy algos
+    @staticmethod
+    def fractional_knapsack(weighs, vals, capacity):
+        if capacity < 0:
+            return "capacity less than 0!", True
+        elif capacity == 0:
+            return 0, False
+        elif any([w < 0 for w in weighs]) or any([v < 0 for v in vals]):
+            return "one/more weight/value less than 0!", True
+        elif len(weighs) != len(vals):
+            return "number of weighs and values unequal!", True
+        elif len(weighs) == 0:
+            return 0, False
+
+        if sum(weighs) <= capacity:
+            return sum(vals), False
+
+        class Item:
+            def __init__(self, w, v, idx):
+                self.w = w
+                self.v = v
+                self.idx = idx
+                self.cost = v // w
+
+            def __lt__(self, other):
+                return self.cost < other.cost
+
+        items = []
+        for i in range(len(vals)):
+            items.append(Item(weighs[i], vals[i], i))
+
+        items.sort(reverse=True)
+
+        total_value = 0
+        for i in items:
+            cur_wt = i.w
+            cur_val = i.v
+            if capacity - cur_wt >= 0:
+                capacity -= cur_wt
+                total_value += cur_val
+            else:
+                fraction = capacity / cur_wt
+                total_value += cur_val * fraction
+                break
+
+        return int(total_value), False
+
+    @staticmethod
+    def activity_selection(starts, ends):
+        if len(starts) != len(ends):
+            return "start-end count mismatch!", True
+        elif len(starts) == 0:
+            return "empty lists!", True
+
+        class Activity:
+            def __init__(self, s, f):
+                self.s = s
+                self.f = f
+
+            def to_tuple(self):
+                return self.s, self.f
+
+            def __lt__(self, other):
+                return self.f < other.f
+
+        activities = []
+        n = len(starts)
+        for i in range(n):
+            activities.append(Activity(starts[i], ends[i]))
+        activities.sort()
+
+        out = []
+        i = 0
+        out.append(activities[i])
+        for j in range(1, n):
+            if activities[j].s >= activities[i].f:
+                out.append(activities[j])
+                i = j
+        return [a.to_tuple() for a in out], False

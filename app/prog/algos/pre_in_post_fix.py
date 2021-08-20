@@ -2,6 +2,7 @@ from flask import request
 
 from app.prog.routes import prog_bp, prog_root
 from . import PrefixInfixPostfix
+from ...util import get_value_form_json
 
 
 @prog_bp.route(prog_root + "/infix-to-prefix", methods=["GET", "POST"])
@@ -13,10 +14,7 @@ def prog_infix_to_prefix():
             and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
-        if expr_key in request.form.keys():
-            expr = request.form.get(expr_key)
-        else:
-            expr = request.json[expr_key]
+        expr = get_value_form_json(expr_key)
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
         res, err = PrefixInfixPostfix.infix_to_prefix(expr)
@@ -45,10 +43,7 @@ def prog_infix_to_postfix():
             and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
-        if expr_key in request.form.keys():
-            expr = request.form.get(expr_key)
-        else:
-            expr = request.json[expr_key]
+        expr = get_value_form_json(expr_key)
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
         res, err = PrefixInfixPostfix.infix_to_postfix(expr)
@@ -83,10 +78,7 @@ def prog_prefix_to_infix():
             and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
-        if expr_key in request.form.keys():
-            expr = request.form.get(expr_key)
-        else:
-            expr = request.json[expr_key]
+        expr = get_value_form_json(expr_key)
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
         res, err = PrefixInfixPostfix.prefix_to_infix(expr)
@@ -121,10 +113,7 @@ def prog_postfix_to_infix():
             and expr_key not in (request.json or {}).keys()
         ):
             return {"error": f"{expr_key} missing in body!"}
-        if expr_key in request.form.keys():
-            expr = request.form.get(expr_key)
-        else:
-            expr = request.json[expr_key]
+        expr = get_value_form_json(expr_key)
         if not expr.isalnum() and " " not in expr:
             return {"error": "please separate tokens using spaces!"}
         res, err = PrefixInfixPostfix.postfix_to_infix(expr)
@@ -158,10 +147,7 @@ def prog_prefix_to_postfix():
         and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
-    if expr_key in request.form.keys():
-        expr = request.form.get(expr_key)
-    else:
-        expr = request.json[expr_key]
+    expr = get_value_form_json(expr_key)
     if not expr.isalnum() and " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.prefix_to_infix(expr)
@@ -190,10 +176,7 @@ def prog_postfix_to_prefix():
         and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
-    if expr_key in request.form.keys():
-        expr = request.form.get(expr_key)
-    else:
-        expr = request.json[expr_key]
+    expr = get_value_form_json(expr_key)
     if not expr.isalnum() and " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.postfix_to_infix(expr)
@@ -216,10 +199,7 @@ def prog_eval_prefix():
         and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
-    if expr_key in request.form.keys():
-        expr = request.form.get(expr_key)
-    else:
-        expr = request.json[expr_key]
+    expr = get_value_form_json(expr_key)
     if " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.evaluate_prefix(expr)
@@ -239,10 +219,7 @@ def prog_eval_postfix():
         and expr_key not in (request.json or {}).keys()
     ):
         return {"error": f"{expr_key} missing in body!"}
-    if expr_key in request.form.keys():
-        expr = request.form.get(expr_key)
-    else:
-        expr = request.json[expr_key]
+    expr = get_value_form_json(expr_key)
     if " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.evaluate_postfix(expr)
