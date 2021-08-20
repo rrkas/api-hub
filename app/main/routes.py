@@ -1,12 +1,14 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, render_template
 
 from app.config import conf
+from app.util import request_info
 
 main_bp = Blueprint("main_bp", __name__)
 
 
 @main_bp.route("/")
 def home():
+    return render_template("index.html", req=request_info(request))
     return {
         "name": conf.NAME,
         "creator": conf.CREATOR,

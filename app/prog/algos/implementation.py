@@ -753,3 +753,7 @@ class AdvancedAlgorithms:
                 out.append(activities[j])
                 i = j
         return [a.to_tuple() for a in out], False
+
+    @staticmethod
+    def job_sequencing(ids, deadlines, profits):
+        pass

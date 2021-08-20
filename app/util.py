@@ -9,7 +9,7 @@ def request_info(request):
             if d.startswith("_"):
                 continue
             req[d] = str(getattr(request, d))
-            print(d, req[d])
+            # print(d, req[d])
         except BaseException as e:
             print(e)
     return req

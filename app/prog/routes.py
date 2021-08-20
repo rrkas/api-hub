@@ -6,39 +6,11 @@ prog_bp = Blueprint("prog_bp", __name__)
 
 prog_root = "/prog"
 
-PROG_ENDPOINTS = [
-    "infix-to-prefix",
-    "infix-to-postfix",
-    "prefix-to-infix",
-    "postfix-to-infix",
-    "prefix-to-postfix",
-    "postfix-to-prefix",
-    "eval-prefix",
-    "eval-postfix",
-    "sort-bubble",
-    "sort-insertion",
-    "sort-selection",
-    "sort-merge",
-    "sort-quick",
-]
 PROG_DETAILED_ENDPOINTS = ["<endpoint>/theory"]
 
 from .algos import Sort
 
-s = Sort  #
-
-
-@prog_bp.route(prog_root)
-def prog_home():
-    return {
-        "api-name": "prog",
-        "purpose": "algos and conversions",
-        "endpoints": PROG_ENDPOINTS,
-        "endpoints-detailed": PROG_DETAILED_ENDPOINTS,
-    }
-
-
-# theory
+s = Sort  # just so that import doesn't get removed during optimized
 
 
 @prog_bp.route(prog_root + "/<string:algo>/theory")

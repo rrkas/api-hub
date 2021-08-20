@@ -85,3 +85,37 @@ def prog_activity_selection():
     else:
         response["result"] = str(res)
     return response
+
+
+@prog_bp.route(prog_root + "/job-sequencing", methods=["POST"])
+def prog_job_sequencing():
+    expr_keys = ["ids", "deadlines", "profits"]
+    for expr_key in expr_keys:
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+    starts = get_value_form_json(expr_keys[0])
+    ends = get_value_form_json(expr_keys[1])
+    response = {
+        "starts": starts,
+        "ends": ends,
+    }
+    try:
+        starts = list(map(int, starts.split()))
+    except:
+        response["error"] = type_error_message([1], starts)
+        return response
+    try:
+        ends = list(map(int, ends.split()))
+    except:
+        response["error"] = type_error_message([1], ends)
+        return response
+
+    res, err = AdvancedAlgorithms.activity_selection(starts, ends)
+    if err:
+        response["error"] = res
+    else:
+        response["result"] = str(res)
+    return response
