@@ -1,4 +1,4 @@
-from app.prog.models import *
+from app.models import *
 
 
 class ProgTheory:

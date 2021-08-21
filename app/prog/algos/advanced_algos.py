@@ -22,29 +22,20 @@ def prog_knapsack_fractional():
         "capacity": capacity,
     }
     try:
-        weighs = list(map(int, weighs.split()))
+        weighs = list(map(float, weighs.split()))
     except:
-        try:
-            weighs = list(map(float, weighs.split()))
-        except:
-            response["error"] = type_error_message([1, 1.0], weighs)
-            return response
+        response["error"] = type_error_message([1, 1.0], weighs)
+        return response
     try:
-        vals = list(map(int, vals.split()))
+        vals = list(map(float, vals.split()))
     except:
-        try:
-            vals = list(map(float, vals.split()))
-        except:
-            response["error"] = type_error_message([1, 1.0], vals)
-            return response
+        response["error"] = type_error_message([1, 1.0], vals)
+        return response
     try:
-        capacity = int(capacity)
+        capacity = float(capacity)
     except:
-        try:
-            capacity = float(capacity)
-        except:
-            response["error"] = type_error_message([1, 1.0], capacity)
-            return response
+        response["error"] = type_error_message([1, 1.0], capacity)
+        return response
     res, err = AdvancedAlgorithms.fractional_knapsack(weighs, vals, capacity)
     if err:
         response["error"] = res

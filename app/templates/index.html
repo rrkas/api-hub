@@ -9,14 +9,123 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
     <title>&lt;api-hub /&gt;</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ data.base_url }}">api-hub</a>
+</nav>
 
-<div class="container">
-{% for k,v in req.items() %}
-{{ k }}:{{ v }}<br>
-{% endfor %}
+<!--{% for k,v in data.items() %}-->
+<!--{{ k }} : {{ v }} <br>-->
+<!--{% endfor %}-->
+
+<div class="ml-3 mt-3 mb-3 mr-3">
+    {% for k,v in docs.items() %}
+    <div class="category-box">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="category-heading">
+                    {{ k }}
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+
+        {% for doc in v %}
+        <div class="doc-box">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="doc-name">
+                        {{ doc.name }}
+                    </div>
+                    {{ doc.description }} <br><br>
+                    <span class="section-heading">Request Body:</span><br>
+                    <table cellpadding="4" border="black">
+                        <tr>
+                            <th>key</th>
+                            <th>description</th>
+                            <th>data type(s)</th>
+                            <th>required</th>
+                        </tr>
+                        {% for item in doc.inp_body %}
+                        <tr>
+                            <td>{{ item.key }}</td>
+                            <td>{{ item.desc }}</td>
+                            <td>{{ ', '.join(item.types) }}</td>
+                            <td>{% if item.required %}{{ item.required }}{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+
+                    <span class="section-heading">Request Args/ Params:</span><br>
+                    {% if doc.args %}
+                    <table cellpadding="4" border="black">
+                        <tr>
+                            <th>key</th>
+                            <th>description</th>
+                        </tr>
+                        {% for ak,av in doc.args.items() %}
+                        <tr>
+                            <td>{{ ak }}</td>
+                            <td>{{ av }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% else %}
+                    Not Required
+                    {% endif %}
+
+                    <br>
+                    <hr class="reqponse-divider">
+                    <span class="section-heading">Response Body:</span><br>
+                    <table cellpadding="4" border="black">
+                        <tr>
+                            <th>key</th>
+                            <th>description</th>
+                            <th>data type(s)</th>
+                            <th>required</th>
+                        </tr>
+                        {% for item in doc.out_body %}
+                        <tr>
+                            <td>{{ item.key }}</td>
+                            <td>{{ item.desc }}</td>
+                            <td>{{ ', '.join(item.types) }}</td>
+                            <td>{% if item.required %}{{ item.required }}{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <br>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="request-box">
+                        <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a></b>
+                        <br><br>
+                        <span class="section-heading">Sample Request:</span><br>
+                        {{ doc.method }} &nbsp;&nbsp;&nbsp; {{ doc.sample_request_url }}<br>
+                        {% if doc.sample_inp_body %}
+                        <pre>{{ doc.sample_inp_body }}</pre>
+                        {% else %}
+                        No Body <br>
+                        {% endif %}
+                        <br>
+                        <span class="section-heading">Sample Response:</span><br>
+                        {% if doc.sample_out_body %}
+                        <pre>{{ doc.sample_out_body }}</pre>
+                        {% else %}
+                        No Body <br>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
 </div>
 
 

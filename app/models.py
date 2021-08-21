@@ -1,3 +1,9 @@
+import json
+from typing import List
+
+from app.config import conf
+
+
 class ProgAlgoTheory:
     def __init__(self, algo_name="", route_name="", steps=()):
         self.algo_name = algo_name
@@ -60,3 +66,52 @@ class ProgSearch:
 class ProgAlgo:
     def __init__(self):
         pass
+
+
+class ReqponseBodyItem:
+    TYPE_INT = "integer"
+    TYPE_FLOAT = "float/double"
+    TYPE_STR = "string"
+    TYPE_BOOL = "boolean"
+
+    def __init__(self, key: str, desc: str, types: list, optional: bool = False):
+        self.key = key
+        self.desc = desc
+        self.types = types
+        self.required = not optional
+
+
+class Documentation:
+    def __init__(
+        self,
+        category: str,
+        name: str,
+        endpoint: str,
+        method: str = "GET",
+        args: List[ReqponseBodyItem] = None,
+        description: str = "",
+        inp_body: List[ReqponseBodyItem] = None,
+        sample_inp_body: dict = None,
+        out_body: List[ReqponseBodyItem] = None,
+        sample_out_body: dict = None,
+        sample_request_url: dict = None,
+    ):
+        self.category = category
+        self.name = name
+        self.endpoint = endpoint
+        self.method = method
+        self.description = description
+        self.args = args
+        self.inp_body = inp_body
+        self.sample_inp_body = (
+            json.dumps(sample_inp_body, indent=conf.json_indent)
+            if sample_inp_body
+            else None
+        )
+        self.out_body = out_body
+        self.sample_out_body = (
+            json.dumps(sample_out_body, indent=conf.json_indent)
+            if sample_out_body
+            else None
+        )
+        self.sample_request_url = sample_request_url

@@ -1,24 +1,25 @@
-from flask import request
+from collections import OrderedDict
+from typing import List
+
+from app.models import Documentation
+
+docs: List[Documentation] = []
 
 
-class Documentation:
-    def __init__(
-        self,
-        name: str,
-        endpoint: str,
-        methods: list = ["GET"],
-        args: dict = {},
-        description: str = "",
-        body: dict = {},
-        example_request: dict = {},
-    ):
-        self.name = name
-        self.endpoint = endpoint
-        self.methods = methods
-        self.description = description
-        self.args = args
-        self.body = body
-        self.example_request = example_request
+def load_docs():
+    from app.prog import get_prog_docs
+
+    docs.extend(get_prog_docs())
 
 
-current_dns = request.endpoint
+load_docs()
+
+
+def get_docs():
+    categories = OrderedDict()
+    for doc in docs:
+        if doc.category not in categories.keys():
+            categories[doc.category] = [doc]
+        else:
+            categories[doc.category].append(doc)
+    return categories

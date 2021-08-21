@@ -1,7 +1,7 @@
 import os
 import secrets
 
-from flask import current_app
+from flask import current_app, request
 
 static_path = os.path.normpath(current_app.root_path)
 static_path = os.sep.join(os.path.split(static_path)[:-1])
@@ -26,15 +26,16 @@ class Config:
     CREATOR = "Rohnak Agarwal"
     VERSION = "1.0.0"
 
-    # endpoints
-    ENDPOINTS = [
-        "cetb",
-        "prog",
-        "csv-generate",
-    ]
+    app_base_url = None
+    json_indent = 4
 
 
 conf = Config()
+
+with current_app.test_request_context("/"):
+    conf.app_base_url = request.host_url
+
+print(conf.app_base_url)
 
 if not os.path.exists(conf.OUTPUT_DIR):
     os.makedirs(conf.OUTPUT_DIR)

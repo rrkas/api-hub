@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from app.prog.models import *
+from app.models import *
 
 
 class Stack:
@@ -152,21 +152,22 @@ class PrefixInfixPostfix:
         try:
             for c in expr[::-1]:
                 c = str(c)
-                if c.isdigit():
-                    stack.append(int(c))
-                elif c.isalpha():
-                    return "evaluate_prefix: only numbers allowed", True
-                else:
-                    o1 = stack.pop()
-                    o2 = stack.pop()
-                    if c == "+":
-                        stack.append(o1 + o2)
-                    elif c == "-":
-                        stack.append(o1 - o2)
-                    elif c == "*":
-                        stack.append(o1 * o2)
-                    elif c == "/":
-                        stack.append(o1 / o2)
+                try:
+                    stack.append(float(c))
+                except:
+                    if c.isalpha():
+                        return "evaluate_prefix: only numbers allowed", True
+                    else:
+                        o1 = stack.pop()
+                        o2 = stack.pop()
+                        if c == "+":
+                            stack.append(o1 + o2)
+                        elif c == "-":
+                            stack.append(o1 - o2)
+                        elif c == "*":
+                            stack.append(o1 * o2)
+                        elif c == "/":
+                            stack.append(o1 / o2)
         except BaseException as e:
             print(e)
             return "evaluate_prefix: " + str(e), True
@@ -184,7 +185,7 @@ class PrefixInfixPostfix:
                     val1 = stack.pop()
                     val2 = stack.pop()
                     stack.push(str(eval(val2 + i + val1)))
-            res = int(stack.pop())
+            res = float(stack.pop())
         except BaseException as e:
             print(e)
             return "evaluate_postfix: " + str(e), True
@@ -696,7 +697,7 @@ class AdvancedAlgorithms:
                 self.w = w
                 self.v = v
                 self.idx = idx
-                self.cost = v // w
+                self.cost = v / w
 
             def __lt__(self, other):
                 return self.cost < other.cost
@@ -719,7 +720,7 @@ class AdvancedAlgorithms:
                 total_value += cur_val * fraction
                 break
 
-        return int(total_value), False
+        return total_value, False
 
     @staticmethod
     def activity_selection(starts, ends):

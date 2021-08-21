@@ -30,25 +30,15 @@ def prog_search_binary():
     if " " not in inp:
         return {"error": "please separate numbers using spaces!"}
     try:
-        inp = list(map(int, inp.split()))
+        inp = list(map(float, inp.split()))
     except:
-        try:
-            inp = list(map(float, inp.split()))
-        except:
-            return {
-                "error": type_error_message([1, 1.0], inp.split()[0], arg=expr_keys[0])
-            }
+        return {"error": type_error_message([1, 1.0], inp.split()[0], arg=expr_keys[0])}
     x = get_value_form_json(expr_keys[1])
     try:
-        x = int(x)
-        if not isinstance(inp[0], int):
+        x = float(x)
+        if not isinstance(inp[0], float):
             return {"error": type_error_message([inp[0]], x, arg=expr_keys[1])}
     except:
-        try:
-            x = float(x)
-            if not isinstance(inp[0], float):
-                return {"error": type_error_message([inp[0]], x, arg=expr_keys[1])}
-        except:
-            return {"error": type_error_message([1, 1.0], x, arg=expr_keys[1])}
+        return {"error": type_error_message([1, 1.0], x, arg=expr_keys[1])}
     res = Search.binary_search(inp, x)
     return res.json()

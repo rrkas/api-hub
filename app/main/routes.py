@@ -1,6 +1,9 @@
-from flask import Blueprint, request, render_template
+import os
+
+from flask import Blueprint, request, render_template, send_file, current_app
 
 from app.config import conf
+from app.main.documentation import get_docs
 from app.util import request_info
 
 main_bp = Blueprint("main_bp", __name__)
@@ -8,15 +11,19 @@ main_bp = Blueprint("main_bp", __name__)
 
 @main_bp.route("/")
 def home():
-    return render_template("index.html", req=request_info(request))
-    return {
+    data = {
         "name": conf.NAME,
         "creator": conf.CREATOR,
         "version": conf.VERSION,
-        "endpoints": conf.ENDPOINTS,
         "postman-sample-requests": conf.POSTMAN_COLLECTION_URL,
         "github-repo": conf.GITHUB_REPO_URL,
+        "base_url": conf.app_base_url,
     }
+    data = request_info(request)
+    docs = get_docs()
+    return render_template(
+        "index.html", req=request_info(request), data=data, docs=docs
+    )
 
 
 # ===================== error ==========================

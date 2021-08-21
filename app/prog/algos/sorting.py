@@ -1,7 +1,7 @@
 from flask import request
 
 from app.prog.routes import prog_bp, prog_root
-from . import Sort
+from . import Sort, Documentation, ReqponseBodyItem
 from ...util import type_error_message, get_value_form_json
 
 
@@ -22,7 +22,7 @@ def prog_sort_bubble():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.bubble_sort(inp)
     return res.json()
 
@@ -44,7 +44,7 @@ def prog_sort_insertion():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.insertion_sort(inp)
     return res.json()
 
@@ -66,7 +66,7 @@ def prog_sort_selection():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.selection_sort(inp)
     return res.json()
 
@@ -88,7 +88,7 @@ def prog_sort_merge():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.merge_sort(inp)
     return res.json()
 
@@ -110,7 +110,7 @@ def prog_sort_quick():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.quick_sort(inp)
     return res.json()
 
@@ -129,7 +129,7 @@ def prog_sort_counting():
     try:
         inp = list(map(int, inp.split()))
     except BaseException:
-        return {"arr": inp, "error": type_error_message([1], inp.split()[0])}
+        return {"arr": inp, "error": type_error_message([1], inp)}
     res = Sort.counting_sort(inp)
     return res.json()
 
@@ -148,7 +148,7 @@ def prog_sort_radix():
     try:
         inp = list(map(int, inp.split()))
     except BaseException:
-        return {"arr": inp, "error": type_error_message([1], inp.split()[0])}
+        return {"arr": inp, "error": type_error_message([1], inp)}
     res = Sort.radix_sort(inp)
     return res.json()
 
@@ -166,8 +166,10 @@ def prog_sort_bucket():
         return {"error": "please separate numbers using spaces!"}
     try:
         inp = list(map(float, inp.split()))
+        if any([i >= 1 for i in inp]):
+            raise TypeError("")
     except BaseException:
-        return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+        return {"arr": " ".join(map(str, inp)), "error": type_error_message([1.0], inp)}
     res = Sort.bucket_sort(inp)
     return res.json()
 
@@ -189,7 +191,7 @@ def prog_sort_heap():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.heap_sort(inp)
     return res.json()
 
@@ -211,6 +213,65 @@ def prog_sort_shell():
         try:
             inp = list(map(float, inp.split()))
         except BaseException:
-            return {"arr": inp, "error": type_error_message([1, 1.0], inp.split()[0])}
+            return {"arr": inp, "error": type_error_message([1, 1.0], inp)}
     res = Sort.shell_sort(inp)
     return res.json()
+
+
+def sorting_docs():
+    data = []
+    category = "Sorting"
+    data.append(
+        Documentation(
+            category=category,
+            name="Bubble Sort",
+            description="Sorts array of integers, float/double using bubble sort algorithm",
+            endpoint=prog_root + "/sort-bubble",
+            sample_request_url=prog_root + "/sort-bubble",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm", "name of algorithm used", [ReqponseBodyItem.TYPE_STR]
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                    optional=True,
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 -8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Bubble Sort",
+                "arr": "15 12 1 0 -8 9 4",
+                "result": "-8 0 1 4 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+        )
+    )
+    return data
