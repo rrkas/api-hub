@@ -1,5 +1,8 @@
 # api-hub
 
+endpoint: [https://rrka7apihub.herokuapp.com/](https://rrka7apihub.herokuapp.com/)  
+heroku github: [https://git.heroku.com/rrka7apihub.git](https://git.heroku.com/rrka7apihub.git)
+
 ## Running Local server
 > `$ virtualenv venv`  
 > `$ source venv\Scripts\activate`  
