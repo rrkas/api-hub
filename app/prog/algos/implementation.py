@@ -353,7 +353,6 @@ class Sort:
             size = len(array)
             output = [0] * size
             count = [0] * (max(array) + 2)
-            print(size, len(count))
             for i in array:
                 count[i] += 1
             for i in range(1, len(count)):
@@ -565,7 +564,6 @@ class Search:
         def binarySearch(arr, l, r, x):
             if r >= l:
                 search.comparisons += 1
-                print(search.comparisons)
                 mid = l + (r - l) // 2
                 if arr[mid] == x:
                     search.comparisons += 1

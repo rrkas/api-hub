@@ -274,4 +274,59 @@ def sorting_docs():
             },
         )
     )
+    data.append(
+        Documentation(
+            category=category,
+            name="Insertion Sort",
+            description="Sorts array of integers, float/double using insertion sort algorithm",
+            endpoint=prog_root + "/sort-insertion",
+            sample_request_url=prog_root + "/sort-insertion",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                    optional=True,
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 -8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Insertion Sort",
+                "arr": "15 12 1 0 -8 9 4",
+                "result": "-8 0 1 4 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+        )
+    )
     return data

@@ -1,5 +1,5 @@
 body{
-    font-family: "Courier", monospace;
+    font-family: courier, monospace;
 }
 .category-box{
     background-color: #dddeee;
@@ -23,8 +23,8 @@ body{
     margin-bottom: 10px;
 }
 .section-heading{
-    font-size: 18px;
-    font-weight: 900;
+    font-size: 20px;
+    font-weight: bold;
 }
 .doc-name{
     color: green;
@@ -39,4 +39,8 @@ body{
 }
 .reqponse-divider{
     border-top: 1px solid #000000;
+}
+.try-it{
+    background-color: #ffffff;
+    padding: 5px 5px 5px 5px;
 }

@@ -11,16 +11,55 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
 
-    <title>&lt;api-hub /&gt;</title>
+    <title>{api-hub}</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{ data.base_url }}">api-hub</a>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="{{ data.base_url }}" style="color: indigo;"><b>{api-hub}</b></a>
+    <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto ml-5">
+            <a href="#btn-index">Index</a>
+        </div>
+        <div class="navbar-nav mr-5">
+            <a class="nav-item nav-link" href="https://rrka79wal.herokuapp.com/" target="_blank">
+                <b style="font-size: 18px; font-weight: bold;">Rohnak Agarwal</b>
+            </a>
+        </div>
+    </div>
 </nav>
 
-<!--{% for k,v in data.items() %}-->
-<!--{{ k }} : {{ v }} <br>-->
-<!--{% endfor %}-->
+<div class=" ml-5 mr-5" style="padding-top: 70px;" id="btn-index">
+    <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#index">
+        <b>INDEX</b> <span class="caret"></span>
+    </div>
+</div>
+<div class="collapse mt-2 ml-5 mr-5" id="index">
+    <table class="table table-hover table-sm">
+        <thead class="thead-light">
+        <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Method</th>
+        </tr>
+        </thead>
+        {% for k,v in docs.items() %}
+        <tr>
+            {% set doc = v[0] %}
+            <td>{{ k }}</td>
+            <td><a href="#{{ doc.html_id }}">{{ doc.name }}</a></td>
+            <td>{{ doc.method }}</td>
+        </tr>
+        {% for i in range(1, v|length) %}
+        {% set doc = v[i] %}
+        <tr>
+            <td></td>
+            <td><a href="#{{ doc.html_id }}">{{ doc.name }}</a></td>
+            <td>{{ doc.method }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </table>
+</div>
 
 <div class="ml-3 mt-3 mb-3 mr-3">
     {% for k,v in docs.items() %}
@@ -35,7 +74,7 @@
         </div>
 
         {% for doc in v %}
-        <div class="doc-box">
+        <div class="doc-box" id="{{ doc.html_id }}">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="doc-name">
@@ -105,7 +144,7 @@
                         <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a></b>
                         <br><br>
                         <span class="section-heading">Sample Request:</span><br>
-                        {{ doc.method }} &nbsp;&nbsp;&nbsp; {{ doc.sample_request_url }}<br>
+                        <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; {{ doc.sample_request_url }}</b><br>
                         {% if doc.sample_inp_body %}
                         <pre>{{ doc.sample_inp_body }}</pre>
                         {% else %}
@@ -120,6 +159,15 @@
                         {% endif %}
                     </div>
                 </div>
+<!--                <div class="col-12">-->
+<!--                    <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#api-{{ doc.html_id }}">-->
+<!--                        <b>Try this API!</b> <span class="caret"></span>-->
+<!--                    </div>-->
+<!--                    <div class="try-it collapse mt-2" id="api-{{ doc.html_id }}">-->
+<!--                        <b>method:</b> {{ doc.method }} <br>-->
+<!--                        <b>endpoint:</b> {{ doc.endpoint }} <br>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
         {% endfor %}

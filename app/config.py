@@ -35,7 +35,5 @@ conf = Config()
 with current_app.test_request_context("/"):
     conf.app_base_url = request.host_url
 
-print(conf.app_base_url)
-
 if not os.path.exists(conf.OUTPUT_DIR):
     os.makedirs(conf.OUTPUT_DIR)
