@@ -194,77 +194,77 @@ class PrefixInfixPostfix:
 
 class Sort:
     @staticmethod
-    def bubble_sort(inp):
+    def bubble_sort(arr):
         sort = ProgSort()
         sort.algo = "Bubble Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
         # start
 
-        n = len(inp)
+        n = len(arr)
         for i in range(n):
             for j in range(0, n - i - 1):
-                if inp[j] > inp[j + 1]:
-                    inp[j], inp[j + 1] = inp[j + 1], inp[j]
+                if arr[j] > arr[j + 1]:
+                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def insertion_sort(inp):
+    def insertion_sort(arr):
         sort = ProgSort()
         sort.algo = "Insertion Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
         # start
 
-        for i in range(1, len(inp)):
-            key = inp[i]
+        for i in range(1, len(arr)):
+            key = arr[i]
             j = i - 1
-            while j >= 0 and key < inp[j]:
-                inp[j + 1] = inp[j]
+            while j >= 0 and key < arr[j]:
+                arr[j + 1] = arr[j]
                 j -= 1
-            inp[j + 1] = key
+            arr[j + 1] = key
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def selection_sort(inp):
+    def selection_sort(arr):
         sort = ProgSort()
         sort.algo = "Selection Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
         # start
 
-        for i in range(len(inp)):
+        for i in range(len(arr)):
             min_idx = i
-            for j in range(i + 1, len(inp)):
-                if inp[min_idx] > inp[j]:
+            for j in range(i + 1, len(arr)):
+                if arr[min_idx] > arr[j]:
                     min_idx = j
-            inp[i], inp[min_idx] = inp[min_idx], inp[i]
+            arr[i], arr[min_idx] = arr[min_idx], arr[i]
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def merge_sort(inp):
+    def merge_sort(arr):
         sort = ProgSort()
         sort.algo = "Merge Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -297,20 +297,20 @@ class Sort:
                 mergeSort(arr, m + 1, r)
                 merge(arr, l, m, r)
 
-        mergeSort(inp, 0, len(inp) - 1)
+        mergeSort(arr, 0, len(arr) - 1)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def quick_sort(inp):
+    def quick_sort(arr):
         sort = ProgSort()
         sort.algo = "Quick Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -331,20 +331,20 @@ class Sort:
                 quickSort(array, low, pi - 1)
                 quickSort(array, pi + 1, high)
 
-        quickSort(inp, 0, len(inp) - 1)
+        quickSort(arr, 0, len(arr) - 1)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def counting_sort(inp):
+    def counting_sort(arr):
         sort = ProgSort()
         sort.algo = "Counting Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -365,20 +365,20 @@ class Sort:
             for i in range(size):
                 array[i] = output[i]
 
-        countingSort(inp)
+        countingSort(arr)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def radix_sort(inp):
+    def radix_sort(arr):
         sort = ProgSort()
         sort.algo = "Radix Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -408,20 +408,20 @@ class Sort:
                 countingSort(array, place)
                 place *= 10
 
-        radixSort(inp)
+        radixSort(arr)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def bucket_sort(inp):
+    def bucket_sort(arr):
         sort = ProgSort()
         sort.algo = "Bucket Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -453,20 +453,20 @@ class Sort:
                     k += 1
             return x
 
-        bucketSort(inp)
+        bucketSort(arr)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def heap_sort(inp):
+    def heap_sort(arr):
         sort = ProgSort()
         sort.algo = "Heap Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -491,20 +491,20 @@ class Sort:
                 arr[i], arr[0] = arr[0], arr[i]
                 heapify(arr, i, 0)
 
-        heapSort(inp)
+        heapSort(arr)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 
     @staticmethod
-    def shell_sort(inp):
+    def shell_sort(arr):
         sort = ProgSort()
         sort.algo = "Shell Sort"
-        sort.inp = inp
-        inp = inp[:]
+        sort.arr = arr
+        arr = arr[:]
         start = datetime.now()
 
         # start
@@ -522,11 +522,11 @@ class Sort:
                     array[j] = temp
                 interval //= 2
 
-        shellSort(inp)
+        shellSort(arr)
 
         # end
         end = datetime.now()
-        sort.result = inp
+        sort.result = arr
         sort.time_taken = (start - end).microseconds // 1000
         return sort
 

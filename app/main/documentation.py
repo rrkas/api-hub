@@ -16,10 +16,13 @@ load_docs()
 
 
 def get_docs():
-    categories = OrderedDict()
+    subjects = OrderedDict()
     for doc in docs:
-        if doc.category not in categories.keys():
-            categories[doc.category] = [doc]
+        if doc.subject not in subjects.keys():
+            subjects[doc.subject] = OrderedDict()
+            subjects[doc.subject][doc.category] = [doc]
+        elif doc.category not in subjects[doc.subject].keys():
+            subjects[doc.subject][doc.category] = [doc]
         else:
-            categories[doc.category].append(doc)
-    return categories
+            subjects[doc.subject][doc.category].append(doc)
+    return subjects

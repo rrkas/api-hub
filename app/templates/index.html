@@ -16,12 +16,27 @@
     <title>{api-hub}</title>
 </head>
 <body>
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <!-- brand -->
     <a class="navbar-brand" href="{{ data.base_url }}" style="color: indigo;"><b>{api-hub}</b></a>
+
+    <!-- hamburger icon on collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+            aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- menus -->
     <div class="collapse navbar-collapse" id="navbarToggle">
+
+        <!-- left menus -->
         <div class="navbar-nav mr-auto ml-5">
-            <a href="#btn-index">Index</a>
+            <a class="nav-item nav-link" href="#btn-index">Index</a>
+            <a class="nav-item nav-link" href="https://github.com/rrkas/api-hub" target="_blank">Github</a>
         </div>
+
+        <!-- right menus -->
         <div class="navbar-nav mr-5">
             <a class="nav-item nav-link" href="https://rrka79wal.herokuapp.com/" target="_blank">
                 <b style="font-size: 18px; font-weight: bold;">Rohnak Agarwal</b>
@@ -30,41 +45,56 @@
     </div>
 </nav>
 
-<div class=" ml-5 mr-5" id="btn-index">
-    <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#index">
-        <b>INDEX</b> <span class="caret"></span>
+<!-- API Index -->
+<div>
+    <div class=" ml-5 mr-5" id="btn-index">
+        <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#index">
+            <b>INDEX</b> <span class="caret"></span>
+        </div>
+    </div>
+    <div class="collapse mt-2 ml-5 mr-5" id="index">
+        <table class="table table-hover table-sm">
+            <thead class="thead-light">
+            <tr>
+                <th>Subject</th>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Method</th>
+            </tr>
+            </thead>
+            {% set vals = {'prev_subject': None, 'prev_category': None} %}
+            {% for subject, categories in docs.items() %}
+            {% for category,items in categories.items() %}
+            {% for doc in items %}
+            <tr>
+                <td>
+                    {% if subject != vals.prev_subject %}
+                    {{ subject }}
+                    {% if vals.update({'prev_subject': subject}) %}{% endif %}
+                    {% else %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if category != vals.prev_category %}
+                    {{ category }}
+                    {% if vals.update({'prev_category': category}) %}{% endif %}
+                    {% else %}
+                    {% endif %}
+                </td>
+                <td><a href="#{{ doc.html_id }}"><b>{{ doc.name }}</b></a></td>
+                <td>{{ doc.method }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+            {% endfor %}
+        </table>
     </div>
 </div>
-<div class="collapse mt-2 ml-5 mr-5" id="index">
-    <table class="table table-hover table-sm">
-        <thead class="thead-light">
-        <tr>
-            <th>Category</th>
-            <th>Name</th>
-            <th>Method</th>
-        </tr>
-        </thead>
-        {% for k,v in docs.items() %}
-        <tr>
-            {% set doc = v[0] %}
-            <td>{{ k }}</td>
-            <td><a href="#{{ doc.html_id }}">{{ doc.name }}</a></td>
-            <td>{{ doc.method }}</td>
-        </tr>
-        {% for i in range(1, v|length) %}
-        {% set doc = v[i] %}
-        <tr>
-            <td></td>
-            <td><a href="#{{ doc.html_id }}">{{ doc.name }}</a></td>
-            <td>{{ doc.method }}</td>
-        </tr>
-        {% endfor %}
-        {% endfor %}
-    </table>
-</div>
 
+<!-- Content -->
 <div class="ml-3 mt-3 mb-3 mr-3">
-    {% for k,v in docs.items() %}
+    {% for sk,sv in docs.items() %}
+    {% for k,v in sv.items() %}
     <div class="category-box">
         <div class="row">
             <div class="col-md-6">
@@ -99,7 +129,8 @@
                             {% endif %}
                             {% if doc.py_code %}
                             <li class="nav-item ml-3">
-                                <a class="nav-link" data-toggle="tab" href="#py_code-{{ doc.html_id }}"><b>Python Code</b></a>
+                                <a class="nav-link" data-toggle="tab" href="#py_code-{{ doc.html_id }}"><b>Python
+                                    Code</b></a>
                             </li>
                             {% endif %}
                         </ul>
@@ -118,7 +149,16 @@
                             </div>
                             {% endif %}
                             {% if doc.py_code%}
-                            <div id="py_code-{{ doc.html_id }}" class="tab-pane fade"><pre>{{ doc.py_code }}</pre></div>
+                            <div id="py_code-{{ doc.html_id }}" class="tab-pane fade">
+                                <!--                                <div class="">-->
+                                <!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+                                <!--                                         class="bi bi-clipboard" viewBox="0 0 16 16">-->
+                                <!--                                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>-->
+                                <!--                                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>-->
+                                <!--                                    </svg>-->
+                                <!--                                </div>-->
+                                <pre>{{ doc.py_code }}</pre>
+                            </div>
                             {% endif %}
                         </div>
                     </div>
@@ -215,13 +255,13 @@
         {% endfor %}
     </div>
     {% endfor %}
+    {% endfor %}
 
 </div>
 
+<!-- adjust scroll padding -->
 <script>
     window.addEventListener("hashchange", function() { scrollBy(0, -60) })
-
-
 
 
 

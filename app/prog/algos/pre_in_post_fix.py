@@ -185,9 +185,11 @@ def prog_eval_postfix():
 
 def pre_in_post_docs():
     docs = []
+    subject = "Programming"
     category = "Prefix-Infix-Postfix"
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Infix to Prefix",
             method="POST",
@@ -247,6 +249,7 @@ opening bracket in the stack.",
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Infix to Postfix",
             method="POST",
@@ -296,6 +299,7 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Prefix to Infix",
             method="POST",
@@ -337,6 +341,7 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Postfix to Infix",
             method="POST",
@@ -376,6 +381,7 @@ and add it to the result.",
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Prefix to Postfix",
             method="POST",
@@ -410,6 +416,7 @@ and add it to the result.",
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Postfix to Prefix",
             method="POST",
@@ -451,6 +458,7 @@ and add it to the result.",
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Evaluate Prefix",
             method="POST",
@@ -502,6 +510,7 @@ in the expression.",
     )
     docs.append(
         Documentation(
+            subject=subject,
             category=category,
             name="Evaluate Postfix",
             method="POST",

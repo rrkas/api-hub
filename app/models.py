@@ -79,6 +79,7 @@ class ReqponseBodyItem:
 class Documentation:
     def __init__(
             self,
+            subject: str,
             category: str,
             name: str,
             endpoint: str,
@@ -95,6 +96,7 @@ class Documentation:
             py_code: str = None,
             additional_info: str = None,
     ):
+        self.subject = subject
         self.category = category
         self.name = name
         self.endpoint = endpoint
@@ -114,8 +116,8 @@ class Documentation:
             else None
         )
         self.sample_request_url = sample_request_url
-        self.html_id = self.category.replace(" ", "-") + '-' + self.name.replace(" ", "-")
+        self.html_id = (self.category.replace(" ", "-") + '-' + self.name.replace(" ", "-")).lower()
         self.steps = steps
         self.theory = theory
-        self.py_code = py_code
+        self.py_code = py_code.strip() if isinstance(py_code, str) else py_code
         self.additional_info = additional_info

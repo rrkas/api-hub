@@ -9,6 +9,7 @@ body{
     padding-top: 10px;
     padding-right: 10px;
     margin-bottom: 10px;
+    border-radius: 10px;
 }
 .category-heading{
     color: indigo;
@@ -22,6 +23,7 @@ body{
     padding-top: 10px;
     padding-right: 10px;
     margin-bottom: 10px;
+    border-radius: 10px;
 }
 .tab-box{
     background-color: #ffffff;
@@ -29,7 +31,10 @@ body{
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
+    margin-left: 1px;
+    border: #dddddd solid 1px;
+    border-radius: 0px 5px 5px 5px;
 }
 .section-heading{
     font-size: 20px;
@@ -45,6 +50,7 @@ body{
     height: 100%;
     padding-left: 10px;
     padding-top: 10px;
+    border-radius: 10px;
 }
 .reqponse-divider{
     border-top: 1px solid #000000;
