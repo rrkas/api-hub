@@ -63,11 +63,6 @@ class ProgSearch:
         return t
 
 
-class ProgAlgo:
-    def __init__(self):
-        pass
-
-
 class ReqponseBodyItem:
     TYPE_INT = "integer"
     TYPE_FLOAT = "float/double"
@@ -95,6 +90,10 @@ class Documentation:
             out_body: List[ReqponseBodyItem] = None,
             sample_out_body: dict = None,
             sample_request_url: dict = None,
+            steps: List[str] = None,
+            theory: str = None,
+            py_code: str = None,
+            additional_info: str = None,
     ):
         self.category = category
         self.name = name
@@ -116,3 +115,7 @@ class Documentation:
         )
         self.sample_request_url = sample_request_url
         self.html_id = self.category.replace(" ", "-") + '-' + self.name.replace(" ", "-")
+        self.steps = steps
+        self.theory = theory
+        self.py_code = py_code
+        self.additional_info = additional_info

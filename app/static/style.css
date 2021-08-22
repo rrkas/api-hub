@@ -1,5 +1,6 @@
 body{
     font-family: courier, monospace;
+    padding-top: 70px;
 }
 .category-box{
     background-color: #dddeee;
@@ -21,6 +22,14 @@ body{
     padding-top: 10px;
     padding-right: 10px;
     margin-bottom: 10px;
+}
+.tab-box{
+    background-color: #ffffff;
+    font-size: 17px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .section-heading{
     font-size: 20px;

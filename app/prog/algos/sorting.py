@@ -225,7 +225,7 @@ def sorting_docs():
         Documentation(
             category=category,
             name="Bubble Sort",
-            description="Sorts array of integers, float/double using bubble sort algorithm",
+            description="Sorts array of integers, float/double using bubble sort algorithm.",
             endpoint=prog_root + "/sort-bubble",
             sample_request_url=prog_root + "/sort-bubble",
             args=None,
@@ -272,13 +272,14 @@ def sorting_docs():
                 "result": "-8 0 1 4 9 12 15",
                 "time_taken": "0 milliseconds",
             },
+            theory=""
         )
     )
     data.append(
         Documentation(
             category=category,
             name="Insertion Sort",
-            description="Sorts array of integers, float/double using insertion sort algorithm",
+            description="Sorts array of integers, float/double using insertion sort algorithm.",
             endpoint=prog_root + "/sort-insertion",
             sample_request_url=prog_root + "/sort-insertion",
             args=None,
