@@ -1,6 +1,12 @@
 body{
     font-family: courier, monospace;
     padding-top: 70px;
+    background-color: #eeffff;
+}
+.subject-heading{
+    font-family: arial;
+    font-weight: bold;
+    color: orange;
 }
 .category-box{
     background-color: #dddeee;
@@ -13,7 +19,7 @@ body{
 }
 .category-heading{
     color: indigo;
-    font-size: 35px;
+    font-size: 33px;
     font-weight: bold;
 }
 .doc-box{
@@ -24,6 +30,11 @@ body{
     padding-right: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
+}
+.doc-name{
+    color: green;
+    font-size: 25px;
+    font-weight: bold;
 }
 .tab-box{
     background-color: #ffffff;
@@ -38,11 +49,6 @@ body{
 }
 .section-heading{
     font-size: 20px;
-    font-weight: bold;
-}
-.doc-name{
-    color: green;
-    font-size: 25px;
     font-weight: bold;
 }
 .request-box{

@@ -3,7 +3,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -71,17 +71,15 @@
                     {% if subject != vals.prev_subject %}
                     {{ subject }}
                     {% if vals.update({'prev_subject': subject}) %}{% endif %}
-                    {% else %}
                     {% endif %}
                 </td>
                 <td>
                     {% if category != vals.prev_category %}
-                    {{ category }}
+                    <a href="#{{ doc.category_html_id }}">{{ category }}</a>
                     {% if vals.update({'prev_category': category}) %}{% endif %}
-                    {% else %}
                     {% endif %}
                 </td>
-                <td><a href="#{{ doc.html_id }}"><b>{{ doc.name }}</b></a></td>
+                <td><a href="#{{ doc.doc_html_id }}"><b>{{ doc.name }}</b></a></td>
                 <td>{{ doc.method }}</td>
             </tr>
             {% endfor %}
@@ -94,180 +92,207 @@
 <!-- Content -->
 <div class="ml-3 mt-3 mb-3 mr-3">
     {% for sk,sv in docs.items() %}
+    <h1 class="subject-heading">{{ sk }}</h1>
     {% for k,v in sv.items() %}
-    <div class="category-box">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="category-heading">
-                    {{ k }}
+    <div id="{{ v[0].category_html_id }}">
+        <div class="category-box">
+            <div class="row">
+                <div class="col-12">
+                    <div style="display:flex;">
+                        <span class="category-heading mr-auto">
+                            {{ k }}
+                        </span>
+                        <span class="mt-auto mb-auto btn btn-primary dropdown-toggle"
+                              data-toggle="collapse" data-target="#details-{{ v[0].category_html_id }}">
+                            Details
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6"></div>
-        </div>
 
-        {% for doc in v %}
-        <div class="doc-box" id="{{ doc.html_id }}">
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <div class="doc-name">
-                        {{ doc.name }}
-                    </div>
-                    <div class="mt-3 mb-3 ml-3 mr-3">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#desc-{{ doc.html_id }}"><b>Description</b></a>
-                            </li>
-                            {% if doc.theory %}
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" data-toggle="tab" href="#theory-{{ doc.html_id }}"><b>Theory</b></a>
-                            </li>
-                            {% endif %}
-                            {% if doc.steps %}
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" data-toggle="tab" href="#steps-{{ doc.html_id }}"><b>Steps</b></a>
-                            </li>
-                            {% endif %}
-                            {% if doc.py_code %}
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" data-toggle="tab" href="#py_code-{{ doc.html_id }}"><b>Python
-                                    Code</b></a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                        <div class="tab-content tab-box">
-                            <div id="desc-{{ doc.html_id }}" class="tab-pane active">{{ doc.description }}</div>
-                            {% if doc.theory %}
-                            <div id="theory-{{ doc.html_id }}" class="tab-pane fade">{{ doc.theory }}</div>
-                            {% endif %}
-                            {% if doc.steps %}
-                            <div id="steps-{{ doc.html_id }}" class="tab-pane fade">
-                                <ol type="1">
-                                    {% for step in doc.steps %}
-                                    <li>{{ step }}</li>
-                                    {% endfor %}
-                                </ol>
-                            </div>
-                            {% endif %}
-                            {% if doc.py_code%}
-                            <div id="py_code-{{ doc.html_id }}" class="tab-pane fade">
-                                <!--                                <div class="">-->
-                                <!--                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
-                                <!--                                         class="bi bi-clipboard" viewBox="0 0 16 16">-->
-                                <!--                                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>-->
-                                <!--                                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>-->
-                                <!--                                    </svg>-->
-                                <!--                                </div>-->
-                                <pre>{{ doc.py_code }}</pre>
-                            </div>
-                            {% endif %}
+            <div class="collapse" id="details-{{ v[0].category_html_id }}">
+                {% for doc in v %}
+                <div class="doc-box" id="{{ doc.doc_html_id }}">
+                    <div class="row">
+                        <div class="col-12" style="display:flex;">
+                            <span class="doc-name mr-auto">
+                                {{ doc.name }}
+                            </span>
+                            <span class="mt-auto mb-auto btn btn-warning dropdown-toggle"
+                                  data-toggle="collapse" data-target="#details-{{ doc.doc_html_id }}">
+                                Details
+                            </span>
                         </div>
                     </div>
-                    <br>
-                    <span class="section-heading">Request Body:</span><br>
-                    <table cellpadding="4" border="black">
-                        <tr>
-                            <th>key</th>
-                            <th>description</th>
-                            <th>data type(s)</th>
-                            <th>required</th>
-                        </tr>
-                        {% for item in doc.inp_body %}
-                        <tr>
-                            <td>{{ item.key }}</td>
-                            <td>{{ item.desc }}</td>
-                            <td>{{ ', '.join(item.types) }}</td>
-                            <td>{% if item.required %}{{ item.required }}{% endif %}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    <br>
+                    <div class="collapse mt-2" id="details-{{ doc.doc_html_id }}">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="mt-3 mb-3 ml-3 mr-3">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab"
+                                               href="#desc-{{ doc.doc_html_id }}">
+                                                <b>Description</b>
+                                            </a>
+                                        </li>
+                                        {% if doc.theory %}
+                                        <li class="nav-item ml-3">
+                                            <a class="nav-link" data-toggle="tab"
+                                               href="#theory-{{ doc.doc_html_id }}">
+                                                <b>Theory</b>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if doc.steps %}
+                                        <li class="nav-item ml-3">
+                                            <a class="nav-link" data-toggle="tab"
+                                               href="#steps-{{ doc.doc_html_id }}">
+                                                <b>Steps</b>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                        {% if doc.py_code %}
+                                        <li class="nav-item ml-3">
+                                            <a class="nav-link" data-toggle="tab" href="#py_code-{{ doc.doc_html_id }}">
+                                                <b>Python Code</b>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                    <div class="tab-content tab-box">
+                                        <div id="desc-{{ doc.doc_html_id }}" class="tab-pane active">
+                                            {{ doc.description }}
+                                        </div>
+                                        {% if doc.theory %}
+                                        <div id="theory-{{ doc.doc_html_id }}" class="tab-pane fade">
+                                            {{ doc.theory }}
+                                        </div>
+                                        {% endif %}
+                                        {% if doc.steps %}
+                                        <div id="steps-{{ doc.doc_html_id }}" class="tab-pane fade">
+                                            <ol type="1">
+                                                {% for step in doc.steps %}
+                                                <li>{{ step }}</li>
+                                                {% endfor %}
+                                            </ol>
+                                        </div>
+                                        {% endif %}
+                                        {% if doc.py_code%}
+                                        <div id="py_code-{{ doc.doc_html_id }}" class="tab-pane fade">
+                                            <!--    <div class="">-->
+                                            <!--        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+                                            <!--             class="bi bi-clipboard" viewBox="0 0 16 16">-->
+                                            <!--            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>-->
+                                            <!--            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>-->
+                                            <!--        </svg>-->
+                                            <!--    </div>-->
+                                            <pre>{{ doc.py_code }}</pre>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <br>
+                                <span class="section-heading">Request Body:</span><br>
+                                <table cellpadding="4" border="black">
+                                    <tr>
+                                        <th>key</th>
+                                        <th>description</th>
+                                        <th>data type(s)</th>
+                                        <th>required</th>
+                                    </tr>
+                                    {% for item in doc.inp_body %}
+                                    <tr>
+                                        <td>{{ item.key }}</td>
+                                        <td>{{ item.desc }}</td>
+                                        <td>{{ ', '.join(item.types) }}</td>
+                                        <td>{% if item.required %}{{ item.required }}{% endif %}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                <br>
 
-                    <span class="section-heading">Request Args/ Params:</span><br>
-                    {% if doc.args %}
-                    <table cellpadding="4" border="black">
-                        <tr>
-                            <th>key</th>
-                            <th>description</th>
-                        </tr>
-                        {% for ak,av in doc.args.items() %}
-                        <tr>
-                            <td>{{ ak }}</td>
-                            <td>{{ av }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    {% else %}
-                    Not Required
-                    {% endif %}
+                                <span class="section-heading">Request Args/ Params:</span><br>
+                                {% if doc.args %}
+                                <table cellpadding="4" border="black">
+                                    <tr>
+                                        <th>key</th>
+                                        <th>description</th>
+                                    </tr>
+                                    {% for ak,av in doc.args.items() %}
+                                    <tr>
+                                        <td>{{ ak }}</td>
+                                        <td>{{ av }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                {% else %}
+                                Not Required
+                                {% endif %}
 
-                    <br>
-                    <hr class="reqponse-divider">
-                    <span class="section-heading">Response Body:</span><br>
-                    <table cellpadding="4" border="black">
-                        <tr>
-                            <th>key</th>
-                            <th>description</th>
-                            <th>data type(s)</th>
-                            <th>required</th>
-                        </tr>
-                        {% for item in doc.out_body %}
-                        <tr>
-                            <td>{{ item.key }}</td>
-                            <td>{{ item.desc }}</td>
-                            <td>{{ ', '.join(item.types) }}</td>
-                            <td>{% if item.required %}{{ item.required }}{% endif %}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    <br>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="request-box">
-                        <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a></b>
-                        <br><br>
-                        <span class="section-heading">Sample Request:</span><br>
-                        <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; {{ doc.sample_request_url }}</b><br>
-                        {% if doc.sample_inp_body %}
-                        <pre>{{ doc.sample_inp_body }}</pre>
-                        {% else %}
-                        No Body <br>
-                        {% endif %}
-                        <br>
-                        <span class="section-heading">Sample Response:</span><br>
-                        {% if doc.sample_out_body %}
-                        <pre>{{ doc.sample_out_body }}</pre>
-                        {% else %}
-                        No Body <br>
-                        {% endif %}
+                                <br>
+                                <hr class="reqponse-divider">
+                                <span class="section-heading">Response Body:</span><br>
+                                <table cellpadding="4" border="black">
+                                    <tr>
+                                        <th>key</th>
+                                        <th>description</th>
+                                        <th>data type(s)</th>
+                                        <th>required</th>
+                                    </tr>
+                                    {% for item in doc.out_body %}
+                                    <tr>
+                                        <td>{{ item.key }}</td>
+                                        <td>{{ item.desc }}</td>
+                                        <td>{{ ', '.join(item.types) }}</td>
+                                        <td>{% if item.required %}{{ item.required }}{% endif %}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                <br>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="request-box">
+                                    <b>{{ doc.method }} &nbsp;&nbsp;&nbsp;
+                                        <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a></b>
+                                    <br><br>
+                                    <span class="section-heading">Sample Request:</span><br>
+                                    <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; {{ doc.sample_request_url }}</b><br>
+                                    {% if doc.sample_inp_body %}
+                                    <pre>{{ doc.sample_inp_body }}</pre>
+                                    {% else %}
+                                    No Body <br>
+                                    {% endif %}
+                                    <br>
+                                    <span class="section-heading">Sample Response:</span><br>
+                                    {% if doc.sample_out_body %}
+                                    <pre>{{ doc.sample_out_body }}</pre>
+                                    {% else %}
+                                    No Body <br>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!--    <div class="col-12">-->
+                            <!--        <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#api-{{ doc.doc_html_id }}">-->
+                            <!--            <b>Try this API!</b> <span class="caret"></span>-->
+                            <!--        </div>-->
+                            <!--        <div class="try-it collapse mt-2" id="api-{{ doc.doc_html_id }}">-->
+                            <!--            <b>method:</b> {{ doc.method }} <br>-->
+                            <!--            <b>endpoint:</b> {{ doc.endpoint }} <br>-->
+                            <!--        </div>-->
+                            <!--    </div>-->
+                        </div>
                     </div>
                 </div>
-                <!--                <div class="col-12">-->
-                <!--                    <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#api-{{ doc.html_id }}">-->
-                <!--                        <b>Try this API!</b> <span class="caret"></span>-->
-                <!--                    </div>-->
-                <!--                    <div class="try-it collapse mt-2" id="api-{{ doc.html_id }}">-->
-                <!--                        <b>method:</b> {{ doc.method }} <br>-->
-                <!--                        <b>endpoint:</b> {{ doc.endpoint }} <br>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
     {% endfor %}
     {% endfor %}
-
 </div>
 
 <!-- adjust scroll padding -->
-<script>
-    window.addEventListener("hashchange", function() { scrollBy(0, -60) })
-
-
-
-
-
-</script>
+<script> window.addEventListener("hashchange", function() { scrollBy(0, -60) }) </script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

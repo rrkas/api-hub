@@ -219,10 +219,9 @@ def prog_sort_shell():
 
 
 def sorting_docs():
-    data = []
     subject = "Programming"
     category = "Sorting"
-    data.append(
+    return [
         Documentation(
             subject=subject,
             category=category,
@@ -282,10 +281,8 @@ for i in range(n):
     for j in range(0, n - i - 1):
         if arr[j] > arr[j + 1]:
             arr[j], arr[j + 1] = arr[j + 1], arr[j]
-                    """
-        )
-    )
-    data.append(
+                    """,
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -349,9 +346,7 @@ for i in range(len(arr)):
             min_idx = j
     arr[i], arr[min_idx] = arr[min_idx], arr[i]
             """,
-        )
-    )
-    data.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -409,14 +404,178 @@ for i in range(len(arr)):
 and that element becomes a part of the sorted array. This process continues moving unsorted array boundary by \
 one element to the right.",
             py_code="""
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        while j >= 0 and key < arr[j]:
-            arr[j + 1] = arr[j]
-            j -= 1
-        arr[j + 1] = key
+for i in range(1, len(arr)):
+    key = arr[i]
+    j = i - 1
+    while j >= 0 and key < arr[j]:
+        arr[j + 1] = arr[j]
+        j -= 1
+    arr[j + 1] = key
                 """,
-        )
-    )
-    return data
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Merge Sort",
+            description="Sorts array of integers, float/double using merge sort algorithm.",
+            endpoint=prog_root + "/sort-merge",
+            sample_request_url=prog_root + "/sort-merge",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                    optional=True,
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 -8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Merge Sort",
+                "arr": "15 12 1 0 -8 9 4",
+                "result": "-8 0 1 4 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="It works on the principle of Divide and Conquer. Merge sort repeatedly breaks down a list into \
+several sublists until each sublist consists of a single element and merging those sublists in a manner \
+that results into a sorted list.",
+            py_code="""
+def merge(arr, l, m, r):
+    n1, n2 = m - l + 1, r - m
+    L, R = arr[l : l + n1], arr[m + 1 : m + 1 + n2]
+    i, j, k = 0, 0, l
+    while i < n1 and j < n2:
+        if L[i] <= R[j]:
+            arr[k] = L[i]
+            i += 1
+        else:
+            arr[k] = R[j]
+            j += 1
+        k += 1
+    while i < n1:
+        arr[k] = L[i]
+        i += 1
+        k += 1
+    while j < n2:
+        arr[k] = R[j]
+        j += 1
+        k += 1
+
+def mergeSort(arr, l, r):
+    if l < r:
+        m = l + (r - l) // 2
+        mergeSort(arr, l, m)
+        mergeSort(arr, m + 1, r)
+        merge(arr, l, m, r)
+
+mergeSort(arr, 0, len(arr) - 1)
+                    """,
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Quick Sort",
+            description="Sorts array of integers, float/double using quick sort algorithm.",
+            endpoint=prog_root + "/sort-quick",
+            sample_request_url=prog_root + "/sort-quick",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                    optional=True,
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 -8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Quick Sort",
+                "arr": "15 12 1 0 -8 9 4",
+                "result": "-8 0 1 4 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="Quick Sort is a sorting algorithm, which is commonly used in computer science. Quick Sort is a \
+divide and conquer algorithm. It creates two empty arrays to hold elements less than the pivot value and elements \
+greater than the pivot value, and then recursively sort the sub arrays.",
+            py_code="""
+def partition(array, low, high):
+    pivot = array[high]
+    i = low - 1
+    for j in range(low, high):
+        if array[j] <= pivot:
+            i = i + 1
+            array[i], array[j] = array[j], array[i]
+    array[i + 1], array[high] = array[high], array[i + 1]
+    return i + 1
+
+def quickSort(array, low, high):
+    if low < high:
+        pi = partition(array, low, high)
+        quickSort(array, low, pi - 1)
+        quickSort(array, pi + 1, high)
+
+quickSort(arr, 0, len(arr) - 1)
+
+                    """,
+        ),
+    ]

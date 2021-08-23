@@ -184,10 +184,9 @@ def prog_eval_postfix():
 
 
 def pre_in_post_docs():
-    docs = []
     subject = "Programming"
     category = "Prefix-Infix-Postfix"
-    docs.append(
+    return [
         Documentation(
             subject=subject,
             category=category,
@@ -245,9 +244,7 @@ opening bracket in the stack.",
                 "If the top of the stack is ')', push the operator on the stack.",
                 "Reverse the output.",
             ],
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -295,9 +292,7 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
                 "Print the Stack output.",
                 "Pop and output all characters, including the operator, from the Stack until it is not empty.",
             ],
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -337,9 +332,7 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
                 "And push the resultant string back to Stack",
                 "Repeat the above steps until end of Prefix expression.",
             ],
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -377,9 +370,7 @@ say it’s s2, perform (s2 operator s1) and push it to stack."
 and add it to the result.",
                 "Return the result.",
             ],
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -412,9 +403,7 @@ and add it to the result.",
             sample_inp_body={"expr": "* + 2 3 45"},
             sample_out_body={"expr": "* + 2 3 45", "result": "2 3 + 45 *"},
             args=None,
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -454,9 +443,7 @@ and add it to the result.",
                 "result": "* + 2 3 45",
             },
             args=None,
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -506,9 +493,7 @@ in the expression.",
                 "The Result is stored at the top of the Stack, return it",
                 "End",
             ],
-        )
-    )
-    docs.append(
+        ),
         Documentation(
             subject=subject,
             category=category,
@@ -555,6 +540,5 @@ push it into the stack. If the element is a operator, pop operands for the opera
 and push the result back to the stack ",
                 "When the expression is ended, the number in the stack is the final answer.",
             ],
-        )
-    )
-    return docs
+        ),
+    ]

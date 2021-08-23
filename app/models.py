@@ -78,23 +78,23 @@ class ReqponseBodyItem:
 
 class Documentation:
     def __init__(
-            self,
-            subject: str,
-            category: str,
-            name: str,
-            endpoint: str,
-            method: str = "GET",
-            args: List[ReqponseBodyItem] = None,
-            description: str = "",
-            inp_body: List[ReqponseBodyItem] = None,
-            sample_inp_body: dict = None,
-            out_body: List[ReqponseBodyItem] = None,
-            sample_out_body: dict = None,
-            sample_request_url: dict = None,
-            steps: List[str] = None,
-            theory: str = None,
-            py_code: str = None,
-            additional_info: str = None,
+        self,
+        subject: str,
+        category: str,
+        name: str,
+        endpoint: str,
+        method: str = "GET",
+        args: List[ReqponseBodyItem] = None,
+        description: str = "",
+        inp_body: List[ReqponseBodyItem] = None,
+        sample_inp_body: dict = None,
+        out_body: List[ReqponseBodyItem] = None,
+        sample_out_body: dict = None,
+        sample_request_url: dict = None,
+        steps: List[str] = None,
+        theory: str = None,
+        py_code: str = None,
+        additional_info: str = None,
     ):
         self.subject = subject
         self.category = category
@@ -116,7 +116,16 @@ class Documentation:
             else None
         )
         self.sample_request_url = sample_request_url
-        self.html_id = (self.category.replace(" ", "-") + '-' + self.name.replace(" ", "-")).lower()
+        self.category_html_id = (
+            self.subject.replace(" ", "-") + "-" + self.category.replace(" ", "-")
+        ).lower()
+        self.doc_html_id = (
+            self.subject.replace(" ", "-")
+            + "-"
+            + self.category.replace(" ", "-")
+            + "-"
+            + self.name.replace(" ", "-")
+        ).lower()
         self.steps = steps
         self.theory = theory
         self.py_code = py_code.strip() if isinstance(py_code, str) else py_code

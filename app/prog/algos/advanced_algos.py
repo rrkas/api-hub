@@ -110,3 +110,16 @@ def prog_job_sequencing():
     else:
         response["result"] = str(res)
     return response
+
+
+@prog_bp.route(prog_root + "/huffman-code", methods=["POST"])
+def prog_huffman_code():
+    expr_keys = ["inp"]
+    for expr_key in expr_keys:
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+    inp = get_value_form_json(expr_keys[0])
+    return AdvancedAlgorithms.huffman_code(inp)
