@@ -566,7 +566,6 @@ class Search:
                 search.comparisons += 1
                 mid = l + (r - l) // 2
                 if arr[mid] == x:
-                    search.comparisons += 1
                     return mid
                 elif arr[mid] > x:
                     return binarySearch(arr, l, mid - 1, x)
@@ -784,18 +783,14 @@ class AdvancedAlgorithms:
             d.update(huffman_code_tree(r, bin_string + "1"))
             return d
 
-        # Calculating frequency
         freq = {}
         for c in inp:
             if c in freq.keys():
                 freq[c] += 1
             else:
                 freq[c] = 1
-
         freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
-
         nodes = freq
-
         while len(nodes) > 1:
             (key1, c1) = nodes[-1]
             (key2, c2) = nodes[-2]
@@ -804,9 +799,7 @@ class AdvancedAlgorithms:
             nodes.append((node, c1 + c2))
 
             nodes = sorted(nodes, key=lambda x: x[1], reverse=True)
-
         huffman_code = huffman_code_tree(nodes[0][0])
-
         out = ""
         for c in inp:
             out += huffman_code[c]
@@ -816,3 +809,71 @@ class AdvancedAlgorithms:
             "result": out,
             "individual_codes": huffman_code,
         }
+
+    # dynamic programming
+
+    @staticmethod
+    def longest_common_subsequence(s1, s2):
+        m, n = len(s1), len(s2)
+        l = [[0 for _ in range(n + 1)] for __ in range(m + 1)]
+        for i in range(m + 1):
+            for j in range(n + 1):
+                if i == 0 or j == 0:
+                    l[i][j] = 0
+                elif s1[i - 1] == s2[j - 1]:
+                    l[i][j] = l[i - 1][j - 1] + 1
+                else:
+                    l[i][j] = max(l[i - 1][j], l[i][j - 1])
+        index = l[m][n]
+        lcs_algo = [""] * (index + 1)
+        lcs_algo[index] = ""
+        i = m
+        j = n
+        while i > 0 and j > 0:
+            if s1[i - 1] == s2[j - 1]:
+                lcs_algo[index - 1] = s1[i - 1]
+                i -= 1
+                j -= 1
+                index -= 1
+            elif l[i - 1][j] > l[i][j - 1]:
+                i -= 1
+            else:
+                j -= 1
+
+        return "".join(lcs_algo)
+
+    @staticmethod
+    def n_queens(n):
+        def is_safe(board, row, col):
+            for i in range(col):
+                if board[row][i] == 1:
+                    return False
+            for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+                if board[i][j] == 1:
+                    return False
+            for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+                if board[i][j] == 1:
+                    return False
+            return True
+
+        def solve_nq_util(board, col):
+            if col >= n:
+                return True
+            for i in range(n):
+                if is_safe(board, i, col):
+                    board[i][col] = 1
+                    if solve_nq_util(board, col + 1):
+                        return True
+                    board[i][col] = 0
+            return False
+
+        def format_board(board):
+            b = []
+            for l in board:
+                l = map(str, l)
+                b.append(" ".join(l))
+            return b
+
+        board = [[0 for _ in range(n)] for __ in range(n)]
+        solve_nq_util(board, 0)
+        return {"n": n, "board": format_board(board)}

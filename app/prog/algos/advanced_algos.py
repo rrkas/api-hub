@@ -123,3 +123,42 @@ def prog_huffman_code():
             return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_keys[0])
     return AdvancedAlgorithms.huffman_code(inp)
+
+
+# dynamic programming
+
+
+@prog_bp.route(prog_root + "/longest-common-subsequence", methods=["POST"])
+def prog_lcs():
+    expr_keys = ["str1", "str2"]
+    for expr_key in expr_keys:
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+    str1 = get_value_form_json(expr_keys[0])
+    str2 = get_value_form_json(expr_keys[1])
+    lcs = AdvancedAlgorithms.longest_common_subsequence(str1, str2)
+    return {
+        "str1": str1,
+        "str2": str2,
+        "lcs": lcs,
+    }
+
+
+@prog_bp.route(prog_root + "/n-queens", methods=["POST"])
+def prog_n_queens():
+    expr_keys = ["n"]
+    for expr_key in expr_keys:
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+    n = get_value_form_json(expr_keys[0])
+    try:
+        n = int(n)
+    except:
+        return {"n": n, "error": type_error_message([1], n)}
+    return AdvancedAlgorithms.n_queens(n)

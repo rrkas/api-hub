@@ -1,7 +1,7 @@
 from flask import request
 
 from app.prog.routes import prog_bp, prog_root
-from . import Sort, Documentation, ReqponseBodyItem
+from . import Sort, Documentation, ReqponseBodyItem, ComplexityAnalysis
 from ...util import type_error_message, get_value_form_json
 
 
@@ -282,6 +282,8 @@ for i in range(n):
         if arr[j] > arr[j + 1]:
             arr[j], arr[j + 1] = arr[j + 1], arr[j]
                     """,
+            time_complexity=ComplexityAnalysis("n", "n*n", "n*n"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
         ),
         Documentation(
             subject=subject,
@@ -346,6 +348,8 @@ for i in range(len(arr)):
             min_idx = j
     arr[i], arr[min_idx] = arr[min_idx], arr[i]
             """,
+            time_complexity=ComplexityAnalysis("n", "n*n", "n*n"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
         ),
         Documentation(
             subject=subject,
@@ -412,6 +416,8 @@ for i in range(1, len(arr)):
         j -= 1
     arr[j + 1] = key
                 """,
+            time_complexity=ComplexityAnalysis("n", "n*n", "n*n"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
         ),
         Documentation(
             subject=subject,
@@ -500,6 +506,8 @@ def mergeSort(arr, l, r):
 
 mergeSort(arr, 0, len(arr) - 1)
                     """,
+            time_complexity=ComplexityAnalysis("n*(log n)", "n*(log n)", "n*(log n)"),
+            space_complexity=ComplexityAnalysis("n", "n", "n"),
         ),
         Documentation(
             subject=subject,
@@ -577,5 +585,7 @@ def quickSort(array, low, high):
 quickSort(arr, 0, len(arr) - 1)
 
                     """,
+            time_complexity=ComplexityAnalysis("n*(log n)", "n*(log n)", "n*n"),
+            space_complexity=ComplexityAnalysis("log n", "log n", "log n"),
         ),
     ]

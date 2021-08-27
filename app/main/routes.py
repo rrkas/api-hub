@@ -26,6 +26,11 @@ def home():
     )
 
 
+@main_bp.route("/favicon.ico")
+def favicon():
+    return send_file(os.path.join(current_app.static_folder, "apihub.png"))
+
+
 # ===================== error ==========================
 
 

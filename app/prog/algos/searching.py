@@ -2,7 +2,7 @@ from flask import request
 
 from app.prog.routes import prog_bp, prog_root
 from . import Search
-from ...models import Documentation, ReqponseBodyItem
+from ...models import Documentation, ReqponseBodyItem, ComplexityAnalysis
 from ...util import type_error_message, get_value_form_json
 
 
@@ -31,16 +31,26 @@ def prog_search_binary():
     if " " not in inp:
         return {"error": "please separate numbers using spaces!"}
     try:
-        inp = list(map(float, inp.split()))
+        inp = list(map(int, inp.split()))
     except:
-        return {"error": type_error_message([1, 1.0], inp.split()[0], arg=expr_keys[0])}
+        try:
+            inp = list(map(float, inp.split()))
+        except:
+            return {
+                "error": type_error_message([1, 1.0], inp.split()[0], arg=expr_keys[0])
+            }
     x = get_value_form_json(expr_keys[1])
     try:
-        x = float(x)
-        if not isinstance(inp[0], float):
+        x = int(x)
+        if not isinstance(inp[0], int):
             return {"error": type_error_message([inp[0]], x, arg=expr_keys[1])}
     except:
-        return {"error": type_error_message([1, 1.0], x, arg=expr_keys[1])}
+        try:
+            x = float(x)
+            if not isinstance(inp[0], float):
+                return {"error": type_error_message([inp[0]], x, arg=expr_keys[1])}
+        except:
+            return {"error": type_error_message([1, 1.0], x, arg=expr_keys[1])}
     res = Search.binary_search(inp, x)
     return res.json()
 
@@ -128,5 +138,107 @@ def searching_docs():
                 "key": "2b",
                 "time_taken": "0 milliseconds",
             },
-        )
+            time_complexity=ComplexityAnalysis(best=1, worst="n", average="n/2"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
+            py_code="""
+def linear_search(arr, x):
+    for i in range(len(arr)):
+        if arr[i] == x:
+            return i
+    return -1
+index = linear_search(arr, x)
+            """,
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Binary Search",
+            description="Searches element in a list of elements",
+            endpoint=prog_root + "/search-binary",
+            sample_request_url=prog_root + "/search-binary",
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    key="arr",
+                    desc="space-separated elements",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "key",
+                    "element to find",
+                    [
+                        ReqponseBodyItem.TYPE_FLOAT,
+                        ReqponseBodyItem.TYPE_INT,
+                        ReqponseBodyItem.TYPE_STR,
+                    ],
+                ),
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "Name of algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space-separated elements (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "key",
+                    "element to find (input)",
+                    [ReqponseBodyItem.TYPE_FLOAT, ReqponseBodyItem.TYPE_INT],
+                ),
+                ReqponseBodyItem(
+                    "found",
+                    "is element found",
+                    [ReqponseBodyItem.TYPE_BOOL],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "comparisons",
+                    "number of comparisons made",
+                    [ReqponseBodyItem.TYPE_INT],
+                ),
+                ReqponseBodyItem(
+                    "index",
+                    "index of element in list",
+                    [ReqponseBodyItem.TYPE_INT],
+                    optional=True,
+                ),
+            ],
+            sample_inp_body={
+                "arr": "1 2 3 4",
+                "key": 2,
+            },
+            sample_out_body={
+                "algorithm": "Binary Search",
+                "arr": "1 2 3 4",
+                "comparisons": 2,
+                "found": True,
+                "index": 1,
+                "key": 2,
+                "time_taken": "0 milliseconds",
+            },
+            time_complexity=ComplexityAnalysis(best=1, worst="log n", average="log n"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
+            py_code="""
+def binary_search(arr, l, r, x):
+    if r >= l:
+        mid = l + (r - l) // 2
+        if arr[mid] == x:
+            return mid
+        elif arr[mid] > x:
+            return binary_search(arr, l, mid - 1, x)
+        else:
+            return binary_search(arr, mid + 1, r, x)
+    else:
+        return -1
+index = binary_search(arr, 0, len(arr) - 1, x)
+            """,
+        ),
     ]

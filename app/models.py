@@ -76,6 +76,13 @@ class ReqponseBodyItem:
         self.required = not optional
 
 
+class ComplexityAnalysis:
+    def __init__(self, best=None, average=None, worst=None):
+        self.best = f"O({best})"
+        self.average = f"O({average})"
+        self.worst = f"O({worst})"
+
+
 class Documentation:
     def __init__(
         self,
@@ -95,6 +102,8 @@ class Documentation:
         theory: str = None,
         py_code: str = None,
         additional_info: str = None,
+        space_complexity: ComplexityAnalysis = None,
+        time_complexity: ComplexityAnalysis = None,
     ):
         self.subject = subject
         self.category = category
@@ -130,3 +139,15 @@ class Documentation:
         self.theory = theory
         self.py_code = py_code.strip() if isinstance(py_code, str) else py_code
         self.additional_info = additional_info
+        self.space_complexity = space_complexity
+        self.time_complexity = time_complexity
+
+
+class HtmlUtil:
+    @staticmethod
+    def sup(b, e):
+        return f"{b}<sup>{e}</sup>"
+
+    @staticmethod
+    def sub(b, e):
+        return f"{b}<sub>{e}</sub>"

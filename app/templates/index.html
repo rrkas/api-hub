@@ -47,12 +47,12 @@
 
 <!-- API Index -->
 <div>
-    <div class=" ml-5 mr-5" id="btn-index">
+    <div class=" ml-3 mr-3" id="btn-index">
         <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#index">
             <b>INDEX</b> <span class="caret"></span>
         </div>
     </div>
-    <div class="collapse mt-2 ml-5 mr-5" id="index">
+    <div class="collapse mt-2 ml-3 mr-3" id="index">
         <table class="table table-hover table-sm">
             <thead class="thead-light">
             <tr>
@@ -103,6 +103,7 @@
                             {{ k }}
                         </span>
                         <span class="mt-auto mb-auto btn btn-primary dropdown-toggle"
+                              style="margin-right: 10px"
                               data-toggle="collapse" data-target="#details-{{ v[0].category_html_id }}">
                             Details
                         </span>
@@ -110,7 +111,7 @@
                 </div>
             </div>
 
-            <div class="collapse" id="details-{{ v[0].category_html_id }}">
+            <div class="collapse mt-2" id="details-{{ v[0].category_html_id }}">
                 {% for doc in v %}
                 <div class="doc-box" id="{{ doc.doc_html_id }}">
                     <div class="row">
@@ -158,6 +159,14 @@
                                             </a>
                                         </li>
                                         {% endif %}
+                                        {% if doc.space_complexity or doc.time_complexity %}
+                                        <li class="nav-item ml-3">
+                                            <a class="nav-link" data-toggle="tab"
+                                               href="#analysis-{{ doc.doc_html_id }}">
+                                                <b>Analysis</b>
+                                            </a>
+                                        </li>
+                                        {% endif %}
                                     </ul>
                                     <div class="tab-content tab-box">
                                         <div id="desc-{{ doc.doc_html_id }}" class="tab-pane active">
@@ -187,6 +196,49 @@
                                             <!--        </svg>-->
                                             <!--    </div>-->
                                             <pre>{{ doc.py_code }}</pre>
+                                        </div>
+                                        {% endif %}
+                                        {% if doc.space_complexity or doc.time_complexity %}
+                                        <div id="analysis-{{ doc.doc_html_id }}" class="tab-pane fade">
+                                            {% if doc.space_complexity %}
+                                            {% set complexity = doc.space_complexity %}
+                                            <b>Space Complexity:</b><br>
+                                            <table class="table table-sm table-striped">
+                                                <tr>
+                                                    <td>Best Case</td>
+                                                    <td>{{ complexity.best }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Average Case</td>
+                                                    <td>{{ complexity.average }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Worst Case</td>
+                                                    <td>{{ complexity.worst }}</td>
+                                                </tr>
+                                            </table>
+                                            {% endif %}
+
+                                            {% if doc.space_complexity and doc.time_complexity %}<br>{% endif %}
+
+                                            {% if doc.time_complexity %}
+                                            {% set complexity = doc.time_complexity %}
+                                            <b>Time Complexity:</b><br>
+                                            <table class="table table-sm table-striped">
+                                                <tr>
+                                                    <td>Best Case</td>
+                                                    <td>{{ complexity.best }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Average Case</td>
+                                                    <td>{{ complexity.average }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Worst Case</td>
+                                                    <td>{{ complexity.worst }}</td>
+                                                </tr>
+                                            </table>
+                                            {% endif %}
                                         </div>
                                         {% endif %}
                                     </div>
@@ -252,8 +304,9 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="request-box">
-                                    <b>{{ doc.method }} &nbsp;&nbsp;&nbsp;
-                                        <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a></b>
+                                    <b>
+                                        {{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a>
+                                    </b>
                                     <br><br>
                                     <span class="section-heading">Sample Request:</span><br>
                                     <b>{{ doc.method }} &nbsp;&nbsp;&nbsp; {{ doc.sample_request_url }}</b><br>
