@@ -65,7 +65,6 @@ def searching_docs():
             name="Linear Search",
             description="Searches element in a list of elements",
             endpoint=prog_root + "/search-linear",
-            sample_request_url=prog_root + "/search-linear",
             method="POST",
             inp_body=[
                 ReqponseBodyItem(
@@ -155,7 +154,6 @@ index = linear_search(arr, x)
             name="Binary Search",
             description="Searches element in a list of elements",
             endpoint=prog_root + "/search-binary",
-            sample_request_url=prog_root + "/search-binary",
             method="POST",
             inp_body=[
                 ReqponseBodyItem(

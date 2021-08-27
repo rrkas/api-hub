@@ -623,7 +623,7 @@ class BasicAlgorithms:
             else:
                 a = 0
                 b = 1
-                c = 0
+                c = None
                 for _ in range(2, n):
                     c = a + b
                     a, b = b, c
@@ -633,6 +633,7 @@ class BasicAlgorithms:
 
     @staticmethod
     def palindrome(n):
+        n = str(n)
         try:
             return n == n[::-1], False
         except BaseException as e:
@@ -674,7 +675,7 @@ class AdvancedAlgorithms:
 
     # greedy algos
     @staticmethod
-    def fractional_knapsack(weighs, vals, capacity):
+    def knapsack_fractional(weighs, vals, capacity):
         if capacity < 0:
             return "capacity less than 0!", True
         elif capacity == 0:
@@ -877,3 +878,25 @@ class AdvancedAlgorithms:
         board = [[0 for _ in range(n)] for __ in range(n)]
         solve_nq_util(board, 0)
         return {"n": n, "board": format_board(board)}
+
+    @staticmethod
+    def knapsack_01(capacity, weighs, vals):
+        def knapSack(W, wt, val, n):
+            K = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
+            for i in range(n + 1):
+                for w in range(W + 1):
+                    if i == 0 or w == 0:
+                        K[i][w] = 0
+                    elif wt[i - 1] <= w:
+                        K[i][w] = max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w])
+                    else:
+                        K[i][w] = K[i - 1][w]
+            return K[n][W]
+
+        res = knapSack(capacity, weighs, vals, len(weighs))
+        return {
+            "capacity": capacity,
+            "weighs": weighs,
+            "vals": vals,
+            "result": res,
+        }

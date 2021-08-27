@@ -228,7 +228,6 @@ def sorting_docs():
             name="Bubble Sort",
             description="Sorts array of integers, float/double using bubble sort algorithm.",
             endpoint=prog_root + "/sort-bubble",
-            sample_request_url=prog_root + "/sort-bubble",
             args=None,
             method="POST",
             inp_body=[
@@ -291,7 +290,6 @@ for i in range(n):
             name="Insertion Sort",
             description="Sorts array of integers, float/double using insertion sort algorithm.",
             endpoint=prog_root + "/sort-insertion",
-            sample_request_url=prog_root + "/sort-insertion",
             args=None,
             method="POST",
             inp_body=[
@@ -357,7 +355,6 @@ for i in range(len(arr)):
             name="Selection Sort",
             description="Sorts array of integers, float/double using selection sort algorithm.",
             endpoint=prog_root + "/sort-selection",
-            sample_request_url=prog_root + "/sort-selection",
             args=None,
             method="POST",
             inp_body=[
@@ -425,7 +422,6 @@ for i in range(1, len(arr)):
             name="Merge Sort",
             description="Sorts array of integers, float/double using merge sort algorithm.",
             endpoint=prog_root + "/sort-merge",
-            sample_request_url=prog_root + "/sort-merge",
             args=None,
             method="POST",
             inp_body=[
@@ -515,7 +511,6 @@ mergeSort(arr, 0, len(arr) - 1)
             name="Quick Sort",
             description="Sorts array of integers, float/double using quick sort algorithm.",
             endpoint=prog_root + "/sort-quick",
-            sample_request_url=prog_root + "/sort-quick",
             args=None,
             method="POST",
             inp_body=[

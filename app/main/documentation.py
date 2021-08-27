@@ -25,4 +25,7 @@ def get_docs():
             subjects[doc.subject][doc.category] = [doc]
         else:
             subjects[doc.subject][doc.category].append(doc)
+    for subject, categories in subjects.items():
+        for category, doc_list in categories.items():
+            doc_list.sort(key=lambda x: x.name)
     return subjects

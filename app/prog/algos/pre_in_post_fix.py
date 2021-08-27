@@ -193,7 +193,6 @@ def pre_in_post_docs():
             name="Infix to Prefix",
             method="POST",
             endpoint=prog_root + "/infix-to-prefix",
-            sample_request_url=prog_root + "/infix-to-prefix",
             description="Converts infix expression to prefix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -251,7 +250,6 @@ opening bracket in the stack.",
             name="Infix to Postfix",
             method="POST",
             endpoint=prog_root + "/infix-to-postfix",
-            sample_request_url=prog_root + "/infix-to-postfix",
             description="Converts infix expression to postfix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -299,7 +297,6 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
             name="Prefix to Infix",
             method="POST",
             endpoint=prog_root + "/prefix-to-infix",
-            sample_request_url=prog_root + "/prefix-to-infix",
             description="Converts prefix expression to infix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -339,7 +336,6 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
             name="Postfix to Infix",
             method="POST",
             endpoint=prog_root + "/postfix-to-infix",
-            sample_request_url=prog_root + "/postfix-to-infix",
             description="Converts postfix expression to infix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -377,7 +373,6 @@ and add it to the result.",
             name="Prefix to Postfix",
             method="POST",
             endpoint=prog_root + "/prefix-to-postfix",
-            sample_request_url=prog_root + "/prefix-to-postfix",
             description="Converts prefix expression to postfix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -410,7 +405,6 @@ and add it to the result.",
             name="Postfix to Prefix",
             method="POST",
             endpoint=prog_root + "/postfix-to-prefix",
-            sample_request_url=prog_root + "/postfix-to-prefix",
             description="Converts postfix expression to prefix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -450,7 +444,6 @@ and add it to the result.",
             name="Evaluate Prefix",
             method="POST",
             endpoint=prog_root + "/evaluate-prefix",
-            sample_request_url=prog_root + "/evaluate-prefix",
             description="Evaluates prefix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -500,7 +493,6 @@ in the expression.",
             name="Evaluate Postfix",
             method="POST",
             endpoint=prog_root + "/evaluate-postfix",
-            sample_request_url=prog_root + "/evaluate-postfix",
             description="Evaluates postfix expression",
             inp_body=[
                 ReqponseBodyItem(

@@ -69,10 +69,10 @@ class ReqponseBodyItem:
     TYPE_STR = "string"
     TYPE_BOOL = "boolean"
 
-    def __init__(self, key: str, desc: str, types: list, optional: bool = False):
+    def __init__(self, key: str, desc: str, types: list = None, optional: bool = False):
         self.key = key
         self.desc = desc
-        self.types = types
+        self.types = types or ["any (string preferred)"]
         self.required = not optional
 
 
@@ -97,7 +97,7 @@ class Documentation:
         sample_inp_body: dict = None,
         out_body: List[ReqponseBodyItem] = None,
         sample_out_body: dict = None,
-        sample_request_url: dict = None,
+        sample_request_url: str = None,
         steps: List[str] = None,
         theory: str = None,
         py_code: str = None,
@@ -124,7 +124,7 @@ class Documentation:
             if sample_out_body
             else None
         )
-        self.sample_request_url = sample_request_url
+        self.sample_request_url = sample_request_url or endpoint
         self.category_html_id = (
             self.subject.replace(" ", "-") + "-" + self.category.replace(" ", "-")
         ).lower()

@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="collapse mt-2 ml-3 mr-3" id="index">
-        <table class="table table-hover table-sm">
+        <table class="table table-hover table-sm table-nonfluid">
             <thead class="thead-light">
             <tr>
                 <th>Subject</th>
@@ -96,15 +96,14 @@
     {% for k,v in sv.items() %}
     <div id="{{ v[0].category_html_id }}">
         <div class="category-box">
-            <div class="row">
+            <div class="row" data-toggle="collapse" data-target="#details-{{ v[0].category_html_id }}">
                 <div class="col-12">
                     <div style="display:flex;">
                         <span class="category-heading mr-auto">
                             {{ k }}
                         </span>
                         <span class="mt-auto mb-auto btn btn-primary dropdown-toggle"
-                              style="margin-right: 10px"
-                              data-toggle="collapse" data-target="#details-{{ v[0].category_html_id }}">
+                              style="margin-right: 10px">
                             Details
                         </span>
                     </div>
@@ -114,13 +113,12 @@
             <div class="collapse mt-2" id="details-{{ v[0].category_html_id }}">
                 {% for doc in v %}
                 <div class="doc-box" id="{{ doc.doc_html_id }}">
-                    <div class="row">
+                    <div class="row" data-toggle="collapse" data-target="#details-{{ doc.doc_html_id }}">
                         <div class="col-12" style="display:flex;">
                             <span class="doc-name mr-auto">
                                 {{ doc.name }}
                             </span>
-                            <span class="mt-auto mb-auto btn btn-warning dropdown-toggle"
-                                  data-toggle="collapse" data-target="#details-{{ doc.doc_html_id }}">
+                            <span class="mt-auto mb-auto btn btn-warning dropdown-toggle">
                                 Details
                             </span>
                         </div>
@@ -170,11 +168,11 @@
                                     </ul>
                                     <div class="tab-content tab-box">
                                         <div id="desc-{{ doc.doc_html_id }}" class="tab-pane active">
-                                            {{ doc.description }}
+                                            <pre>{{ doc.description }}</pre>
                                         </div>
                                         {% if doc.theory %}
                                         <div id="theory-{{ doc.doc_html_id }}" class="tab-pane fade">
-                                            {{ doc.theory }}
+                                            <pre>{{ doc.theory }}</pre>
                                         </div>
                                         {% endif %}
                                         {% if doc.steps %}
@@ -203,7 +201,7 @@
                                             {% if doc.space_complexity %}
                                             {% set complexity = doc.space_complexity %}
                                             <b>Space Complexity:</b><br>
-                                            <table class="table table-sm table-striped">
+                                            <table class="table table-hover table-sm table-nonfluid">
                                                 <tr>
                                                     <td>Best Case</td>
                                                     <td>{{ complexity.best }}</td>
@@ -224,7 +222,7 @@
                                             {% if doc.time_complexity %}
                                             {% set complexity = doc.time_complexity %}
                                             <b>Time Complexity:</b><br>
-                                            <table class="table table-sm table-striped">
+                                            <table class="table table-hover table-sm table-nonfluid">
                                                 <tr>
                                                     <td>Best Case</td>
                                                     <td>{{ complexity.best }}</td>
@@ -245,7 +243,8 @@
                                 </div>
                                 <br>
                                 <span class="section-heading">Request Body:</span><br>
-                                <table cellpadding="4" border="black">
+                                {% if doc.inp_body %}
+                                <table class="table table-hover table-sm table-nonfluid">
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
@@ -261,11 +260,14 @@
                                     </tr>
                                     {% endfor %}
                                 </table>
+                                {% else %}
+                                Not Required
+                                {% endif %}
                                 <br>
 
                                 <span class="section-heading">Request Args/ Params:</span><br>
                                 {% if doc.args %}
-                                <table cellpadding="4" border="black">
+                                <table class="table table-hover table-sm table-nonfluid">
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
@@ -284,7 +286,8 @@
                                 <br>
                                 <hr class="reqponse-divider">
                                 <span class="section-heading">Response Body:</span><br>
-                                <table cellpadding="4" border="black">
+                                {% if doc.out_body %}
+                                <table class="table table-hover table-sm table-nonfluid">
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
@@ -300,6 +303,9 @@
                                     </tr>
                                     {% endfor %}
                                 </table>
+                                {% else %}
+                                Not Required
+                                {% endif %}
                                 <br>
                             </div>
                             <div class="col-md-6 col-sm-12">

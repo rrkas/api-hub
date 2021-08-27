@@ -65,8 +65,13 @@ body{
     background-color: #ffffff;
     padding: 5px 5px 5px 5px;
 }
-.table td.fit,
-.table th.fit {
-    white-space: nowrap;
-    width: 1%;
+.table td,
+.table th {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.table-nonfluid {
+   width: auto !important;
 }

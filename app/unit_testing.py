@@ -101,7 +101,7 @@ class TestImplementations(unittest.TestCase):
 
     def test_knapsack_fractional(self):
         self.assertAlmostEqual(
-            AdvancedAlgorithms.fractional_knapsack(
+            AdvancedAlgorithms.knapsack_fractional(
                 [10, 40, 20, 30], [60, 40, 100, 120], 50
             )[0],
             240,

@@ -36,7 +36,7 @@ def prog_knapsack_fractional():
     except:
         response["error"] = type_error_message([1, 1.0], capacity)
         return response
-    res, err = AdvancedAlgorithms.fractional_knapsack(weighs, vals, capacity)
+    res, err = AdvancedAlgorithms.knapsack_fractional(weighs, vals, capacity)
     if err:
         response["error"] = res
     else:
@@ -162,3 +162,9 @@ def prog_n_queens():
     except:
         return {"n": n, "error": type_error_message([1], n)}
     return AdvancedAlgorithms.n_queens(n)
+
+
+def advanced_docs():
+    subject = "Programming"
+    category = "Advanced Algorithms"
+    return []
