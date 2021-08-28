@@ -2,7 +2,7 @@ from flask import request
 
 from app.prog.routes import prog_bp, prog_root
 from . import Sort, Documentation, ReqponseBodyItem, ComplexityAnalysis
-from ...util import type_error_message, get_value_form_json
+from ...util import get_value_form_json
 
 
 @prog_bp.route(prog_root + "/sort-bubble", methods=["POST"])
@@ -18,11 +18,11 @@ def prog_sort_bubble():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.bubble_sort(arr)
     return res.json()
 
@@ -40,11 +40,11 @@ def prog_sort_insertion():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.insertion_sort(arr)
     return res.json()
 
@@ -62,11 +62,11 @@ def prog_sort_selection():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.selection_sort(arr)
     return res.json()
 
@@ -84,11 +84,11 @@ def prog_sort_merge():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.merge_sort(arr)
     return res.json()
 
@@ -106,11 +106,11 @@ def prog_sort_quick():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.quick_sort(arr)
     return res.json()
 
@@ -128,8 +128,8 @@ def prog_sort_counting():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
-        return {"arr": arr, "error": type_error_message([1], arr)}
+    except BaseException as e1:
+        return {"arr": arr, "error": str(e1)}
     res = Sort.counting_sort(arr)
     return res.json()
 
@@ -147,8 +147,8 @@ def prog_sort_radix():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
-        return {"arr": arr, "error": type_error_message([1], arr)}
+    except BaseException as e1:
+        return {"arr": arr, "error": str(e1)}
     res = Sort.radix_sort(arr)
     return res.json()
 
@@ -163,13 +163,11 @@ def prog_sort_bucket():
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        return {"arr": arr, "error": "please separate numbers using spaces!"}
     try:
         arr = list(map(float, arr.split()))
-        if any([i >= 1 for i in arr]):
-            raise TypeError("")
-    except BaseException:
-        return {"arr": " ".join(map(str, arr)), "error": type_error_message([1.0], arr)}
+    except BaseException as e:
+        return {"arr": arr, "error": str(e)}
     res = Sort.bucket_sort(arr)
     return res.json()
 
@@ -187,11 +185,11 @@ def prog_sort_heap():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.heap_sort(arr)
     return res.json()
 
@@ -209,11 +207,11 @@ def prog_sort_shell():
         return {"error": "please separate numbers using spaces!"}
     try:
         arr = list(map(int, arr.split()))
-    except BaseException:
+    except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
-        except BaseException:
-            return {"arr": arr, "error": type_error_message([1, 1.0], arr)}
+        except BaseException as e2:
+            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
     res = Sort.shell_sort(arr)
     return res.json()
 
@@ -260,7 +258,6 @@ def sorting_docs():
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -324,7 +321,6 @@ for i in range(n):
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -389,7 +385,6 @@ for i in range(len(arr)):
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -456,7 +451,6 @@ for i in range(1, len(arr)):
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -545,7 +539,6 @@ mergeSort(arr, 0, len(arr) - 1)
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -582,5 +575,401 @@ quickSort(arr, 0, len(arr) - 1)
                     """,
             time_complexity=ComplexityAnalysis("n*(log n)", "n*(log n)", "n*n"),
             space_complexity=ComplexityAnalysis("log n", "log n", "log n"),
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Counting Sort",
+            description="Sorts array of integers using counting sort algorithm.",
+            endpoint=prog_root + "/sort-counting",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Counting Sort",
+                "arr": "15 12 1 0 8 9 4",
+                "result": "0 1 4 8 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="Counting sort is a sorting technique based on keys between a specific range. It works by counting \
+the number of objects having distinct key values (kind of hashing). Then doing some arithmetic to calculate the \
+position of each object in the output sequence",
+            py_code="""
+def countingSort(array):
+    size = len(array)
+    output = [0] * size
+    count = [0] * (max(array) + 1)
+    for i in array:
+        count[i] += 1
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    i = size - 1
+    while i >= 0:
+        output[count[array[i]] - 1] = array[i]
+        count[array[i]] -= 1
+        i -= 1
+    for i in range(size):
+        array[i] = output[i]
+
+countingSort(arr)
+            """,
+            time_complexity=ComplexityAnalysis("n+k", "n+k", "n+k"),
+            space_complexity=ComplexityAnalysis("max", "max", "max"),
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Radix Sort",
+            description="Sorts array of integers using radix sort algorithm.",
+            endpoint=prog_root + "/sort-radix",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Radix Sort",
+                "arr": "15 12 1 0 8 9 4",
+                "result": "0 1 4 8 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="The idea of Radix Sort is to do digit by digit sort starting from least significant digit to most \
+significant digit. Radix sort uses counting sort as a subroutine to sort.",
+            py_code="""
+def countingSort(array, place):
+    size = len(array)
+    output = [0] * size
+    count = [0] * 10
+    for i in range(0, size):
+        index = array[i] // place
+        count[index % 10] += 1
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+    i = size - 1
+    while i >= 0:
+        index = array[i] // place
+        output[count[index % 10] - 1] = array[i]
+        count[index % 10] -= 1
+        i -= 1
+    for i in range(0, size):
+        array[i] = output[i]
+
+def radixSort(array):
+    max_element = max(array)
+    place = 1
+    while max_element // place > 0:
+        countingSort(array, place)
+        place *= 10
+
+radixSort(arr)
+            """,
+            time_complexity=ComplexityAnalysis("n+k", "n+k", "n+k"),
+            space_complexity=ComplexityAnalysis("max", "max", "max"),
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Bucket Sort",
+            description="Sorts array of float/double using bucket sort algorithm.",
+            endpoint=prog_root + "/sort-bucket",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Radix Sort",
+                "arr": "15 12 1 0 8 9 4",
+                "result": "0 1 4 8 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="Bucket sort, or bin sort, is a sorting algorithm that works by distributing the elements of an \
+array into a number of buckets. Each bucket is then sorted individually, either using a different sorting algorithm, \
+or by recursively applying the bucket sorting algorithm.",
+            py_code="""
+def bucketSort(arr, noOfBuckets):
+    max_ele = max(arr)
+    min_ele = min(arr)
+    slot_size = (max_ele - min_ele) / noOfBuckets
+    temp = []
+    for i in range(noOfBuckets):
+        temp.append([])
+    for i in range(len(arr)):
+        diff = (arr[i] - min_ele) / slot_size - int((arr[i] - min_ele) / slot_size)
+        if diff == 0 and arr[i] != min_ele:
+            temp[int((arr[i] - min_ele) / slot_size) - 1].append(arr[i])
+        else:
+            temp[int((arr[i] - min_ele) / slot_size)].append(arr[i])
+    for i in range(len(temp)):
+        if len(temp[i]) != 0:
+            temp[i].sort()
+    k = 0
+    for lst in temp:
+        if lst:
+            for i in lst:
+                arr[k] = i
+                k = k + 1
+
+bucketSort(arr, 5)
+            """,
+            time_complexity=ComplexityAnalysis("n+k", "n+k", "n+k"),
+            space_complexity=ComplexityAnalysis("max", "max", "max"),
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Heap Sort",
+            description="Sorts array of integers, float/double using heap sort algorithm.",
+            endpoint=prog_root + "/sort-heap",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Heap Sort",
+                "arr": "15 12 1 0 8 9 4",
+                "result": "0 1 4 8 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="Heap sort is a comparison-based sorting technique based on Binary Heap data structure. It is \
+similar to selection sort where we first find the minimum element and place the minimum element at the beginning. We \
+repeat the same process for the remaining elements.",
+            py_code="""
+def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < n and arr[i] < arr[l]:
+        largest = l
+    if r < n and arr[largest] < arr[r]:
+        largest = r
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heapSort(arr):
+    n = len(arr)
+    for i in range(n // 2, -1, -1):
+        heapify(arr, n, i)
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+
+heapSort(arr)
+            """,
+            time_complexity=ComplexityAnalysis("n*(log n)", "n*(log n)", "n*(log n)"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Heap Sort",
+            description="Sorts array of integers, float/double using heap sort algorithm.",
+            endpoint=prog_root + "/sort-heap",
+            args=None,
+            method="POST",
+            inp_body=[
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    "algorithm",
+                    "name of algorithm used",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "arr",
+                    "space separated numbers (input)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "result",
+                    "space separated numbers (output)",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "time_taken",
+                    "time taken (milliseconds) to complete the algorithm",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    "error",
+                    "error message",
+                    [ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "arr": "15 12 1 0 8 9 4",
+            },
+            sample_out_body={
+                "algorithm": "Shell Sort",
+                "arr": "15 12 1 0 8 9 4",
+                "result": "0 1 4 8 9 12 15",
+                "time_taken": "0 milliseconds",
+            },
+            theory="Shell sort is a generalized version of the insertion sort algorithm. It first sorts elements that \
+are far apart from each other and successively reduces the interval between the elements to be sorted. The interval \
+between the elements is reduced based on the sequence used.",
+            py_code="""
+def shellSort(array):
+    n = len(array)
+    interval = n // 2
+    while interval > 0:
+        for i in range(interval, n):
+            temp = array[i]
+            j = i
+            while j >= interval and array[j - interval] > temp:
+                array[j] = array[j - interval]
+                j -= interval
+            array[j] = temp
+        interval //= 2
+
+shellSort(arr)
+            """,
+            time_complexity=ComplexityAnalysis("n*(log n)", "n*n", "n*(log n)"),
+            space_complexity=ComplexityAnalysis(1, 1, 1),
         ),
     ]

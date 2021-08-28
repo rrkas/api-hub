@@ -23,18 +23,18 @@ def prog_knapsack_fractional():
     }
     try:
         weighs = list(map(float, weighs.split()))
-    except:
-        response["error"] = type_error_message([1, 1.0], weighs)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
     try:
         vals = list(map(float, vals.split()))
-    except:
-        response["error"] = type_error_message([1, 1.0], vals)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
     try:
         capacity = float(capacity)
-    except:
-        response["error"] = type_error_message([1, 1.0], capacity)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
     res, err = AdvancedAlgorithms.knapsack_fractional(weighs, vals, capacity)
     if err:
@@ -61,13 +61,13 @@ def prog_activity_selection():
     }
     try:
         starts = list(map(int, starts.split()))
-    except:
-        response["error"] = type_error_message([1], starts)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
     try:
         ends = list(map(int, ends.split()))
-    except:
-        response["error"] = type_error_message([1], ends)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
 
     res, err = AdvancedAlgorithms.activity_selection(starts, ends)
@@ -95,13 +95,13 @@ def prog_job_sequencing():
     }
     try:
         starts = list(map(int, starts.split()))
-    except:
-        response["error"] = type_error_message([1], starts)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
     try:
         ends = list(map(int, ends.split()))
-    except:
-        response["error"] = type_error_message([1], ends)
+    except BaseException as e:
+        response["error"] = str(e)
         return response
 
     res, err = AdvancedAlgorithms.activity_selection(starts, ends)
@@ -159,8 +159,8 @@ def prog_n_queens():
     n = get_value_form_json(expr_keys[0])
     try:
         n = int(n)
-    except:
-        return {"n": n, "error": type_error_message([1], n)}
+    except BaseException as e:
+        return {"n": n, "error": str(e)}
     return AdvancedAlgorithms.n_queens(n)
 
 

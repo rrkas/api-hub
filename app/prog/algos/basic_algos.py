@@ -97,62 +97,6 @@ def prog_fibonacci():
     }
 
 
-@prog_bp.route(prog_root + "/strong-number", methods=["POST"])
-def prog_strong_number():
-    algo = "Strong Number"
-    expr_key = "num"
-    if (
-        expr_key not in request.form.keys()
-        and expr_key not in (request.json or {}).keys()
-    ):
-        return {"error": f"{expr_key} missing in body!"}
-    inp = get_value_form_json(expr_key)
-    try:
-        inp = int(inp)
-        out, err = BasicAlgorithms.strong_number(inp)
-        if err:
-            return {
-                "inp": inp,
-                "algo": "factors",
-                "error": out,
-            }
-    except BaseException as e:
-        return {"error": str(e)}
-    return {
-        "inp": inp,
-        "out": out,
-        "algo": algo,
-    }
-
-
-@prog_bp.route(prog_root + "/armstrong-number", methods=["POST"])
-def prog_armstrong_number():
-    algo = "Armstrong Number"
-    expr_key = "num"
-    if (
-        expr_key not in request.form.keys()
-        and expr_key not in (request.json or {}).keys()
-    ):
-        return {"error": f"{expr_key} missing in body!"}
-    inp = get_value_form_json(expr_key)
-    try:
-        inp = int(inp)
-        out, err = BasicAlgorithms.armstrong_number(inp)
-        if err:
-            return {
-                "inp": inp,
-                "algo": "factors",
-                "error": out,
-            }
-    except BaseException as e:
-        return {"error": str(e)}
-    return {
-        "inp": inp,
-        "out": out,
-        "algo": algo,
-    }
-
-
 @prog_bp.route(prog_root + "/palindrome", methods=["POST"])
 def prog_palindrome():
     algo = "Palindrome"
@@ -175,6 +119,62 @@ def prog_palindrome():
         return {"inp": inp, "error": str(e)}
     return {
         "inp": inp,
+        "out": out,
+        "algo": algo,
+    }
+
+
+@prog_bp.route(prog_root + "/strong-number", methods=["POST"])
+def prog_strong_number():
+    algo = "Strong Number"
+    expr_key = "n"
+    if (
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
+    ):
+        return {"error": f"{expr_key} missing in body!"}
+    inp = get_value_form_json(expr_key)
+    try:
+        inp = int(inp)
+        out, err = BasicAlgorithms.strong_number(inp)
+        if err:
+            return {
+                "n": inp,
+                "algo": algo,
+                "error": out,
+            }
+    except BaseException as e:
+        return {"n": inp, "error": str(e)}
+    return {
+        "n": inp,
+        "out": out,
+        "algo": algo,
+    }
+
+
+@prog_bp.route(prog_root + "/armstrong-number", methods=["POST"])
+def prog_armstrong_number():
+    algo = "Armstrong Number"
+    expr_key = "n"
+    if (
+        expr_key not in request.form.keys()
+        and expr_key not in (request.json or {}).keys()
+    ):
+        return {"error": f"{expr_key} missing in body!"}
+    inp = get_value_form_json(expr_key)
+    try:
+        inp = int(inp)
+        out, err = BasicAlgorithms.armstrong_number(inp)
+        if err:
+            return {
+                "n": inp,
+                "algo": algo,
+                "error": out,
+            }
+    except BaseException as e:
+        return {"n": inp, "error": str(e)}
+    return {
+        "n": inp,
         "out": out,
         "algo": algo,
     }
@@ -218,7 +218,6 @@ def basic_docs():
                     key="error",
                     desc="Error message",
                     types=[ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -269,7 +268,6 @@ def fact(n):
                     key="error",
                     desc="Error message",
                     types=[ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -321,7 +319,6 @@ def factors(n):
                     key="error",
                     desc="Error message",
                     types=[ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -367,7 +364,8 @@ def fibo(n):
             out_body=[
                 ReqponseBodyItem(
                     key="inp",
-                    desc="element (Input)",
+                    desc="element (Input) (modified)",
+                    types=[ReqponseBodyItem.TYPE_STR],
                 ),
                 ReqponseBodyItem(
                     key="algo",
@@ -381,7 +379,6 @@ def fibo(n):
                     key="error",
                     desc="Error message",
                     types=[ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -400,5 +397,122 @@ def palin(n):
             time_complexity=ComplexityAnalysis("n", "n", "n"),
             space_complexity=ComplexityAnalysis(1, 1, 1),
             theory="Element and its reverse are equal.",
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Strong Number",
+            endpoint=prog_root + "/strong-number",
+            method="POST",
+            description="Checks if an element is strong number or not.",
+            inp_body=[
+                ReqponseBodyItem(
+                    key="n",
+                    desc="number",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    key="n",
+                    desc="number (Input)",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                ),
+                ReqponseBodyItem(
+                    key="algo",
+                    desc="Algo name",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="out", desc="result", types=[ReqponseBodyItem.TYPE_BOOL]
+                ),
+                ReqponseBodyItem(
+                    key="error",
+                    desc="Error message",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "n": 145,
+            },
+            sample_out_body={"algo": "Strong Number", "n": 145, "out": True},
+            py_code="""
+def is_strong(n):
+    s = 0
+    t = n
+    while t > 0:
+        d = t % 10
+        f = 1
+        for i in range(1, d + 1):
+            f *= i
+        s += f
+        t //= 10
+    return s == n
+""",
+            theory="""Sum of Factorial of digits of number = number itself.
+Example: 145
+1! + 4! + 5! 
+= 1 + 24 + 120 
+= 145
+            """,
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Armstrong Number",
+            endpoint=prog_root + "/armstrong-number",
+            method="POST",
+            description="Checks if an element is armstrong number or not.",
+            inp_body=[
+                ReqponseBodyItem(
+                    key="n",
+                    desc="number",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                )
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    key="n",
+                    desc="number (Input)",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                ),
+                ReqponseBodyItem(
+                    key="algo",
+                    desc="Algo name",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="out", desc="result", types=[ReqponseBodyItem.TYPE_BOOL]
+                ),
+                ReqponseBodyItem(
+                    key="error",
+                    desc="Error message",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={
+                "n": 153,
+            },
+            sample_out_body={
+                "algo": "Armstrong Number",
+                "n": 153,
+                "out": True,
+            },
+            py_code="""
+def is_strong(n):
+    s = 0
+    t = n
+    while t > 0:
+        d = t % 10
+        s += d ** 3
+        t //= 10
+    return s == n
+    """,
+            theory="""Sum of Cube of digits of number = number itself.
+Example: 153
+1^3 + 5^3 + 3^3 
+= 1 + 125 + 27
+= 153
+                """,
         ),
     ]

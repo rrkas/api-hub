@@ -19,7 +19,7 @@ class ProgAlgoTheory:
 
 class ProgSort:
     def __init__(self, inp=(), algo="", err=False):
-        self.inp = inp
+        self.arr = inp
         self.result = []
         self.time_taken = 0
         self.algo = algo
@@ -29,12 +29,12 @@ class ProgSort:
         if self.err:
             return {
                 "algorithm": self.algo,
-                "arr": " ".join(map(str, self.inp)),
+                "arr": " ".join(map(str, self.arr)),
                 "error": self.err,
             }
         return {
             "algorithm": self.algo,
-            "arr": " ".join(map(str, self.inp)),
+            "arr": " ".join(map(str, self.arr)),
             "result": " ".join(map(str, self.result)),
             "time_taken": f"{self.time_taken} milliseconds",
         }
@@ -136,7 +136,7 @@ class Documentation:
             + self.name.replace(" ", "-")
         ).lower()
         self.steps = steps
-        self.theory = theory
+        self.theory = theory.strip() if theory else None
         self.py_code = py_code.strip() if isinstance(py_code, str) else py_code
         self.additional_info = additional_info
         self.space_complexity = space_complexity

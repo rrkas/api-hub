@@ -3,7 +3,7 @@ from flask import request
 from app.prog.routes import prog_bp, prog_root
 from . import Search
 from ...models import Documentation, ReqponseBodyItem, ComplexityAnalysis
-from ...util import type_error_message, get_value_form_json
+from ...util import get_value_form_json
 
 
 @prog_bp.route(prog_root + "/search-linear", methods=["POST"])
@@ -32,25 +32,27 @@ def prog_search_binary():
         return {"error": "please separate numbers using spaces!"}
     try:
         inp = list(map(int, inp.split()))
-    except:
+    except BaseException as e1:
         try:
             inp = list(map(float, inp.split()))
-        except:
-            return {
-                "error": type_error_message([1, 1.0], inp.split()[0], arg=expr_keys[0])
-            }
+        except BaseException as e2:
+            return {"arr": inp, "error": str(e1) + "; " + str(e2)}
     x = get_value_form_json(expr_keys[1])
     try:
         x = int(x)
         if not isinstance(inp[0], int):
-            return {"error": type_error_message([inp[0]], x, arg=expr_keys[1])}
-    except:
+            return {
+                "error": f"type of array elements dont match type of {expr_keys[1]}"
+            }
+    except BaseException as e1:
         try:
             x = float(x)
             if not isinstance(inp[0], float):
-                return {"error": type_error_message([inp[0]], x, arg=expr_keys[1])}
-        except:
-            return {"error": type_error_message([1, 1.0], x, arg=expr_keys[1])}
+                return {
+                    "error": f"type of array elements dont match type of {expr_keys[1]}"
+                }
+        except BaseException as e2:
+            return {"error": str(e1) + "; " + str(e2)}
     res = Search.binary_search(inp, x)
     return res.json()
 
@@ -121,7 +123,6 @@ def searching_docs():
                     "index",
                     "index of element in list",
                     [ReqponseBodyItem.TYPE_INT],
-                    optional=True,
                 ),
             ],
             sample_inp_body={
@@ -206,7 +207,6 @@ index = linear_search(arr, x)
                     "index",
                     "index of element in list",
                     [ReqponseBodyItem.TYPE_INT],
-                    optional=True,
                 ),
             ],
             sample_inp_body={

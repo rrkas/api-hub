@@ -22,7 +22,7 @@ def csv_gen_route():
             count = int(request.args["count"])
         except BaseException as e:
             print(e)
-            return {"error": "count not integer!"}
+            return {"error": str(e)}
         data = {
             "schema": schema,
             "count": count,

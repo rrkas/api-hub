@@ -211,7 +211,6 @@ def pre_in_post_docs():
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result", "prefix expression (output)", [ReqponseBodyItem.TYPE_STR]
@@ -264,7 +263,6 @@ opening bracket in the stack.",
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result", "postfix expression (output)", [ReqponseBodyItem.TYPE_STR]
@@ -311,7 +309,6 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result", "infix expression (output)", [ReqponseBodyItem.TYPE_STR]
@@ -389,7 +386,6 @@ and add it to the result.",
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result", "postfix expression (output)", [ReqponseBodyItem.TYPE_STR]
@@ -423,7 +419,6 @@ and add it to the result.",
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result",
@@ -462,7 +457,6 @@ and add it to the result.",
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result",
@@ -511,7 +505,6 @@ in the expression.",
                     "error",
                     "error message",
                     [ReqponseBodyItem.TYPE_STR],
-                    optional=True,
                 ),
                 ReqponseBodyItem(
                     "result",

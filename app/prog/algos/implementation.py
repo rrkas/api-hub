@@ -352,7 +352,7 @@ class Sort:
         def countingSort(array):
             size = len(array)
             output = [0] * size
-            count = [0] * (max(array) + 2)
+            count = [0] * (max(array) + 1)
             for i in array:
                 count[i] += 1
             for i in range(1, len(count)):
@@ -426,34 +426,32 @@ class Sort:
 
         # start
 
-        def insertionSort(b):
-            for i in range(1, len(b)):
-                up = b[i]
-                j = i - 1
-                while j >= 0 and b[j] > up:
-                    b[j + 1] = b[j]
-                    j -= 1
-                b[j + 1] = up
-            return b
-
-        def bucketSort(x):
-            arr = []
-            slot_num = 10
-            for i in range(slot_num):
-                arr.append([])
-            for j in x:
-                index_b = int(slot_num * j)
-                arr[index_b].append(j)
-            for i in range(slot_num):
-                arr[i] = insertionSort(arr[i])
+        def bucketSort(arr, noOfBuckets):
+            max_ele = max(arr)
+            min_ele = min(arr)
+            slot_size = (max_ele - min_ele) / noOfBuckets
+            temp = []
+            for i in range(noOfBuckets):
+                temp.append([])
+            for i in range(len(arr)):
+                diff = (arr[i] - min_ele) / slot_size - int(
+                    (arr[i] - min_ele) / slot_size
+                )
+                if diff == 0 and arr[i] != min_ele:
+                    temp[int((arr[i] - min_ele) / slot_size) - 1].append(arr[i])
+                else:
+                    temp[int((arr[i] - min_ele) / slot_size)].append(arr[i])
+            for i in range(len(temp)):
+                if len(temp[i]) != 0:
+                    temp[i].sort()
             k = 0
-            for i in range(slot_num):
-                for j in range(len(arr[i])):
-                    x[k] = arr[i][j]
-                    k += 1
-            return x
+            for lst in temp:
+                if lst:
+                    for i in lst:
+                        arr[k] = i
+                        k = k + 1
 
-        bucketSort(arr)
+        bucketSort(arr, 5)
 
         # end
         end = datetime.now()

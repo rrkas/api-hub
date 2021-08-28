@@ -172,7 +172,11 @@
                                         </div>
                                         {% if doc.theory %}
                                         <div id="theory-{{ doc.doc_html_id }}" class="tab-pane fade">
+                                            {% if '\n' in doc.theory %}
                                             <pre>{{ doc.theory }}</pre>
+                                            {% else %}
+                                            {{ doc.theory }}
+                                            {% endif %}
                                         </div>
                                         {% endif %}
                                         {% if doc.steps %}
@@ -245,12 +249,14 @@
                                 <span class="section-heading">Request Body:</span><br>
                                 {% if doc.inp_body %}
                                 <table class="table table-hover table-sm table-nonfluid">
+                                    <thead class="thead-dark">
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
                                         <th>data type(s)</th>
                                         <th>required</th>
                                     </tr>
+                                    </thead>
                                     {% for item in doc.inp_body %}
                                     <tr>
                                         <td>{{ item.key }}</td>
@@ -268,10 +274,12 @@
                                 <span class="section-heading">Request Args/ Params:</span><br>
                                 {% if doc.args %}
                                 <table class="table table-hover table-sm table-nonfluid">
+                                    <thead class="thead-dark">
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
                                     </tr>
+                                    </thead>
                                     {% for ak,av in doc.args.items() %}
                                     <tr>
                                         <td>{{ ak }}</td>
@@ -288,18 +296,18 @@
                                 <span class="section-heading">Response Body:</span><br>
                                 {% if doc.out_body %}
                                 <table class="table table-hover table-sm table-nonfluid">
+                                    <thead class="thead-dark">
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
                                         <th>data type(s)</th>
-                                        <th>required</th>
                                     </tr>
+                                    </thead>
                                     {% for item in doc.out_body %}
                                     <tr>
                                         <td>{{ item.key }}</td>
                                         <td>{{ item.desc }}</td>
                                         <td>{{ ', '.join(item.types) }}</td>
-                                        <td>{% if item.required %}{{ item.required }}{% endif %}</td>
                                     </tr>
                                     {% endfor %}
                                 </table>
@@ -311,7 +319,8 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="request-box">
                                     <b>
-                                        {{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint }}</a>
+                                        {{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint
+                                        }}</a>
                                     </b>
                                     <br><br>
                                     <span class="section-heading">Sample Request:</span><br>
