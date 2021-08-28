@@ -902,9 +902,9 @@ heapSort(arr)
         Documentation(
             subject=subject,
             category=category,
-            name="Heap Sort",
+            name="Shell Sort",
             description="Sorts array of integers, float/double using heap sort algorithm.",
-            endpoint=prog_root + "/sort-heap",
+            endpoint=prog_root + "/sort-shell",
             args=None,
             method="POST",
             inp_body=[
