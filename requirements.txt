@@ -6,6 +6,7 @@ gunicorn==20.1.0
 itsdangerous==2.0.1
 Jinja2==3.0.1
 MarkupSafe==2.0.1
+pyperclip==1.8.2
 python-dateutil==2.8.2
 six==1.16.0
 text-unidecode==1.3

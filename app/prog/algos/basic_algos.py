@@ -499,7 +499,7 @@ Example: 145
                 "out": True,
             },
             py_code="""
-def is_strong(n):
+def is_armstrong(n):
     s = 0
     t = n
     while t > 0:

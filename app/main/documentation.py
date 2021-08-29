@@ -15,6 +15,11 @@ def load_docs():
 load_docs()
 
 
+def find_doc_with_id(id):
+    t = [d for d in docs if d.doc_html_id == id]
+    return t[0] if len(t) > 0 else None
+
+
 def get_docs():
     subjects = OrderedDict()
     for doc in docs:
