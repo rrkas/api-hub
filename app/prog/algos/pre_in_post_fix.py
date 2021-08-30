@@ -14,12 +14,15 @@ def prog_infix_to_prefix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if not expr.isalnum() and " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.infix_to_prefix(expr)
     if err:
-        return {"expr": expr, "error": res}
-    return {"expr": expr, "result": res}
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/infix-to-postfix", methods=["POST"])
@@ -31,18 +34,15 @@ def prog_infix_to_postfix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if not expr.isalnum() and " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.infix_to_postfix(expr)
     if err:
-        return {
-            "expr": expr,
-            "error": res,
-        }
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/prefix-to-infix", methods=["POST"])
@@ -54,18 +54,15 @@ def prog_prefix_to_infix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if not expr.isalnum() and " " not in expr:
         return {"error": "please separate tokens using spaces!"}
     res, err = PrefixInfixPostfix.prefix_to_infix(expr)
     if err:
-        return {
-            "expr": expr,
-            "error": res,
-        }
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/postfix-to-infix", methods=["POST"])
@@ -77,18 +74,16 @@ def prog_postfix_to_infix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if not expr.isalnum() and " " not in expr:
-        return {"error": "please separate tokens using spaces!"}
+        data.update({"error": "please separate tokens using spaces!"})
+        return data
     res, err = PrefixInfixPostfix.postfix_to_infix(expr)
     if err:
-        return {
-            "expr": expr,
-            "error": res,
-        }
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/prefix-to-postfix", methods=["POST"])
@@ -100,24 +95,20 @@ def prog_prefix_to_postfix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if not expr.isalnum() and " " not in expr:
-        return {"error": "please separate tokens using spaces!"}
+        data.update({"error": "please separate tokens using spaces!"})
+        return data
     res, err = PrefixInfixPostfix.prefix_to_infix(expr)
     if err:
-        return {
-            "expr": expr,
-            "error": res,
-        }
+        data.update({"error": res})
+        return data
     res, err = PrefixInfixPostfix.infix_to_postfix(res)
     if err:
-        return {
-            "expr": expr,
-            "error": res,
-        }
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/postfix-to-prefix", methods=["POST"])
@@ -129,18 +120,21 @@ def prog_postfix_to_prefix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if not expr.isalnum() and " " not in expr:
-        return {"error": "please separate tokens using spaces!"}
+        data.update({"error": "please separate tokens using spaces!"})
+        return data
     res, err = PrefixInfixPostfix.postfix_to_infix(expr)
     if err:
-        return {"expr": expr, "error": res}
+        data.update({"error": res})
+        return data
     res, err = PrefixInfixPostfix.infix_to_prefix(res)
     if err:
-        return {"expr": expr, "error": res}
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+        return data
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/eval-prefix", methods=["POST"])
@@ -152,15 +146,16 @@ def prog_eval_prefix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if " " not in expr:
-        return {"error": "please separate tokens using spaces!"}
+        data.update({"error": "please separate tokens using spaces!"})
+        return data
     res, err = PrefixInfixPostfix.evaluate_prefix(expr)
     if err:
-        return {"expr": expr, "error": res}
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 @prog_bp.route(prog_root + "/eval-postfix", methods=["POST"])
@@ -172,15 +167,16 @@ def prog_eval_postfix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     expr = get_value_form_json(expr_key)
+    data = {"expr": expr}
     if " " not in expr:
-        return {"error": "please separate tokens using spaces!"}
+        data.update({"error": "please separate tokens using spaces!"})
+        return data
     res, err = PrefixInfixPostfix.evaluate_postfix(expr)
     if err:
-        return {"expr": expr, "error": res}
-    return {
-        "expr": expr,
-        "result": res,
-    }
+        data.update({"error": res})
+    else:
+        data.update({"result": res})
+    return data
 
 
 def pre_in_post_docs():
@@ -438,7 +434,7 @@ and add it to the result.",
             category=category,
             name="Evaluate Prefix",
             method="POST",
-            endpoint=prog_root + "/evaluate-prefix",
+            endpoint=prog_root + "/eval-prefix",
             description="Evaluates prefix expression",
             inp_body=[
                 ReqponseBodyItem(
@@ -486,7 +482,7 @@ in the expression.",
             category=category,
             name="Evaluate Postfix",
             method="POST",
-            endpoint=prog_root + "/evaluate-postfix",
+            endpoint=prog_root + "/eval-postfix",
             description="Evaluates postfix expression",
             inp_body=[
                 ReqponseBodyItem(

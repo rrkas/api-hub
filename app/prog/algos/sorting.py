@@ -14,15 +14,18 @@ def prog_sort_bubble():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.bubble_sort(arr)
     return res.json()
 
@@ -36,15 +39,18 @@ def prog_sort_insertion():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.insertion_sort(arr)
     return res.json()
 
@@ -58,15 +64,18 @@ def prog_sort_selection():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.selection_sort(arr)
     return res.json()
 
@@ -80,15 +89,18 @@ def prog_sort_merge():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.merge_sort(arr)
     return res.json()
 
@@ -102,15 +114,18 @@ def prog_sort_quick():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.quick_sort(arr)
     return res.json()
 
@@ -124,12 +139,18 @@ def prog_sort_counting():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
+        for i in arr:
+            if i < 0:
+                raise Exception(f"Only non negative numbers accepted; got {i}")
     except BaseException as e1:
-        return {"arr": arr, "error": str(e1)}
+        data.update({"error": str(e1)})
+        return data
     res = Sort.counting_sort(arr)
     return res.json()
 
@@ -143,12 +164,18 @@ def prog_sort_radix():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
+        for i in arr:
+            if i < 0:
+                raise Exception(f"Only non negative numbers accepted; got {i}")
     except BaseException as e1:
-        return {"arr": arr, "error": str(e1)}
+        data.update({"error": str(e1)})
+        return data
     res = Sort.radix_sort(arr)
     return res.json()
 
@@ -162,12 +189,15 @@ def prog_sort_bucket():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"arr": arr, "error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(float, arr.split()))
     except BaseException as e:
-        return {"arr": arr, "error": str(e)}
+        data.update({"error": str(e)})
+        return data
     res = Sort.bucket_sort(arr)
     return res.json()
 
@@ -181,15 +211,18 @@ def prog_sort_heap():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.heap_sort(arr)
     return res.json()
 
@@ -203,15 +236,18 @@ def prog_sort_shell():
     ):
         return {"error": f"{expr_key} missing in body!"}
     arr = get_value_form_json(expr_key)
+    data = {"arr": arr}
     if " " not in arr:
-        return {"error": "please separate numbers using spaces!"}
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
         arr = list(map(int, arr.split()))
     except BaseException as e1:
         try:
             arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": arr, "error": str(e1) + "; " + str(e2)}
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     res = Sort.shell_sort(arr)
     return res.json()
 

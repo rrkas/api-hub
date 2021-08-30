@@ -3,6 +3,7 @@ import os
 import pyperclip
 from flask import Blueprint, request, render_template, send_file, current_app, flash
 
+from app.config import conf
 from app.main.documentation import get_docs, find_doc_with_id
 from app.util import request_info
 
@@ -14,7 +15,11 @@ def home():
     data = request_info(request)
     docs = get_docs()
     return render_template(
-        "index.html", req=request_info(request), data=data, docs=docs
+        "index.html",
+        req=request_info(request),
+        data=data,
+        docs=docs,
+        conf=conf,
     )
 
 
@@ -29,7 +34,7 @@ def copy_py_code(html_id):
     if doc:
         pyperclip.copy(doc.py_code)
         return doc.name
-    return ''
+    return ""
 
 
 # ===================== error ==========================
@@ -43,6 +48,7 @@ def err_404(err):
         "message": "Page Not Found!",
         "full path": request.full_path,
         "path": request.path,
+        "method": request.method,
     }
 
 
@@ -60,7 +66,9 @@ def err_405(err):
 @main_bp.app_errorhandler(500)
 def err_500(err):
     return {
+        "url": request.url,
         "error-code": 500,
+        "method": request.method,
         "possible-solution": "Retry after some time!",
         "message": "Server error!",
     }

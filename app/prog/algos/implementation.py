@@ -48,7 +48,7 @@ class PrefixInfixPostfix:
         temp = []
         try:
             for token in expr:
-                if str(token).isalnum():
+                if str(token).isalnum() or "." in token:
                     prefix_list.append(token)
                 elif token == "(":
                     op_stack.push(token)
@@ -83,7 +83,7 @@ class PrefixInfixPostfix:
         postfix_list = []
         try:
             for token in expr:
-                if str(token).isalnum():
+                if str(token).isalnum() or "." in token:
                     postfix_list.append(token)
                 elif token == "(":
                     op_stack.push(token)
@@ -130,15 +130,15 @@ class PrefixInfixPostfix:
         expr = expr.split()
         s = []
         try:
-            for i in expr:
-                if i.isalnum():
-                    s.insert(0, i)
+            for token in expr:
+                if token.isalnum() or "." in token:
+                    s.insert(0, token)
                 else:
                     op1 = s[0]
                     s.pop(0)
                     op2 = s[0]
                     s.pop(0)
-                    s.insert(0, f"( {op2} {i} {op1} )")
+                    s.insert(0, f"( {op2} {token} {op1} )")
         except BaseException as e:
             print(e)
             return "postfix_to_infix: " + str(e), True
@@ -154,23 +154,15 @@ class PrefixInfixPostfix:
                 c = str(c)
                 try:
                     stack.append(float(c))
-                except:
-                    if c.isalpha():
-                        return "evaluate_prefix: only numbers allowed", True
-                    else:
-                        o1 = stack.pop()
-                        o2 = stack.pop()
-                        if c == "+":
-                            stack.append(o1 + o2)
-                        elif c == "-":
-                            stack.append(o1 - o2)
-                        elif c == "*":
-                            stack.append(o1 * o2)
-                        elif c == "/":
-                            stack.append(o1 / o2)
+                except BaseException as e1:
+                    if not PrefixInfixPostfix.is_operator(c):
+                        raise e1
+                    o1 = float(stack.pop())
+                    o2 = float(stack.pop())
+                    stack.append(float(eval(f"{o1} {c} {o2}")))
         except BaseException as e:
-            print(e)
-            return "evaluate_prefix: " + str(e), True
+            print(e.with_traceback(None))
+            return str(e), True
         return stack.pop(), False
 
     @staticmethod
@@ -179,15 +171,17 @@ class PrefixInfixPostfix:
         stack = Stack()
         try:
             for i in expr:
-                if i.isdigit():
-                    stack.push(i)
-                else:
-                    val1 = stack.pop()
-                    val2 = stack.pop()
-                    stack.push(str(eval(val2 + i + val1)))
+                try:
+                    stack.push(float(i))
+                except BaseException as e1:
+                    if not PrefixInfixPostfix.is_operator(i):
+                        raise e1
+                    val1 = float(stack.pop())
+                    val2 = float(stack.pop())
+                    stack.push(float(eval(f"{val2} {i} {val1}")))
             res = float(stack.pop())
         except BaseException as e:
-            print(e)
+            print(e.with_traceback(None))
             return "evaluate_postfix: " + str(e), True
         return res, False
 
@@ -749,15 +743,14 @@ class AdvancedAlgorithms:
             if activities[j].s >= activities[i].f:
                 out.append(activities[j])
                 i = j
-        return [a.to_tuple() for a in out], False
+        return json.dumps([a.to_tuple() for a in out]), False
 
     @staticmethod
-    def job_sequencing(ids, deadlines, profits):
+    def job_sequencing(starts, deadlines, profits):
         pass
 
     @staticmethod
     def huffman_code(inp: str):
-        # Creating tree nodes
         class NodeTree(object):
             def __init__(self, left=None, right=None):
                 self.left = left
@@ -772,7 +765,6 @@ class AdvancedAlgorithms:
             def __str__(self):
                 return "%s_%s" % (self.left, self.right)
 
-        # Main function implementing huffman coding
         def huffman_code_tree(_node, bin_string=""):
             if type(_node) is str:
                 return {_node: bin_string}

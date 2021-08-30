@@ -20,25 +20,19 @@ def prog_factorial():
     ):
         return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_key)
+    data = {"n": inp, "algo": algo}
     try:
         inp = int(inp)
+        data["n"] = inp
         out, err = BasicAlgorithms.factorial(inp)
         if err:
-            return {
-                "n": inp,
-                "algo": algo,
-                "error": out,
-            }
+            data.update({"error": out})
+            return data
     except BaseException as e:
-        return {
-            "n": inp,
-            "error": str(e),
-        }
-    return {
-        "n": inp,
-        "out": out,
-        "algo": algo,
-    }
+        data.update({"error": str(e)})
+        return data
+    data.update({"out": out})
+    return data
 
 
 @prog_bp.route(prog_root + "/factors", methods=["POST"])
@@ -51,22 +45,22 @@ def prog_factors():
     ):
         return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_key)
-    try:
-        inp = int(inp)
-        out, err = BasicAlgorithms.factors(inp)
-        if err:
-            return {
-                "n": inp,
-                "algo": algo,
-                "error": out,
-            }
-    except BaseException as e:
-        return {"n": inp, "error": str(e)}
-    return {
+    data = {
         "n": inp,
-        "out": out,
         "algo": algo,
     }
+    try:
+        inp = int(inp)
+        data["n"] = inp
+        out, err = BasicAlgorithms.factors(inp)
+        if err:
+            data.update({"error": out})
+            return data
+    except BaseException as e:
+        data.update({"error": str(e)})
+        return data
+    data.update({"out": out})
+    return data
 
 
 @prog_bp.route(prog_root + "/fibonacci", methods=["POST"])
@@ -79,22 +73,22 @@ def prog_fibonacci():
     ):
         return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_key)
-    try:
-        inp = int(inp)
-        out, err = BasicAlgorithms.fibonacci(inp)
-        if err:
-            return {
-                "n": inp,
-                "algo": algo,
-                "error": out,
-            }
-    except BaseException as e:
-        return {"n": inp, "error": str(e)}
-    return {
+    data = {
         "n": inp,
-        "out": out,
         "algo": algo,
     }
+    try:
+        inp = int(inp)
+        data["n"] = inp
+        out, err = BasicAlgorithms.fibonacci(inp)
+        if err:
+            data.update({"error": out})
+            return data
+    except BaseException as e:
+        data.update({"error": str(e)})
+        return data
+    data.update({"out": out})
+    return data
 
 
 @prog_bp.route(prog_root + "/palindrome", methods=["POST"])
@@ -107,21 +101,20 @@ def prog_palindrome():
     ):
         return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_key)
+    data = {
+        "inp": inp,
+        "algo": algo,
+    }
     try:
         out, err = BasicAlgorithms.palindrome(inp)
         if err:
-            return {
-                "inp": inp,
-                "algo": algo,
-                "error": out,
-            }
+            data.update({"error": out})
+            return data
     except BaseException as e:
-        return {"inp": inp, "error": str(e)}
-    return {
-        "inp": inp,
-        "out": out,
-        "algo": algo,
-    }
+        data.update({"error": str(e)})
+        return data
+    data.update({"out": out})
+    return data
 
 
 @prog_bp.route(prog_root + "/strong-number", methods=["POST"])
@@ -134,22 +127,22 @@ def prog_strong_number():
     ):
         return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_key)
-    try:
-        inp = int(inp)
-        out, err = BasicAlgorithms.strong_number(inp)
-        if err:
-            return {
-                "n": inp,
-                "algo": algo,
-                "error": out,
-            }
-    except BaseException as e:
-        return {"n": inp, "error": str(e)}
-    return {
+    data = {
         "n": inp,
-        "out": out,
         "algo": algo,
     }
+    try:
+        inp = int(inp)
+        data["n"] = inp
+        out, err = BasicAlgorithms.strong_number(inp)
+        if err:
+            data.update({"error": out})
+            return data
+    except BaseException as e:
+        data.update({"error": str(e)})
+        return data
+    data.update({"out": out})
+    return data
 
 
 @prog_bp.route(prog_root + "/armstrong-number", methods=["POST"])
@@ -162,22 +155,22 @@ def prog_armstrong_number():
     ):
         return {"error": f"{expr_key} missing in body!"}
     inp = get_value_form_json(expr_key)
-    try:
-        inp = int(inp)
-        out, err = BasicAlgorithms.armstrong_number(inp)
-        if err:
-            return {
-                "n": inp,
-                "algo": algo,
-                "error": out,
-            }
-    except BaseException as e:
-        return {"n": inp, "error": str(e)}
-    return {
+    data = {
         "n": inp,
-        "out": out,
         "algo": algo,
     }
+    try:
+        inp = int(inp)
+        data["n"] = inp
+        out, err = BasicAlgorithms.armstrong_number(inp)
+        if err:
+            data.update({"error": out})
+            return data
+    except BaseException as e:
+        data.update({"error": str(e)})
+        return data
+    data.update({"out": out})
+    return data
 
 
 def basic_docs():

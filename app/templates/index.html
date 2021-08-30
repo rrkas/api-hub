@@ -327,6 +327,7 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="request-box">
+                                    <!-- Read-only docs part -->
                                     <b>
                                         {{ doc.method }} &nbsp;&nbsp;&nbsp; <a href="{{doc.endpoint}}">{{ doc.endpoint
                                         }}</a>
@@ -346,17 +347,57 @@
                                     {% else %}
                                     No Body <br>
                                     {% endif %}
+
+                                    <hr class="try-it-divider">
+
+                                    <!-- Try this API part -->
+                                    <h5 style="font-family: arial;"><b>Try This API Now!</b></h5>
+                                    <form method="{{ doc.method }}" action="{{ doc.endpoint }}">
+                                        {% for f in doc.inp_body %}
+                                        <div class="form-group align-middle">
+                                            <div class="api-inp-group">
+                                                <p class="api-inp-label">{{ f.key }}</p>
+                                                <input id="{{ doc.doc_html_id }}-{{ f.key }}"
+                                                       style="flex: 2; margin-left: 15px;"
+                                                       name="{{ f.key }}" class="mb-3 form-control"
+                                                       type="{% if 'integer' in f.types and f.types|length == 1 %}number{% else %}text{% endif %}">
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        <div style="text-align: center;">
+                                            <button type="button" class="btn btn-primary"
+                                                    onclick="{{ doc.func_name }}()">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        function {{ doc.func_name }}(){
+                                            var data = {};
+                                            {% for f in doc.inp_body %}
+                                            var value = document.getElementById('{{ doc.doc_html_id }}-{{ f.key }}').value;
+                                            data['{{ f.key }}'] = value;
+                                            {% endfor %}
+                                            $j.{{ doc.method.lower() }}(
+                                                '{{ doc.endpoint }}',
+                                                data,
+                                                function(x){
+                                                    let output_container = document.getElementById('api-{{ doc.doc_html_id }}');
+                                                    output_container.innerHTML = "<H5><b>Response</b></H5>"
+                                                    output_container.innerHTML += JSON.stringify(x, undefined, {{ conf.json_indent }});
+                                                },
+                                                "json"
+                                            );
+                                        }
+
+
+
+                                    </script>
+                                    <div class="mt-2">
+                                        <pre id="api-{{ doc.doc_html_id }}"></pre>
+                                    </div>
                                 </div>
                             </div>
-                            <!--    <div class="col-12">-->
-                            <!--        <div class="btn btn-success dropdown-toggle" data-toggle="collapse" data-target="#api-{{ doc.doc_html_id }}">-->
-                            <!--            <b>Try this API!</b> <span class="caret"></span>-->
-                            <!--        </div>-->
-                            <!--        <div class="try-it collapse mt-2" id="api-{{ doc.doc_html_id }}">-->
-                            <!--            <b>method:</b> {{ doc.method }} <br>-->
-                            <!--            <b>endpoint:</b> {{ doc.endpoint }} <br>-->
-                            <!--        </div>-->
-                            <!--    </div>-->
                         </div>
                     </div>
                 </div>
@@ -382,6 +423,9 @@ function copy_code(id){
          }
     );
 }
+
+
+
 
 
 </script>

@@ -13,10 +13,15 @@ def prog_search_linear():
         if key not in request.form.keys() and key not in (request.json or {}).keys():
             return {"error": f"{key} missing in body!"}
     inp = get_value_form_json(expr_keys[0])
-    if " " not in inp:
-        return {"error": "please separate numbers using spaces!"}
-    inp = inp.split()
     x = get_value_form_json(expr_keys[1])
+    data = {
+        "arr": inp,
+        "key": x,
+    }
+    if " " not in inp:
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
+    inp = inp.split()
     res = Search.linear_search(inp, x)
     return res.json()
 
@@ -27,33 +32,49 @@ def prog_search_binary():
     for key in expr_keys:
         if key not in request.form.keys() and key not in (request.json or {}).keys():
             return {"error": f"{key} missing in body!"}
-    inp = get_value_form_json(expr_keys[0])
-    if " " not in inp:
-        return {"error": "please separate numbers using spaces!"}
+    arr = get_value_form_json(expr_keys[0])
+    x = get_value_form_json(expr_keys[1])
+    data = {
+        "arr": arr,
+        "key": x,
+    }
+    if " " not in arr:
+        data.update({"error": "please separate numbers using spaces!"})
+        return data
     try:
-        inp = list(map(int, inp.split()))
+        arr = list(map(int, arr.split()))
+        t = arr[:]
+        t.sort()
+        if t != arr:
+            data.update({"error": "Input array is not in non-decreasing order!"})
+            return data
     except BaseException as e1:
         try:
-            inp = list(map(float, inp.split()))
+            arr = list(map(float, arr.split()))
         except BaseException as e2:
-            return {"arr": inp, "error": str(e1) + "; " + str(e2)}
-    x = get_value_form_json(expr_keys[1])
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
     try:
         x = int(x)
-        if not isinstance(inp[0], int):
-            return {
-                "error": f"type of array elements dont match type of {expr_keys[1]}"
-            }
+        if not isinstance(arr[0], int):
+            data.update(
+                {"error": f"type of array elements dont match type of {expr_keys[1]}"}
+            )
+            return data
     except BaseException as e1:
         try:
             x = float(x)
-            if not isinstance(inp[0], float):
-                return {
-                    "error": f"type of array elements dont match type of {expr_keys[1]}"
-                }
+            if not isinstance(arr[0], float):
+                data.update(
+                    {
+                        "error": f"type of array elements dont match type of {expr_keys[1]}"
+                    }
+                )
+                return data
         except BaseException as e2:
-            return {"error": str(e1) + "; " + str(e2)}
-    res = Search.binary_search(inp, x)
+            data.update({"error": str(e1) + "; " + str(e2)})
+            return data
+    res = Search.binary_search(arr, x)
     return res.json()
 
 

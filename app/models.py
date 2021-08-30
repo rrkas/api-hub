@@ -68,6 +68,7 @@ class ReqponseBodyItem:
     TYPE_FLOAT = "float/double"
     TYPE_STR = "string"
     TYPE_BOOL = "boolean"
+    TYPE_MAP = "map/dict"
 
     def __init__(self, key: str, desc: str, types: list = None, optional: bool = False):
         self.key = key
@@ -135,6 +136,7 @@ class Documentation:
             + "-"
             + self.name.replace(" ", "-")
         ).lower()
+        self.func_name = self.doc_html_id.replace("-", "_")
         self.steps = steps
         self.theory = theory.strip() if theory else None
         self.py_code = py_code.strip() if isinstance(py_code, str) else py_code

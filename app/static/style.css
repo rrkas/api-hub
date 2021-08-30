@@ -61,10 +61,29 @@ body{
 .reqponse-divider{
     border-top: 1px solid #000000;
 }
+.try-it-divider{
+    border-top: 2.5px dashed #aaaaaa;
+    margin-left: 5px;
+    margin-right: 20px;
+}
+.api-inp-group{
+    display: flex;
+    margin-left: 20px;
+    margin-right: 50px;
+    margin-top: 3px;
+}
+.api-inp-label{
+    font-family: arial;
+    flex: 1;
+    font-size: 20px;
+    text-align: right;
+    padding-top: 3px;
+}
 .copy-clip{
-    background-color: indigo;
+    background-color: #eeffff;
+    border: #dddddd 1px solid;
     border-radius: 20px;
-    color: white;
+    color: black;
     padding: 5px;
     width: 30px;
     height: 30px;
