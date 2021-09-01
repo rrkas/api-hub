@@ -746,10 +746,6 @@ class AdvancedAlgorithms:
         return json.dumps([a.to_tuple() for a in out]), False
 
     @staticmethod
-    def job_sequencing(starts, deadlines, profits):
-        pass
-
-    @staticmethod
     def huffman_code(inp: str):
         class NodeTree(object):
             def __init__(self, left=None, right=None):
@@ -870,7 +866,7 @@ class AdvancedAlgorithms:
         return {"n": n, "board": format_board(board)}
 
     @staticmethod
-    def knapsack_01(capacity, weighs, vals):
+    def knapsack_01(weighs, vals, capacity):
         def knapSack(W, wt, val, n):
             K = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
             for i in range(n + 1):
@@ -883,10 +879,8 @@ class AdvancedAlgorithms:
                         K[i][w] = K[i - 1][w]
             return K[n][W]
 
-        res = knapSack(capacity, weighs, vals, len(weighs))
-        return {
-            "capacity": capacity,
-            "weighs": weighs,
-            "vals": vals,
-            "result": res,
-        }
+        try:
+            res = knapSack(capacity, weighs, vals, len(weighs))
+            return res, False
+        except BaseException as e:
+            return str(e), True

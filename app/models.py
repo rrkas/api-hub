@@ -64,6 +64,7 @@ class ProgSearch:
 
 
 class ReqponseBodyItem:
+    TYPE_LIST = "list/array"
     TYPE_INT = "integer"
     TYPE_FLOAT = "float/double"
     TYPE_STR = "string"

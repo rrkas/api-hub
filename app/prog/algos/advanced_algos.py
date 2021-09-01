@@ -133,6 +133,47 @@ def prog_n_queens():
     return AdvancedAlgorithms.n_queens(n)
 
 
+@prog_bp.route(prog_root + "/knapsack-01", methods=["POST"])
+def prog_knapsack_01():
+    expr_keys = ["weighs", "vals", "capacity"]
+    for expr_key in expr_keys:
+        if (
+            expr_key not in request.form.keys()
+            and expr_key not in (request.json or {}).keys()
+        ):
+            return {"error": f"{expr_key} missing in body!"}
+    weighs = get_value_form_json(expr_keys[0])
+    vals = get_value_form_json(expr_keys[1])
+    capacity = get_value_form_json(expr_keys[2])
+    response = {
+        "weighs": weighs,
+        "vals": vals,
+        "capacity": capacity,
+    }
+    try:
+        weighs = list(map(int, weighs.split()))
+    except BaseException as e:
+        response["error"] = str(e)
+        return response
+    try:
+        vals = list(map(int, vals.split()))
+    except BaseException as e:
+        response["error"] = str(e)
+        return response
+    try:
+        capacity = int(capacity)
+    except BaseException as e:
+        response["error"] = str(e)
+        return response
+    response["capacity"] = capacity
+    res, err = AdvancedAlgorithms.knapsack_01(weighs, vals, capacity)
+    if err:
+        response["error"] = res
+    else:
+        response["result"] = res
+    return response
+
+
 def advanced_docs():
     subject = "Programming"
     category = "Greedy Algorithms"
@@ -240,8 +281,16 @@ def frac_knap(weighs, vals, capacity):
             name="Activity Selection",
             method="POST",
             endpoint=prog_root + "/activity-selection",
-            description="",
-            theory="",
+            description="The activity selection problem is a combinatorial optimization problem concerning the \
+selection of non-conflicting activities to perform within a given time frame, given a set of activities each marked \
+by a start time and finish time.",
+            theory="""
+1) Sort the activities according to their finishing time 
+2) Select the first activity from the sorted array and print it. 
+3) Do the following for the remaining activities in the sorted array. 
+…….a) If the start time of this activity is greater than or equal to the finish time of the previously selected \
+activity then select this activity and print it.
+            """,
             inp_body=[
                 ReqponseBodyItem(
                     key="starts",
@@ -407,5 +456,246 @@ def huffman_code(inp)
         ),
     ]
     category = "Dynamic Programming"
-    data += []
+    data += [
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Longest Common Subsequence",
+            method="POST",
+            endpoint=prog_root + "/longest-common-subsequence",
+            description="The longest common subsequence problem is the problem of finding the longest subsequence \
+common to all sequences in a set of sequences. It differs from the longest common substring problem: unlike \
+substrings, subsequences are not required to occupy consecutive positions within the original sequences.",
+            inp_body=[
+                ReqponseBodyItem(
+                    key="str1",
+                    desc="string 1",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="str2",
+                    desc="string 2",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    key="str1",
+                    desc="string 1",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="str2",
+                    desc="string 2",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="lcs",
+                    desc="longest common subsequence",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="error",
+                    desc="error message",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={"str1": "ACADB", "str2": "CBDA"},
+            sample_out_body={"lcs": "CB", "str1": "ACADB", "str2": "CBDA"},
+            py_code="""
+def longest_common_subsequence(s1, s2):
+    m, n = len(s1), len(s2)
+    l = [[0 for _ in range(n + 1)] for __ in range(m + 1)]
+    for i in range(m + 1):
+        for j in range(n + 1):
+            if i == 0 or j == 0:
+                l[i][j] = 0
+            elif s1[i - 1] == s2[j - 1]:
+                l[i][j] = l[i - 1][j - 1] + 1
+            else:
+                l[i][j] = max(l[i - 1][j], l[i][j - 1])
+    index = l[m][n]
+    lcs_algo = [""] * (index + 1)
+    lcs_algo[index] = ""
+    i = m
+    j = n
+    while i > 0 and j > 0:
+        if s1[i - 1] == s2[j - 1]:
+            lcs_algo[index - 1] = s1[i - 1]
+            i -= 1
+            j -= 1
+            index -= 1
+        elif l[i - 1][j] > l[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+
+    return "".join(lcs_algo)
+            """,
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="N-Queens",
+            method="POST",
+            endpoint=prog_root + "/n-queens",
+            description="The N Queen is the problem of placing N chess queens on an N×N chessboard so that no two \
+        queens attack each other.",
+            inp_body=[
+                ReqponseBodyItem(
+                    key="n",
+                    desc="side of chessboard/ number of queens",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                ),
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    key="n",
+                    desc="side of chessboard/ number of queens",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                ),
+                ReqponseBodyItem(
+                    key="board",
+                    desc="list of rows of solution (list of strings)",
+                    types=[ReqponseBodyItem.TYPE_LIST],
+                ),
+                ReqponseBodyItem(
+                    key="error",
+                    desc="error message",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+            ],
+            sample_inp_body={"n": 5},
+            sample_out_body={
+                "board": [
+                    "1 0 0 0 0",
+                    "0 0 0 1 0",
+                    "0 1 0 0 0",
+                    "0 0 0 0 1",
+                    "0 0 1 0 0",
+                ],
+                "n": 5,
+            },
+            py_code="""
+def n_queen(n):
+    def is_safe(board, row, col):
+        for i in range(col):
+            if board[row][i] == 1:
+                return False
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        return True
+
+    def solve_nq_util(board, col):
+        if col >= n:
+            return True
+        for i in range(n):
+            if is_safe(board, i, col):
+                board[i][col] = 1
+                if solve_nq_util(board, col + 1):
+                    return True
+                board[i][col] = 0
+        return False
+
+    def format_board(board):
+        b = []
+        for l in board:
+            l = map(str, l)
+            b.append(" ".join(l))
+        return b
+
+    board = [[0 for _ in range(n)] for __ in range(n)]
+    solve_nq_util(board, 0)
+    return board
+            """,
+        ),
+        Documentation(
+            subject=subject,
+            category=category,
+            name="0-1 Knapsack",
+            method="POST",
+            endpoint=prog_root + "/knapsack-01",
+            description="Given weights and values of n items, we need to put these items in a knapsack of capacity W \
+to get the maximum total value in the knapsack. Note: an item can be taken fully or ignored.",
+            theory="In the Dynamic programming we will work considering the same cases as mentioned in the recursive \
+approach. In a DP[][] table let’s consider all the possible weights from ‘1’ to ‘W’ as the columns and weights that \
+can be kept as the rows. The state DP[i][j] will denote maximum value of ‘j-weight’ considering all values from \
+‘1 to ith’. So if we consider ‘wi’ (weight in ‘ith’ row) we can fill it in all columns which have ‘weight values > wi’.\
+ Now two possibilities can take place: Fill ‘wi’ in the given column, Do not fill ‘wi’ in the given column. \
+Now we have to take a maximum of these two possibilities, formally if we do not fill ‘ith’ weight in ‘jth’ column then \
+DP[i][j] state will be same as DP[i-1][j] but if we fill the weight, DP[i][j] will be equal to the value of ‘wi’+ \
+value of the column weighing ‘j-wi’ in the previous row. So we take the maximum of these two possibilities \
+to fill the current state. ",
+            inp_body=[
+                ReqponseBodyItem(
+                    key="weighs",
+                    desc="space separated weighs of items",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="vals",
+                    desc="space separated values of items",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="capacity",
+                    desc="capacity of the knapsack (bag)",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                ),
+            ],
+            out_body=[
+                ReqponseBodyItem(
+                    key="weighs",
+                    desc="space separated weighs of items",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="vals",
+                    desc="space separated values of items",
+                    types=[ReqponseBodyItem.TYPE_STR],
+                ),
+                ReqponseBodyItem(
+                    key="capacity",
+                    desc="capacity of the knapsack (bag)",
+                    types=[ReqponseBodyItem.TYPE_INT],
+                ),
+                ReqponseBodyItem(
+                    key="result", desc="max value", types=[ReqponseBodyItem.TYPE_INT]
+                ),
+                ReqponseBodyItem(
+                    key="error", desc="error message", types=[ReqponseBodyItem.TYPE_STR]
+                ),
+            ],
+            sample_inp_body={
+                "weighs": "10 40 20 30",
+                "vals": "60 40 100 120",
+                "capacity": 50,
+            },
+            sample_out_body={
+                "capacity": 50,
+                "result": 220,
+                "vals": "60 40 100 120",
+                "weighs": "10 40 20 30",
+            },
+            py_code="""
+def knapsack_01(weighs, vals, capacity):
+    def knapSack(W, wt, val, n):
+        K = [[0 for _ in range(W + 1)] for _ in range(n + 1)]
+        for i in range(n + 1):
+            for w in range(W + 1):
+                if i == 0 or w == 0:
+                    K[i][w] = 0
+                elif wt[i - 1] <= w:
+                    K[i][w] = max(val[i - 1] + K[i - 1][w - wt[i - 1]], K[i - 1][w])
+                else:
+                    K[i][w] = K[i - 1][w]
+        return K[n][W]
+    return knapSack(capacity, weighs, vals, len(weighs))
+            """,
+        ),
+    ]
     return data

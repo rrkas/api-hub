@@ -33,6 +33,7 @@
         <!-- left menus -->
         <div class="navbar-nav mr-auto ml-5">
             <a class="nav-item nav-link" href="#btn-index">Index</a>
+            <a class="nav-item nav-link" href="javascript:void(0)" onclick="toggleAbout()">About</a>
             <a class="nav-item nav-link" href="https://github.com/rrkas/api-hub" target="_blank">Github</a>
         </div>
 
@@ -44,6 +45,36 @@
         </div>
     </div>
 </nav>
+
+<!-- About Overlay -->
+<div id="about-overlay" class="overlay" style="display: flex; flex-direction: column;">
+        <div style="width: 100%">
+        <div style="display: flex;">
+            <span style="flex: 1;text-align: center; font-size: 60px; color: #ffffff; font-weight: bold; font-family: arial;"
+                  class="pt-3">About</span>
+            <span>
+                <a href="javascript:void(0)" onclick="toggleAbout()" class="closebtn">+</a>
+            </span>
+        </div>
+        </div>
+        <div style="flex: 1;" class="overlay-content">
+            <div style="color: white;">
+                    {% for dk, dv in data.items() %}
+                    <div style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
+                        <div style="text-align:center; font-weight: bold; font-family: arial;">{{ dk }}</div>
+                        <div style="text-align:center;">
+                            {% if 'http' in dv %}
+                            <a href="{{ dv }}" target="_blank">{{ dv }}</a>
+                            {% else %}
+                            {{ dv }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+</div>
+
 
 <!-- API Index -->
 <div>
@@ -392,6 +423,12 @@
 
 
 
+
+
+
+
+
+
                                     </script>
                                     <div class="mt-2">
                                         <pre id="api-{{ doc.doc_html_id }}"></pre>
@@ -424,7 +461,25 @@ function copy_code(id){
     );
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
+document.getElementById("about-overlay").style.display = "none";
+document.getElementById("about-overlay").style.height = "0%";
+async function toggleAbout() {
+  let h = document.getElementById("about-overlay").style.height;
+  console.log(h);
+  if(h == "0%" || h == ""){
+    document.getElementById("about-overlay").style.display = "flex";
+    await sleep(10);
+    document.getElementById("about-overlay").style.height = "100%";
+  }else{
+    document.getElementById("about-overlay").style.height = "0%";
+    await sleep(150);
+    document.getElementById("about-overlay").style.display = "none";
+  }
+}
 
 
 

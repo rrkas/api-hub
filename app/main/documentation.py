@@ -24,12 +24,13 @@ def get_docs():
     subjects = OrderedDict()
     for doc in docs:
         if doc.subject not in subjects.keys():
-            subjects[doc.subject] = OrderedDict()
+            subjects[doc.subject] = {}
             subjects[doc.subject][doc.category] = [doc]
         elif doc.category not in subjects[doc.subject].keys():
             subjects[doc.subject][doc.category] = [doc]
         else:
             subjects[doc.subject][doc.category].append(doc)
+
     for subject, categories in subjects.items():
         for category, doc_list in categories.items():
             doc_list.sort(key=lambda x: x.name)

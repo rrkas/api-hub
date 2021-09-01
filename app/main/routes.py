@@ -12,7 +12,15 @@ main_bp = Blueprint("main_bp", __name__)
 
 @main_bp.route("/")
 def home():
-    data = request_info(request)
+    data = {
+        "Project Name": conf.NAME,
+        "Owner": conf.CREATOR,
+        "Project Start Date": conf.PROJECT_START_DATE,
+        "Github Repo": conf.GITHUB_REPO_URL,
+        "Sample Postman Collection": conf.POSTMAN_COLLECTION_URL,
+    }
+    for k, v in data.items():
+        data[k] = str(v)
     docs = get_docs()
     return render_template(
         "index.html",

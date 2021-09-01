@@ -9,7 +9,7 @@ static_path = os.sep.join(os.path.split(static_path)[:-1])
 
 class Config:
     # api name
-    NAME = "api-hub"
+    NAME = "{ api-hub }"
 
     SECRET_KEY = secrets.token_hex(8)
     OUTPUT_DIR = os.path.join(static_path, "output")
@@ -20,10 +20,10 @@ class Config:
         "https://www.getpostman.com/collections/87ab6adecba171c3525c"
     )
     GITHUB_REPO_URL = "https://github.com/rrkas/api-hub"
-    LOCALHOST_URL = "http://127.0.0.1:5000/"
 
     # home
     CREATOR = "Rohnak Agarwal"
+    PROJECT_START_DATE = "14 August, 2021"
     VERSION = "1.0.0"
 
     app_base_url = None
