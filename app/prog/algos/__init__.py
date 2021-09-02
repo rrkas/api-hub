@@ -1,4 +1,4 @@
-from .implementation import *
+from app.implementation import *
 
 print()
 

@@ -1,7 +1,7 @@
 from flask import request
 
 from app.prog.routes import prog_bp, prog_root
-from . import PrefixInfixPostfix, Documentation, ReqponseBodyItem
+from . import PrefixInfixPostfix, Documentation, ReqponseItem
 from ...util import get_value_form_json
 
 
@@ -191,25 +191,25 @@ def pre_in_post_docs():
             endpoint=prog_root + "/infix-to-prefix",
             description="Converts infix expression to prefix expression",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "infix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "infix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
-                    "result", "prefix expression (output)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "result", "prefix expression (output)", [ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={"expr": "( 2 + 3 ) * 4"},
@@ -247,21 +247,21 @@ opening bracket in the stack.",
             endpoint=prog_root + "/infix-to-postfix",
             description="Converts infix expression to postfix expression",
             inp_body=[
-                ReqponseBodyItem(
-                    "expr", "infix expression (input)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "expr", "infix expression (input)", [ReqponseItem.TYPE_STR]
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
-                    "expr", "infix expression (input)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "expr", "infix expression (input)", [ReqponseItem.TYPE_STR]
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
-                    "result", "postfix expression (output)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "result", "postfix expression (output)", [ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={"expr": "( 2 + 3 ) * 4"},
@@ -293,21 +293,21 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
             endpoint=prog_root + "/prefix-to-infix",
             description="Converts prefix expression to infix expression",
             inp_body=[
-                ReqponseBodyItem(
-                    "expr", "prefix expression (input)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "expr", "prefix expression (input)", [ReqponseItem.TYPE_STR]
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
-                    "expr", "prefix expression (input)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "expr", "prefix expression (input)", [ReqponseItem.TYPE_STR]
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
-                    "result", "infix expression (output)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "result", "infix expression (output)", [ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={"expr": "* + 2 3 45"},
@@ -331,21 +331,21 @@ pop all the Stack operators. After that, push the scanned operator into the Stac
             endpoint=prog_root + "/postfix-to-infix",
             description="Converts postfix expression to infix expression",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "postfix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
-                    "expr", "postfix expression (input)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "expr", "postfix expression (input)", [ReqponseItem.TYPE_STR]
                 ),
-                ReqponseBodyItem(
-                    "error", "error message", [ReqponseBodyItem.TYPE_STR], optional=True
+                ReqponseItem(
+                    "error", "error message", [ReqponseItem.TYPE_STR], optional=True
                 ),
-                ReqponseBodyItem(
-                    "result", "infix expression (output)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "result", "infix expression (output)", [ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={"expr": "2 3 + 45 *"},
@@ -368,23 +368,23 @@ and add it to the result.",
             endpoint=prog_root + "/prefix-to-postfix",
             description="Converts prefix expression to postfix expression",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "prefix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
-                    "expr", "prefix expression (input)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "expr", "prefix expression (input)", [ReqponseItem.TYPE_STR]
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
-                    "result", "postfix expression (output)", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "result", "postfix expression (output)", [ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={"expr": "* + 2 3 45"},
@@ -399,27 +399,27 @@ and add it to the result.",
             endpoint=prog_root + "/postfix-to-prefix",
             description="Converts postfix expression to prefix expression",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "postfix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "postfix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "prefix expression (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={"expr": "2 3 + 45 *"},
@@ -437,27 +437,27 @@ and add it to the result.",
             endpoint=prog_root + "/eval-prefix",
             description="Evaluates prefix expression",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "prefix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "prefix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "value (output)",
-                    [ReqponseBodyItem.TYPE_FLOAT],
+                    [ReqponseItem.TYPE_FLOAT],
                 ),
             ],
             sample_inp_body={"expr": "* + 2 3 45"},
@@ -485,27 +485,27 @@ in the expression.",
             endpoint=prog_root + "/eval-postfix",
             description="Evaluates postfix expression",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "postfix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "expr",
                     "postfix expression (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "value (output)",
-                    [ReqponseBodyItem.TYPE_FLOAT],
+                    [ReqponseItem.TYPE_FLOAT],
                 ),
             ],
             sample_inp_body={"expr": "2 3 + 45 *"},

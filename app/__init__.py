@@ -12,11 +12,13 @@ def create_app():
     from .main.routes import main_bp
     from .cetb.routes import cetb_bp
     from .prog.routes import prog_bp
+    from .maths.routes import math_bp
     from .csv_gen.routes import csv_gen_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(cetb_bp)
     app.register_blueprint(prog_bp)
+    app.register_blueprint(math_bp)
     app.register_blueprint(csv_gen_bp)
 
     return app

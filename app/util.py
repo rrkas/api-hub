@@ -1,5 +1,6 @@
 # returns the detailed request with all attributes and values
-from flask import request
+from flask import request, current_app
+import jinja2
 
 
 def request_info(request):

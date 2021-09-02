@@ -1,4 +1,4 @@
-from app.prog.algos import AdvancedAlgorithms, Documentation, ReqponseBodyItem
+from app.prog.algos import AdvancedAlgorithms, Documentation, ReqponseItem
 from app.prog.routes import prog_bp, prog_root
 from app.util import *
 
@@ -190,43 +190,43 @@ to get the maximum total value in the knapsack. Note: an item can be taken fully
 this ratio. Then take the item with the highest ratio and add them until we can’t add the next item as a whole and at \
 the end add the next item as much as we can. Which will always be the optimal solution to this problem.",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="weighs",
                     desc="space separated weighs of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="vals",
                     desc="space separated values of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="capacity",
                     desc="capacity of the knapsack (bag)",
-                    types=[ReqponseBodyItem.TYPE_FLOAT],
+                    types=[ReqponseItem.TYPE_FLOAT],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="weighs",
                     desc="space separated weighs of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="vals",
                     desc="space separated values of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="capacity",
                     desc="capacity of the knapsack (bag)",
-                    types=[ReqponseBodyItem.TYPE_FLOAT],
+                    types=[ReqponseItem.TYPE_FLOAT],
                 ),
-                ReqponseBodyItem(
-                    key="result", desc="max value", types=[ReqponseBodyItem.TYPE_FLOAT]
+                ReqponseItem(
+                    key="result", desc="max value", types=[ReqponseItem.TYPE_FLOAT]
                 ),
-                ReqponseBodyItem(
-                    key="error", desc="error message", types=[ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    key="error", desc="error message", types=[ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={
@@ -292,35 +292,35 @@ by a start time and finish time.",
 activity then select this activity and print it.
             """,
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="starts",
                     desc="space separated start time of activities",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="ends",
                     desc="space separated end time of activities",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="starts",
                     desc="space separated start time of activities",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="ends",
                     desc="space separated end time of activities",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="result",
                     desc="jsonified list of list of start and end times of optimized activities",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
-                    key="error", desc="error message", types=[ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    key="error", desc="error message", types=[ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={
@@ -374,30 +374,30 @@ frequent character gets the largest code. The variable-length codes assigned to 
 means the codes (bit sequences) are assigned in such a way that the code assigned to one character is not the prefix \
 of code assigned to any other character.",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="inp",
                     desc="input string",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="input",
                     desc="input string",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="result string",
                     desc="huffman code (output)",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="individual_codes",
                     desc="map of each character and its code",
-                    types=[ReqponseBodyItem.TYPE_MAP],
+                    types=[ReqponseItem.TYPE_MAP],
                 ),
-                ReqponseBodyItem(
-                    key="error", desc="error message", types=[ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    key="error", desc="error message", types=[ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={"inp": "BCAADDDCCACACAC"},
@@ -467,37 +467,37 @@ def huffman_code(inp)
 common to all sequences in a set of sequences. It differs from the longest common substring problem: unlike \
 substrings, subsequences are not required to occupy consecutive positions within the original sequences.",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="str1",
                     desc="string 1",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="str2",
                     desc="string 2",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="str1",
                     desc="string 1",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="str2",
                     desc="string 2",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="lcs",
                     desc="longest common subsequence",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="error",
                     desc="error message",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={"str1": "ACADB", "str2": "CBDA"},
@@ -542,27 +542,27 @@ def longest_common_subsequence(s1, s2):
             description="The N Queen is the problem of placing N chess queens on an N×N chessboard so that no two \
         queens attack each other.",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="n",
                     desc="side of chessboard/ number of queens",
-                    types=[ReqponseBodyItem.TYPE_INT],
+                    types=[ReqponseItem.TYPE_INT],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="n",
                     desc="side of chessboard/ number of queens",
-                    types=[ReqponseBodyItem.TYPE_INT],
+                    types=[ReqponseItem.TYPE_INT],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="board",
                     desc="list of rows of solution (list of strings)",
-                    types=[ReqponseBodyItem.TYPE_LIST],
+                    types=[ReqponseItem.TYPE_LIST],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="error",
                     desc="error message",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={"n": 5},
@@ -631,43 +631,43 @@ DP[i][j] state will be same as DP[i-1][j] but if we fill the weight, DP[i][j] wi
 value of the column weighing ‘j-wi’ in the previous row. So we take the maximum of these two possibilities \
 to fill the current state. ",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="weighs",
                     desc="space separated weighs of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="vals",
                     desc="space separated values of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="capacity",
                     desc="capacity of the knapsack (bag)",
-                    types=[ReqponseBodyItem.TYPE_INT],
+                    types=[ReqponseItem.TYPE_INT],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="weighs",
                     desc="space separated weighs of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="vals",
                     desc="space separated values of items",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="capacity",
                     desc="capacity of the knapsack (bag)",
-                    types=[ReqponseBodyItem.TYPE_INT],
+                    types=[ReqponseItem.TYPE_INT],
                 ),
-                ReqponseBodyItem(
-                    key="result", desc="max value", types=[ReqponseBodyItem.TYPE_INT]
+                ReqponseItem(
+                    key="result", desc="max value", types=[ReqponseItem.TYPE_INT]
                 ),
-                ReqponseBodyItem(
-                    key="error", desc="error message", types=[ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    key="error", desc="error message", types=[ReqponseItem.TYPE_STR]
                 ),
             ],
             sample_inp_body={

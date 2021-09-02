@@ -1,7 +1,7 @@
 from flask import request
 
 from app.prog.routes import prog_bp, prog_root
-from . import Sort, Documentation, ReqponseBodyItem, ComplexityAnalysis
+from . import Sort, Documentation, ReqponseItem, ComplexityAnalysis
 from ...util import get_value_form_json
 
 
@@ -265,35 +265,35 @@ def sorting_docs():
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
-                    "algorithm", "name of algorithm used", [ReqponseBodyItem.TYPE_STR]
+                ReqponseItem(
+                    "algorithm", "name of algorithm used", [ReqponseItem.TYPE_STR]
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -326,37 +326,37 @@ for i in range(n):
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -390,37 +390,37 @@ for i in range(len(arr)):
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -456,37 +456,37 @@ for i in range(1, len(arr)):
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -544,37 +544,37 @@ mergeSort(arr, 0, len(arr) - 1)
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -621,37 +621,37 @@ quickSort(arr, 0, len(arr) - 1)
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -697,37 +697,37 @@ countingSort(arr)
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -781,37 +781,37 @@ radixSort(arr)
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -864,37 +864,37 @@ bucketSort(arr, 5)
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={
@@ -944,37 +944,37 @@ heapSort(arr)
             args=None,
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 )
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "name of algorithm used",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space separated numbers (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "result",
                     "space separated numbers (output)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "error",
                     "error message",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
             ],
             sample_inp_body={

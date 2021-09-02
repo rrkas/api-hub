@@ -4,10 +4,12 @@ from flask import *
 
 from app.config import conf
 from app.csv_gen.generator import generate
+from app.models import Documentation, ReqponseItem
 
 csv_gen_bp = Blueprint("csv_gen_bp", __name__)
 
 out_path = os.path.join(conf.OUTPUT_DIR, "csv")
+
 if not os.path.exists(out_path):
     os.makedirs(out_path)
 
@@ -52,3 +54,23 @@ def file_url(file_name):
     if not os.path.exists(file_path):
         return {}
     return send_file(file_path)
+
+
+def csv_docs():
+    subject = "CSV Generation"
+    category = "CSV Generation"
+    return [
+        Documentation(
+            subject=subject,
+            category=category,
+            name="Basic CSV",
+            method="POST",
+            endpoint="/csv-generate",
+            no_try=True,
+            description="Generates fake data for testing",
+            inp_body="key and custom name of column of csv",
+            args=[
+                ReqponseItem("count", "number of rows", [ReqponseItem.TYPE_INT], )
+            ]
+        )
+    ]

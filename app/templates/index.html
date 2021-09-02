@@ -48,7 +48,7 @@
 
 <!-- About Overlay -->
 <div id="about-overlay" class="overlay" style="display: flex; flex-direction: column;">
-        <div style="width: 100%">
+    <div style="width: 100%">
         <div style="display: flex;">
             <span style="flex: 1;text-align: center; font-size: 60px; color: #ffffff; font-weight: bold; font-family: arial;"
                   class="pt-3">About</span>
@@ -56,23 +56,23 @@
                 <a href="javascript:void(0)" onclick="toggleAbout()" class="closebtn">+</a>
             </span>
         </div>
-        </div>
-        <div style="flex: 1;" class="overlay-content">
-            <div style="color: white;">
-                    {% for dk, dv in data.items() %}
-                    <div style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
-                        <div style="text-align:center; font-weight: bold; font-family: arial;">{{ dk }}</div>
-                        <div style="text-align:center;">
-                            {% if 'http' in dv %}
-                            <a href="{{ dv }}" target="_blank">{{ dv }}</a>
-                            {% else %}
-                            {{ dv }}
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% endfor %}
+    </div>
+    <div style="flex: 1;" class="overlay-content">
+        <div style="color: white;">
+            {% for dk, dv in data.items() %}
+            <div style="margin-left: 20px; margin-right: 20px; margin-bottom: 30px;">
+                <div style="text-align:center; font-weight: bold; font-family: arial;">{{ dk }}</div>
+                <div style="text-align:center;">
+                    {% if 'http' in dv %}
+                    <a href="{{ dv }}" target="_blank">{{ dv }}</a>
+                    {% else %}
+                    {{ dv }}
+                    {% endif %}
+                </div>
             </div>
+            {% endfor %}
         </div>
+    </div>
 </div>
 
 
@@ -288,6 +288,9 @@
                                 <br>
                                 <span class="section-heading">Request Body:</span><br>
                                 {% if doc.inp_body %}
+                                {% if doc.inp_body is string %}
+                                {{ doc.inp_body }}
+                                {% else %}
                                 <table class="table table-hover table-sm table-nonfluid">
                                     <thead class="thead-dark">
                                     <tr>
@@ -306,6 +309,7 @@
                                     </tr>
                                     {% endfor %}
                                 </table>
+                                {% endif %}
                                 {% else %}
                                 Not Required
                                 {% endif %}
@@ -318,12 +322,16 @@
                                     <tr>
                                         <th>key</th>
                                         <th>description</th>
+                                        <th>data type(s)</th>
+                                        <th>required</th>
                                     </tr>
                                     </thead>
-                                    {% for ak,av in doc.args.items() %}
+                                    {% for item in doc.args %}
                                     <tr>
-                                        <td>{{ ak }}</td>
-                                        <td>{{ av }}</td>
+                                        <td>{{ item.key }}</td>
+                                        <td>{{ item.desc }}</td>
+                                        <td>{{ ', '.join(item.types) }}</td>
+                                        <td>{% if item.required %}{{ item.required }}{% endif %}</td>
                                     </tr>
                                     {% endfor %}
                                 </table>
@@ -381,6 +389,7 @@
 
                                     <hr class="try-it-divider">
 
+                                    {% if not doc.no_try %}
                                     <!-- Try this API part -->
                                     <h5 style="font-family: arial;"><b>Try This API Now!</b></h5>
                                     <form method="{{ doc.method }}" action="{{ doc.endpoint }}">
@@ -429,10 +438,15 @@
 
 
 
+
+
                                     </script>
                                     <div class="mt-2">
                                         <pre id="api-{{ doc.doc_html_id }}"></pre>
                                     </div>
+                                    {% else %}
+                                    No try available
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -480,6 +494,8 @@ async function toggleAbout() {
     document.getElementById("about-overlay").style.display = "none";
   }
 }
+
+
 
 
 

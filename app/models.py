@@ -63,7 +63,7 @@ class ProgSearch:
         return t
 
 
-class ReqponseBodyItem:
+class ReqponseItem:
     TYPE_LIST = "list/array"
     TYPE_INT = "integer"
     TYPE_FLOAT = "float/double"
@@ -93,11 +93,11 @@ class Documentation:
         name: str,
         endpoint: str,
         method: str = "GET",
-        args: List[ReqponseBodyItem] = None,
+        args: List[ReqponseItem] = None,
         description: str = "",
-        inp_body: List[ReqponseBodyItem] = None,
+        inp_body=None,
         sample_inp_body: dict = None,
-        out_body: List[ReqponseBodyItem] = None,
+        out_body: List[ReqponseItem] = None,
         sample_out_body: dict = None,
         sample_request_url: str = None,
         steps: List[str] = None,
@@ -106,6 +106,7 @@ class Documentation:
         additional_info: str = None,
         space_complexity: ComplexityAnalysis = None,
         time_complexity: ComplexityAnalysis = None,
+        no_try = False
     ):
         self.subject = subject
         self.category = category
@@ -113,14 +114,14 @@ class Documentation:
         self.endpoint = endpoint
         self.method = method
         self.description = description
-        self.args = args
-        self.inp_body = inp_body
+        self.args = args or []
+        self.inp_body = inp_body or []
         self.sample_inp_body = (
             json.dumps(sample_inp_body, indent=conf.json_indent)
             if sample_inp_body
             else None
         )
-        self.out_body = out_body
+        self.out_body = out_body or []
         self.sample_out_body = (
             json.dumps(sample_out_body, indent=conf.json_indent)
             if sample_out_body
@@ -144,6 +145,7 @@ class Documentation:
         self.additional_info = additional_info
         self.space_complexity = space_complexity
         self.time_complexity = time_complexity
+        self.no_try = no_try
 
 
 class HtmlUtil:

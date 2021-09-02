@@ -8,8 +8,12 @@ docs: List[Documentation] = []
 
 def load_docs():
     from app.prog import get_prog_docs
+    from app.maths import get_math_docs
+    from app.csv_gen import get_csv_docs
 
     docs.extend(get_prog_docs())
+    docs.extend(get_math_docs())
+    docs.extend(get_csv_docs())
 
 
 load_docs()

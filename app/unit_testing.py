@@ -1,6 +1,6 @@
 import unittest
 
-from app.prog.algos.implementation import *
+from app.implementation import *
 
 
 class TestImplementations(unittest.TestCase):

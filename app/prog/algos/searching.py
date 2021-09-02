@@ -2,7 +2,7 @@ from flask import request
 
 from app.prog.routes import prog_bp, prog_root
 from . import Search
-from ...models import Documentation, ReqponseBodyItem, ComplexityAnalysis
+from ...models import Documentation, ReqponseItem, ComplexityAnalysis
 from ...util import get_value_form_json
 
 
@@ -90,60 +90,60 @@ def searching_docs():
             endpoint=prog_root + "/search-linear",
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="arr",
                     desc="space-separated elements",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "key",
                     "element to find",
                     [
-                        ReqponseBodyItem.TYPE_FLOAT,
-                        ReqponseBodyItem.TYPE_INT,
-                        ReqponseBodyItem.TYPE_STR,
+                        ReqponseItem.TYPE_FLOAT,
+                        ReqponseItem.TYPE_INT,
+                        ReqponseItem.TYPE_STR,
                     ],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "Name of algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space-separated elements (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "key",
                     "element to find (input)",
                     [
-                        ReqponseBodyItem.TYPE_FLOAT,
-                        ReqponseBodyItem.TYPE_INT,
-                        ReqponseBodyItem.TYPE_STR,
+                        ReqponseItem.TYPE_FLOAT,
+                        ReqponseItem.TYPE_INT,
+                        ReqponseItem.TYPE_STR,
                     ],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "found",
                     "is element found",
-                    [ReqponseBodyItem.TYPE_BOOL],
+                    [ReqponseItem.TYPE_BOOL],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "comparisons",
                     "number of comparisons made",
-                    [ReqponseBodyItem.TYPE_INT],
+                    [ReqponseItem.TYPE_INT],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "index",
                     "index of element in list",
-                    [ReqponseBodyItem.TYPE_INT],
+                    [ReqponseItem.TYPE_INT],
                 ),
             ],
             sample_inp_body={
@@ -178,56 +178,56 @@ index = linear_search(arr, x)
             endpoint=prog_root + "/search-binary",
             method="POST",
             inp_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     key="arr",
                     desc="space-separated elements",
-                    types=[ReqponseBodyItem.TYPE_STR],
+                    types=[ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "key",
                     "element to find",
                     [
-                        ReqponseBodyItem.TYPE_FLOAT,
-                        ReqponseBodyItem.TYPE_INT,
-                        ReqponseBodyItem.TYPE_STR,
+                        ReqponseItem.TYPE_FLOAT,
+                        ReqponseItem.TYPE_INT,
+                        ReqponseItem.TYPE_STR,
                     ],
                 ),
             ],
             out_body=[
-                ReqponseBodyItem(
+                ReqponseItem(
                     "algorithm",
                     "Name of algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "arr",
                     "space-separated elements (input)",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "key",
                     "element to find (input)",
-                    [ReqponseBodyItem.TYPE_FLOAT, ReqponseBodyItem.TYPE_INT],
+                    [ReqponseItem.TYPE_FLOAT, ReqponseItem.TYPE_INT],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "found",
                     "is element found",
-                    [ReqponseBodyItem.TYPE_BOOL],
+                    [ReqponseItem.TYPE_BOOL],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "time_taken",
                     "time taken (milliseconds) to complete the algorithm",
-                    [ReqponseBodyItem.TYPE_STR],
+                    [ReqponseItem.TYPE_STR],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "comparisons",
                     "number of comparisons made",
-                    [ReqponseBodyItem.TYPE_INT],
+                    [ReqponseItem.TYPE_INT],
                 ),
-                ReqponseBodyItem(
+                ReqponseItem(
                     "index",
                     "index of element in list",
-                    [ReqponseBodyItem.TYPE_INT],
+                    [ReqponseItem.TYPE_INT],
                 ),
             ],
             sample_inp_body={
